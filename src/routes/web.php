@@ -19,3 +19,5 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/dashboard', 'TransactionController@dashboard');
+Route::get('/fb-login', 'TransactionController@redrect');
+Route::get('/fbcb', 'TransactionController@fbCallback');

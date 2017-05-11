@@ -59,14 +59,27 @@
                                     Forgot Your Password?
                                 </a>
                             </div>
+
                         </div>
+
                     </form>
+                    <br>
+                    <div class="col-md-4 col-md-offset-4">
+                    <a href="/fb-login" class="btn btn-block btn-social btn-facebook">
+                    <span class="fa fa-facebook"></span>
+                    Login with facebook
+                    </a>
+                    </div>
                 </div>
             </div>
         </div>
+
     </div>
+
 </div>
-<a class="btn btn-link" href="/fb-login">Login with facebook</a>
+
+
+
 
 
 @endsection

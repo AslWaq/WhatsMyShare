@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Crockett\CsvSeeder\CsvSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -11,6 +12,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        DB::table('tickers')->delete();
+        
+        $this->call(TickersTableSeeder::class);
     }
 }

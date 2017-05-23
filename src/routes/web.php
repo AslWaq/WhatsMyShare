@@ -21,3 +21,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/dashboard', 'TransactionController@dashboard');
 Route::get('/fb-login', 'TransactionController@redrect');
 Route::get('/fbcb', 'TransactionController@fbCallback');
+Route::get('/search-stocks', 'TransactionController@stockSearch');
+Route::post('/search-cat', 'CompanySearch@showByCategory');
+Route::post('/search-name', 'CompanySearch@showBySearch');

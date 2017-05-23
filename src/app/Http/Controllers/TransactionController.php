@@ -59,4 +59,9 @@ class TransactionController extends Controller
       return redirect('/');
 
     }
+
+
+    public function stockSearch(){
+      return view('search_stocks');
+    }
 }

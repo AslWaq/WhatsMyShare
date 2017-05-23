@@ -11,12 +11,11 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <style>
     /* Remove the navbar's default margin-bottom and rounded borders */
-    .navbar-nav -link {
-      margin-bottom: 0px;
+    .navbar {
+      margin-bottom: 50px;
       border-radius: 0;
-      text-align: bottom;
+      
       color: blue;
-      padding-bottom: 0px:
     }
 
     /* Add a gray background color and some padding to the footer */

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Ticker;
 use Auth;
 use DB;
+use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Client;
 
 class CompanySearch extends Controller
 {
@@ -14,7 +16,19 @@ class CompanySearch extends Controller
     public function showByCategory (Request $request){
       $tickers = Ticker::where('category', $request->categoryChoice)->orderBy('name')
       ->get();
-      return $tickers;
+      $ticker = ($tickers->first())->ticker;
+      if (!extension_loaded('curl')) {
+    die('Curl not loaded');
+}
+      $client = new \GuzzleHttp\Client();
+      $res = $client->get(
+          'https://www.quandl.com/api/v3/datasets/WIKI/FB/data.json',
+          ['auth' =>  ['api_key', 'JxDXY6jBDscX9-pYTiov', 'digest']]
+      );
+
+      $contents = $res->getBody()->getContents();
+      //var_dump(json_decode($contents));
+            return $contents;
     }
 
     public function showBySearch (Request $request){
@@ -23,7 +37,8 @@ class CompanySearch extends Controller
       ->orWhere('name', 'LIKE', "%$searchTerm%")->get();
 
       if (!$tickers->isEmpty()){
-        return $tickers;
+        $ticker = ($tickers->first())->ticker;
+        return view('quandl');
       } else{
         return "error";
       }

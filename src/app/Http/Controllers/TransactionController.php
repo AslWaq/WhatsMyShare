@@ -62,6 +62,6 @@ class TransactionController extends Controller
 
 
     public function stockSearch(){
-      return view('search_stocks');
+      return view('stockChoice');
     }
 }

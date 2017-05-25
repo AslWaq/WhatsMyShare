@@ -17,12 +17,10 @@ class CompanySearch extends Controller
       $tickers = Ticker::where('category', $request->categoryChoice)->orderBy('name')
       ->get();
       $ticker = ($tickers->first())->ticker;
-      if (!extension_loaded('curl')) {
-    die('Curl not loaded');
-}
+      $url = 'https://www.quandl.com/api/v3/datasets/WIKI/'.$ticker .'/data.json';
       $client = new \GuzzleHttp\Client();
       $res = $client->get(
-          'https://www.quandl.com/api/v3/datasets/WIKI/FB/data.json',
+          $url,
           ['auth' =>  ['api_key', 'JxDXY6jBDscX9-pYTiov', 'digest']]
       );
 

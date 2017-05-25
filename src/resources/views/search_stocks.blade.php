@@ -41,7 +41,7 @@
                         </fieldset>
                         </form>
 
-                        <form class="form-horizontal" method="post" action="/search-name">
+                        <for method="post" action="/search-name">
                           {{ csrf_field() }}
 
                           <!-- Appended Input-->
@@ -64,11 +64,11 @@
 
 
 
+
           </div>
 
       </div>
 
   </div>
-
 
 @endsection

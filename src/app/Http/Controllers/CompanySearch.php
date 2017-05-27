@@ -17,7 +17,8 @@ class CompanySearch extends Controller
       $tickers = Ticker::where('category', $request->categoryChoice)->orderBy('name')
       ->get();
       $ticker = ($tickers->first())->ticker;
-      $url = 'https://www.quandl.com/api/v3/datasets/WIKI/'.$ticker .'/data.json';
+      $url = 'https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?ticker=' . $ticker .',FB&qopts.columns=ticker,date,close&date.gte=20170518&date.lte=20170525&api_key=JxDXY6jBDscX9-pYTiov';
+      //$url = 'https://www.quandl.com/api/v3/datasets/WIKI/'.$ticker ;
       $client = new \GuzzleHttp\Client();
       $res = $client->get(
           $url,
@@ -25,8 +26,10 @@ class CompanySearch extends Controller
       );
 
       $contents = $res->getBody()->getContents();
+      //$contents = $res->json();
       //var_dump(json_decode($contents));
-            return $contents;
+          //$ar =json_decode($contents,true);
+            return view('searchResults');
     }
 
     public function showBySearch (Request $request){

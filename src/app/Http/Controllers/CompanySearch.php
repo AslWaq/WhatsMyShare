@@ -18,7 +18,7 @@ class CompanySearch extends Controller
       $dt = Carbon::now();
       //check if saturday or sunday and move back to friday
       if ($dt->dayOfWeek == Carbon::SATURDAY){
-        $dt = Carbon::yesterday();
+        $dt = $dt->subDays(1);
       }elseif ($dt->dayOfWeek == Carbon::SUNDAY){
         $dt = $dt->subDays(2);
       }elseif ($dt->dayOfWeek == Carbon::MONDAY){
@@ -31,6 +31,7 @@ class CompanySearch extends Controller
       }else{
         return $dt->subDays(1)->format('Ymd');
       }
+      return $dt->format('Ymd');
     }
 
     public function showByCategory (Request $request){
@@ -41,7 +42,7 @@ class CompanySearch extends Controller
         $tickstring .= $tick->ticker . ',';
       } //makes tickers list into a string for api call
       $tickstring = substr($tickstring,0,-1);
-      $date = $this -> getDateString();
+      $date = $this->getDateString();
       $url = 'https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?date='. $date . '&qopts.columns=ticker,date,close&ticker='.$tickstring.'&api_key=JxDXY6jBDscX9-pYTiov';
       $client = new \GuzzleHttp\Client();
       $res = $client->get(

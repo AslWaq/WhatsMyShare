@@ -33,6 +33,7 @@ class CompanySearch extends Controller
       }
     }
 
+    public function showByCategory (Request $request){
 
       $tickers = DB::table('tickers')->select('ticker')->where('category', '=', $request->categoryChoice)->get();
       $tickstring = '';
@@ -54,7 +55,6 @@ class CompanySearch extends Controller
       //$dataagain = array_values($data[0]);
       $category_closing_prices = $data[0];
       return $category_closing_prices;
-
     }
 
     public function showBySearch (Request $request){

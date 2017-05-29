@@ -39,9 +39,9 @@ class CompanySearch extends Controller
       $tickstring = '';
       foreach ($tickers as $tick){
         $tickstring .= $tick->ticker . ',';
-      } //makes tickers list into a string for api call
-      $tickstring = substr($tickstring,0,-1);
+      }
       $date = $this->getDateString();
+      $tickstring = substr($tickstring,0,-1);
       $url = 'https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?date='. $date . '&qopts.columns=ticker,date,close&ticker='.$tickstring.'&api_key=JxDXY6jBDscX9-pYTiov';
       $client = new \GuzzleHttp\Client();
       $res = $client->get(
@@ -68,8 +68,23 @@ class CompanySearch extends Controller
       } else{
         return "error";
       }
+    }
 
+    public function companyDescription (Request $request){
+      $ticker = Ticker::find($request->ticker);
+      $ticklink = $ticker -> link;
+      $wikipage = substr($ticklink,30);
+      if ($ticklink == 'N/A'){
+        return "Company information unavailable."
+      }
+       //makes tickers list into a string for api call
+      $wikistring='https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles='.$wikipage;
 
+      $client = new \GuzzleHttp\Client();
+      $response = $client->get($wikistring);
+      $contents = $res2->getBody();
+      $datar = json_decode($contents,true);
+      return array_values($datar['query']['pages'])[0]['extract'];
     }
 
 }

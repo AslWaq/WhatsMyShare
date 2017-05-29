@@ -55,6 +55,7 @@ class CompanySearch extends Controller
       $data = array_values(array_values($ar)[0]);
       //$dataagain = array_values($data[0]);
       $category_closing_prices = $data[0];
+      return view('searchResults', compact('category_closing_prices'));//
       return $category_closing_prices;
     }
 
@@ -72,5 +73,23 @@ class CompanySearch extends Controller
 
 
     }
+    public function ajaxEg(){
+      $url = 'https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?date.gte=20170101&qopts.columns=ticker,date,close&ticker=FB&api_key=JxDXY6jBDscX9-pYTiov';
+      $client = new \GuzzleHttp\Client();
+      $res = $client->get(
+          $url,
+          ['auth' =>  ['api_key', 'JxDXY6jBDscX9-pYTiov', 'digest']]
+      );
+
+      $contents = $res->getBody();
+      $ar = json_decode($contents, true);
+      $data = array_values(array_values($ar));
+      //$dataagain = array_values($data[0]);
+      //$category_closing_prices = $data[0];
+      //return
+      $msg = "This is a simple message.";
+      return (array_values($data[0]))[0];
+      return response()->json(array('msg'=> $data), 200);
+   }
 
 }

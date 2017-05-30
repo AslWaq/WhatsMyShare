@@ -23,13 +23,12 @@ class CompanySearch extends Controller
         $dt = $dt->subDays(2);
       }elseif ($dt->dayOfWeek == Carbon::MONDAY){
         $dt = $dt->subDays(3);
-      }
-      elseif ($dt->isSameDay(Carbon::createFromDate(2017,05,29))){ //memorial day
+      }else{
+        $dt->subDays(1);
+      }if ($dt->isSameDay(Carbon::createFromDate(2017,05,29))){ //memorial day
         $dt = $dt->subDays(3);
       }elseif ($dt->isSameDay(Carbon::createFromDate(2017,07,04))){ //independence day
         $dt = $dt->subDays(1);
-      }else{
-        return $dt->subDays(1)->format('Ymd');
       }
       return $dt->format('Ymd');
     }
@@ -43,7 +42,7 @@ class CompanySearch extends Controller
       } //makes tickers list into a string for api call
       $tickstring = substr($tickstring,0,-1);
       $date = $this->getDateString();
-      $url = 'https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?date=20170526&qopts.columns=ticker,date,close&ticker='.$tickstring.'&api_key=JxDXY6jBDscX9-pYTiov';
+      $url = 'https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?date='.$date.'&qopts.columns=ticker,date,close&ticker='.$tickstring.'&api_key=JxDXY6jBDscX9-pYTiov';
       $client = new \GuzzleHttp\Client();
       $res = $client->get(
           $url,

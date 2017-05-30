@@ -47,7 +47,12 @@ class CompanySearch extends Controller
 
       $date = $this -> getDateString();
       $tickstring = substr($tickstring,0,-1);
+<<<<<<< HEAD
       $url = 'https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?date='. $date . '&qopts.columns=ticker,date,close&ticker='.$tickstring.'&api_key=JxDXY6jBDscX9-pYTiov';
+=======
+      $date = $this->getDateString();
+      $url = 'https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?date=20170526&qopts.columns=ticker,date,close&ticker='.$tickstring.'&api_key=JxDXY6jBDscX9-pYTiov';
+>>>>>>> master
       $client = new \GuzzleHttp\Client();
       $res = $client->get(
           $url,
@@ -92,8 +97,9 @@ class CompanySearch extends Controller
       $data = json_decode($contents,true);
       return array_values($data['query']['pages'])[0]['extract'];
     }
-    public function ajaxEg(){
-      $url = 'https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?date.gte=20170101&qopts.columns=ticker,date,close&ticker=FB&api_key=JxDXY6jBDscX9-pYTiov';
+    public function ajaxEg(Request $req){
+      $ticker = $req->ticker;
+      $url = 'https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?date.gte=20170101&qopts.columns=ticker,date,close&ticker=' . $ticker .'&api_key=JxDXY6jBDscX9-pYTiov';
       $client = new \GuzzleHttp\Client();
       $res = $client->get(
           $url,

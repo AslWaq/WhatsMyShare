@@ -24,4 +24,4 @@ Route::get('/fbcb', 'TransactionController@fbCallback');
 Route::get('/search-stocks', 'TransactionController@stockSearch');
 Route::post('/search-cat', 'CompanySearch@showByCategory');
 Route::post('/search-name', 'CompanySearch@showBySearch');
-Route::get('/getmsg','CompanySearch@ajaxEg');
+Route::get('/getmsg/{ticker}','CompanySearch@ajaxEg');

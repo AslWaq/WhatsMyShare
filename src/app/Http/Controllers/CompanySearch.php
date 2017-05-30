@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use DateTime;
 use App\Ticker;
 use Auth;
 use DB;
@@ -23,13 +24,15 @@ class CompanySearch extends Controller
         $dt = $dt->subDays(2);
       }elseif ($dt->dayOfWeek == Carbon::MONDAY){
         $dt = $dt->subDays(3);
+      }else{
+        $dt->subDays(1);
       }
-      elseif ($dt->isSameDay(Carbon::createFromDate(2017,05,29))){ //memorial day
+
+      //2017 holiday check
+      if($dt->isSameDay(Carbon::createFromDate(2017,05,29))){ //memorial day
         $dt = $dt->subDays(3);
       }elseif ($dt->isSameDay(Carbon::createFromDate(2017,07,04))){ //independence day
         $dt = $dt->subDays(1);
-      }else{
-        return $dt->subDays(1)->format('Ymd');
       }
       return $dt->format('Ymd');
     }
@@ -40,16 +43,16 @@ class CompanySearch extends Controller
       $tickstring = '';
       foreach ($tickers as $tick){
         $tickstring .= $tick->ticker . ',';
-      } //makes tickers list into a string for api call
+      }
+
+      $date = $this -> getDateString();
       $tickstring = substr($tickstring,0,-1);
-      $date = $this->getDateString();
-      $url = 'https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?date=20170526&qopts.columns=ticker,date,close&ticker='.$tickstring.'&api_key=JxDXY6jBDscX9-pYTiov';
+      $url = 'https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?date='. $date . '&qopts.columns=ticker,date,close&ticker='.$tickstring.'&api_key=JxDXY6jBDscX9-pYTiov';
       $client = new \GuzzleHttp\Client();
       $res = $client->get(
           $url,
           ['auth' =>  ['api_key', 'JxDXY6jBDscX9-pYTiov', 'digest']]
       );
-
       $contents = $res->getBody();
       $ar = json_decode($contents, true);
       $data = array_values(array_values($ar)[0]);
@@ -70,8 +73,24 @@ class CompanySearch extends Controller
       } else{
         return "error";
       }
+    }
 
+    public function companyDescription (Request $request){
+      $ticker = Ticker::find($request->ticker);
+      $ticklink = $ticker -> link;
+      if ($ticklink == 'N/A'){
+        return "Company information unavailable.";
+      }
+      $wikipage = substr($ticklink,30);
 
+       //makes tickers list into a string for api call
+      $wikistring='https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles='.$wikipage;
+
+      $client = new \GuzzleHttp\Client();
+      $response = $client->get($wikistring);
+      $contents = $res2->getBody();
+      $data = json_decode($contents,true);
+      return array_values($data['query']['pages'])[0]['extract'];
     }
     public function ajaxEg(Request $req){
       $ticker = $req->ticker;
@@ -85,12 +104,48 @@ class CompanySearch extends Controller
       $contents = $res->getBody();
       $ar = json_decode($contents, true);
       $data = array_values(array_values($ar));
-      //$dataagain = array_values($data[0]);
-      //$category_closing_prices = $data[0];
-      //return
-      $msg = "This is a simple message.";
       return (array_values($data[0]))[0];
-      return response()->json(array('msg'=> $data), 200);
    }
+
+   public function companyHalfYear(Request $request){
+     $startDate = Carbon::now() -> subMonths(6) -> format('Ymd');
+     $endDate = Carbon::now() -> format ('Ymd');
+
+     //$ticker = DB::table('tickers')->select('ticker')->where('ticker', '=', $request->ticker)->first();
+     //$tickstring = $ticker -> ticker;
+
+     $url = 'https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?date.gte='. $startDate . '&date.lte=' .
+     $endDate . '&qopts.columns=date,close&ticker='.$request->ticker.'&api_key=JxDXY6jBDscX9-pYTiov';
+
+     $client = new \GuzzleHttp\Client();
+     $response = $client->get(
+         $url,
+         ['auth' =>  ['api_key', 'JxDXY6jBDscX9-pYTiov', 'digest']]
+     );
+     $contents = $response->getBody();
+     $jsonArray = json_decode($contents, true);
+     $data = array_values(array_values($jsonArray)[0]);
+     return $data[0];
+   }
+
+   public function companyCustomTime(Request $request){
+     $dt = DateTime::createFromDate('m/d/Y',$request -> dateStart);
+     $startDate = $dt -> format('Ymd');
+     $dt1 = DateTime::createFromDate('m/d/Y', $request -> dateEnd);
+     $endDate = $dt1 -> format ('Ymd');
+
+     $url = 'https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?date.gte='. $startDate . '&date.lte=' .
+     $endDate . '&qopts.columns=date,close&ticker='.$request->ticker.'&api_key=JxDXY6jBDscX9-pYTiov';
+
+     $client = new \GuzzleHttp\Client();
+     $response = $client->get(
+         $url,
+         ['auth' =>  ['api_key', 'JxDXY6jBDscX9-pYTiov', 'digest']]
+     );
+     $contents = $response->getBody();
+     $jsonArray = json_decode($contents, true);
+     $data = array_values(array_values($jsonArray)[0]);
+     return $data[0];
+}
 
 }

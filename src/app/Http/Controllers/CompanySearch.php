@@ -26,10 +26,14 @@ class CompanySearch extends Controller
         $dt = $dt->subDays(3);
       }else{
         $dt->subDays(1);
+<<<<<<< HEAD
+      }if ($dt->isSameDay(Carbon::createFromDate(2017,05,29))){ //memorial day
+=======
       }
 
       //2017 holiday check
       if($dt->isSameDay(Carbon::createFromDate(2017,05,29))){ //memorial day
+>>>>>>> 4dc1d6d546bef0b754295a61f182e020c506503f
         $dt = $dt->subDays(3);
       }elseif ($dt->isSameDay(Carbon::createFromDate(2017,07,04))){ //independence day
         $dt = $dt->subDays(1);
@@ -47,7 +51,8 @@ class CompanySearch extends Controller
 
       $date = $this -> getDateString();
       $tickstring = substr($tickstring,0,-1);
-      $url = 'https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?date='. $date . '&qopts.columns=ticker,date,close&ticker='.$tickstring.'&api_key=JxDXY6jBDscX9-pYTiov';
+      $url = 'https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?date='.$date.'&qopts.columns=ticker,date,close&ticker='.$tickstring.'&api_key=JxDXY6jBDscX9-pYTiov';
+
       $client = new \GuzzleHttp\Client();
       $res = $client->get(
           $url,

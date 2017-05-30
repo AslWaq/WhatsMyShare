@@ -44,15 +44,10 @@ class CompanySearch extends Controller
       foreach ($tickers as $tick){
         $tickstring .= $tick->ticker . ',';
       }
-
       $date = $this -> getDateString();
       $tickstring = substr($tickstring,0,-1);
-<<<<<<< HEAD
       $url = 'https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?date='. $date . '&qopts.columns=ticker,date,close&ticker='.$tickstring.'&api_key=JxDXY6jBDscX9-pYTiov';
-=======
-      $date = $this->getDateString();
-      $url = 'https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?date=20170526&qopts.columns=ticker,date,close&ticker='.$tickstring.'&api_key=JxDXY6jBDscX9-pYTiov';
->>>>>>> master
+
       $client = new \GuzzleHttp\Client();
       $res = $client->get(
           $url,
@@ -63,7 +58,7 @@ class CompanySearch extends Controller
       $data = array_values(array_values($ar)[0]);
       //$dataagain = array_values($data[0]);
       $category_closing_prices = $data[0];
-      //return view('searchResults', compact('category_closing_prices'));//
+      return view('searchResults', compact('category_closing_prices'));//
       return $category_closing_prices;
     }
 

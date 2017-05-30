@@ -9,9 +9,9 @@
 </script>
 <div class="container-fluid">
   <div class="row content">
-    <div class="col-sm-4 sidenav" style="background-color: white">
+    <div class="col-sm-4 sidenav" style="background-color: rgb(200,200,200)">
     <h3>Search Results</h3>
-      <table id="example" class="display, table" width="100%" cellspacing="0">
+      <table  id="example" class="display, table" width="100%" cellspacing="0">
         <thead>
             <tr>
                 <th>Name</th>
@@ -31,7 +31,7 @@
         <tbody>
           @foreach($category_closing_prices as $cmpny)
           <tr>
-              <td><li><a href="#">{{ $cmpny[0] }}</a></li></td>
+              <td><li><a onClick="viewTicker('{{ $cmpny[0] }}')" id="'{{ $cmpny[0] }}'" href="#">{{ $cmpny[0] }}</a></li></td>
               <td>{{ $cmpny[1] }}</td>
               <td>{{ $cmpny[2] }}</td>
 
@@ -50,69 +50,82 @@
 
   	<canvas style="background-color: rgb(200,200,200)" id="myChart"></canvas>
   	<script>
-      	var ctx = document.getElementById('myChart').getContext('2d');
-          var myl = ["January", "February", "March", "April", "May", "June", "July"];
-          var myd = [0, 10, 5, 2, 20, 30, 45];
+      	  var ctx = document.getElementById('myChart').getContext('2d');
+          var myl = [];// ["January", "February", "March", "April", "May", "June", "July"];
+          var myd = [];//[0, 10, 5, 2, 20, 30, 45];
+          var ds = [{
+              label: "My First dataset",
+              backgroundColor: 'rgb(255, 99, 132)',
+              borderColor: 'rgb(255, 99, 132)',
+              data: myd,
+          }];
+          var chartData =  {
+              labels: myl,
+              datasets: ds
+          };
           var chart = new Chart(ctx, {
               // The type of chart we want to create
               type: 'line',
 
               // The data for our dataset
-              data: {
-                  labels: myl,
-                  datasets: [{
-                      label: "My First dataset",
-                      backgroundColor: 'rgb(255, 99, 132)',
-                      borderColor: 'rgb(255, 99, 132)',
-                      data: myd,
-                  }]
-              },
+              data: chartData,
 
               // Configuration options go here
               options: {}
           });
+
           var index;
           var nmyl = [];
           var nmyd = [];
-          $(document).ready(function(){
-            $('#getMessage').click(function(){
-              $.get('getmsg', function(data){
+          var url = 'getmsg/';
+          var flag = 0;
 
+          function viewTicker(ticker){
+
+            $.get('getmsg/' + ticker, function(data){
+
+            if(flag != 0){
+              nmyd=[];
+              for (index = 0; index < data.length; ++index) {
+                nmyd.push((data[index])[2]);
+
+              }
+              var cmp = {
+                label: ticker, borderColor: 'rgb(0,0,0)', data: nmyd,
+              };
+              ds.push(cmp);
+              flag= flag+1;
+              chart.update();
+
+            }else {
+
+              flag= flag+1;
                 for (index = 0; index < data.length; ++index) {
-                  $('#msg').append(data[index]);
+                  //$('#msg').append($('#msg').text());
                   nmyl.push((data[index])[1]);
                   nmyd.push((data[index])[2]);
 
                 }
-                console.log(nmyd);
-                var chart = new Chart(ctx, {
-                    // The type of chart we want to create
-                    type: 'line',
+                chartData.labels = nmyl;
+                var cmp = {
+                  label: ticker, borderColor: 'rgb(0,0,0)', data: nmyd,
+                };
+                ds.push(cmp);
 
-                    // The data for our dataset
-                    data: {
-                        labels: nmyl,
-                        datasets: [{
-                            label: "My First dataset",
-                            
-                            borderColor: 'rgb(255, 99, 132)',
-                            data: nmyd,
-                        }]
-                    },
+                myl = nmyl;
+                myd =nmyd;
 
-                    // Configuration options go here
-                    options: {}
-                });
-                //console.log(data);
+
+              chart.update();
+              }
               });
-            });
-          });
+      };
       </script>
 
       <div id="msg">This message will be replaced using Ajax.
          Click the button to replace the message.</div>
 
-           <button id="getMessage">Replace Message</button>
+           <button onClick="viewTicker()" id="getMessage">Replace Message</button>
 
     </div>
   </div>

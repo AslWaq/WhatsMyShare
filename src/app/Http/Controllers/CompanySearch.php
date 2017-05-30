@@ -43,7 +43,7 @@ class CompanySearch extends Controller
       } //makes tickers list into a string for api call
       $tickstring = substr($tickstring,0,-1);
       $date = $this->getDateString();
-      $url = 'https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?date='. $date . '&qopts.columns=ticker,date,close&ticker='.$tickstring.'&api_key=JxDXY6jBDscX9-pYTiov';
+      $url = 'https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?date=20170526&qopts.columns=ticker,date,close&ticker='.$tickstring.'&api_key=JxDXY6jBDscX9-pYTiov';
       $client = new \GuzzleHttp\Client();
       $res = $client->get(
           $url,
@@ -73,8 +73,9 @@ class CompanySearch extends Controller
 
 
     }
-    public function ajaxEg(){
-      $url = 'https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?date.gte=20170101&qopts.columns=ticker,date,close&ticker=FB&api_key=JxDXY6jBDscX9-pYTiov';
+    public function ajaxEg(Request $req){
+      $ticker = $req->ticker;
+      $url = 'https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?date.gte=20170101&qopts.columns=ticker,date,close&ticker=' . $ticker .'&api_key=JxDXY6jBDscX9-pYTiov';
       $client = new \GuzzleHttp\Client();
       $res = $client->get(
           $url,

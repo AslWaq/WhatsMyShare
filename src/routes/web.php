@@ -25,3 +25,5 @@ Route::get('/search-stocks', 'TransactionController@stockSearch');
 Route::post('/search-cat', 'CompanySearch@showByCategory');
 Route::post('/search-name', 'CompanySearch@showBySearch');
 Route::get('/getmsg/{ticker}','CompanySearch@ajaxEg');
+Route::get('/my-cart','TradingController@viewCart');
+Route::get('/get-price/{ticker}','CompanySearch@get_price');

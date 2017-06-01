@@ -26,14 +26,11 @@ class CompanySearch extends Controller
         $dt = $dt->subDays(3);
       }else{
         $dt->subDays(1);
-<<<<<<< HEAD
-      }if ($dt->isSameDay(Carbon::createFromDate(2017,05,29))){ //memorial day
-=======
       }
 
       //2017 holiday check
       if($dt->isSameDay(Carbon::createFromDate(2017,05,29))){ //memorial day
->>>>>>> 4dc1d6d546bef0b754295a61f182e020c506503f
+
         $dt = $dt->subDays(3);
       }elseif ($dt->isSameDay(Carbon::createFromDate(2017,07,04))){ //independence day
         $dt = $dt->subDays(1);
@@ -42,13 +39,13 @@ class CompanySearch extends Controller
     }
 
     public function showByCategory (Request $request){
-
-      $tickers = DB::table('tickers')->select('ticker')->where('category', '=', $request->categoryChoice)->get();
+      $cmpnyObj = Ticker::where('category',$request->categoryChoice)->get();
+      //$tickers = DB::table('tickers')->select('ticker')->where('category', '=', $request->categoryChoice)->get();
       $tickstring = '';
-      foreach ($tickers as $tick){
+      foreach ($cmpnyObj as $tick){
         $tickstring .= $tick->ticker . ',';
       }
-
+      //return $tickstring;
       $date = $this -> getDateString();
       $tickstring = substr($tickstring,0,-1);
       $url = 'https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?date='.$date.'&qopts.columns=ticker,date,close&ticker='.$tickstring.'&api_key=JxDXY6jBDscX9-pYTiov';
@@ -63,8 +60,11 @@ class CompanySearch extends Controller
       $data = array_values(array_values($ar)[0]);
       //$dataagain = array_values($data[0]);
       $category_closing_prices = $data[0];
-      return view('searchResults', compact('category_closing_prices'));//
-      return $category_closing_prices;
+      $cmpnyObj = $cmpnyObj->keyBy('ticker');
+      //
+      //return $cmpnyObj;
+      return view('searchResults', compact('category_closing_prices','cmpnyObj'));//
+      //return $category_closing_prices;
     }
 
     public function showBySearch (Request $request){
@@ -152,5 +152,21 @@ class CompanySearch extends Controller
      $data = array_values(array_values($jsonArray)[0]);
      return $data[0];
 }
+
+public function get_price(Request $req){
+  $ticker = $req->ticker;
+  $url = 'https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?date=20170529&qopts.columns=close&ticker=' . $ticker .'&api_key=JxDXY6jBDscX9-pYTiov';
+  $client = new \GuzzleHttp\Client();
+  $res = $client->get(
+      $url,
+      ['auth' =>  ['api_key', 'JxDXY6jBDscX9-pYTiov', 'digest']]
+  );
+
+  $contents = $res->getBody();
+  $ar = json_decode($contents, true);
+  $data = array_values(array_values($ar));
+  return array_values((array_values($data[0]))[1])->close;
+}
+
 
 }

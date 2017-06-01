@@ -14,16 +14,18 @@
       <table  id="example" class="display, table" width="100%" cellspacing="0">
         <thead>
             <tr>
+                <th>Ticker</th>
                 <th>Name</th>
-                <th>Closing Date</th>
-                <th>Price</th>
+                <th>Price (USD)</th>
+                <th>View Chart</th>
+                <th>Add to Cart</th>
 
             </tr>
         </thead>
         <tfoot>
             <tr>
+              <th>Ticker</th>
               <th>Name</th>
-              <th>Closing Date</th>
               <th>Price</th>
 
             </tr>
@@ -31,10 +33,11 @@
         <tbody>
           @foreach($category_closing_prices as $cmpny)
           <tr>
-              <td><li><a onClick="viewTicker('{{ $cmpny[0] }}')" id="'{{ $cmpny[0] }}'" href="#">{{ $cmpny[0] }}</a></li></td>
-              <td>{{ $cmpny[1] }}</td>
-              <td>{{ $cmpny[2] }}</td>
-
+              <td>{{ $cmpny[0] }}</td>
+              <td><a target="_blank" href="{{ $cmpnyObj->get($cmpny[0])['link']}}">{{ $cmpnyObj->get($cmpny[0])['name']}}</a></td>
+              <td>${{ $cmpny[2] }}</td>
+              <td><button onClick="viewTicker('{{ $cmpny[0] }}')" class="fa fa-line-chart"></button></td>
+              <td><button onClick="viewTicker('{{ $cmpny[0] }}')" class="fa fa-cart-plus"></button></td>
           </tr>
           @endforeach
 

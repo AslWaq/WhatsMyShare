@@ -30,7 +30,6 @@ class CompanySearch extends Controller
 
       //2017 holiday check
       if($dt->isSameDay(Carbon::createFromDate(2017,05,29))){ //memorial day
-
         $dt = $dt->subDays(3);
       }elseif ($dt->isSameDay(Carbon::createFromDate(2017,07,04))){ //independence day
         $dt = $dt->subDays(1);

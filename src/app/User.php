@@ -33,4 +33,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token', 'access_token'
     ];
+
+    //retrieve stocks from portfolio for users
+    public function stocks(){
+      return $this->hasMany('App\Stock','user_id');
+    }
 }

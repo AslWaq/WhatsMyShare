@@ -19,6 +19,7 @@ class CreatePortfolioTable extends Migration
             $table->string('stock_ticker',10);
             $table->integer('shares');
             $table->decimal('price',8,2);
+            $table->decimal('initial_val',20,2)->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');

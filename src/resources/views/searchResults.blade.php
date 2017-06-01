@@ -96,7 +96,7 @@
             if(flag != 0){
               nmyd=[];
               for (index = 0; index < data.length; ++index) {
-                nmyd.push((data[index])[2]);
+                nmyd.push((data[index])[1]);
 
               }
               var rgb = 'rgb(255, 0, 255)';
@@ -118,8 +118,8 @@
               flag= flag+1;
                 for (index = 0; index < data.length; ++index) {
                   //$('#msg').append($('#msg').text());
-                  nmyl.push((data[index])[1]);
-                  nmyd.push((data[index])[2]);
+                  nmyl.push((data[index])[0]);
+                  nmyd.push((data[index])[1]);
 
                 }
                 chartData.labels = nmyl;

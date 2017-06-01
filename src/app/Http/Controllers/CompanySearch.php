@@ -7,14 +7,14 @@ use Carbon\Carbon;
 use DateTime;
 use App\Ticker;
 use Auth;
+use App\User;
 use DB;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
 
 class CompanySearch extends Controller
 {
-    //$request -> categoryChoice
-    //placeholder returns for testing
+
     public function getDateString(){
       $dt = Carbon::now();
       //check if saturday or sunday and move back to friday
@@ -97,20 +97,6 @@ class CompanySearch extends Controller
       $data = json_decode($contents,true);
       return array_values($data['query']['pages'])[0]['extract'];
     }
-    public function ajaxEg(Request $req){
-      $ticker = $req->ticker;
-      $url = 'https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?date.gte=20170101&qopts.columns=ticker,date,close&ticker=' . $ticker .'&api_key=JxDXY6jBDscX9-pYTiov';
-      $client = new \GuzzleHttp\Client();
-      $res = $client->get(
-          $url,
-          ['auth' =>  ['api_key', 'JxDXY6jBDscX9-pYTiov', 'digest']]
-      );
-
-      $contents = $res->getBody();
-      $ar = json_decode($contents, true);
-      $data = array_values(array_values($ar));
-      return (array_values($data[0]))[0];
-   }
 
    public function companyHalfYear(Request $request){
      $startDate = Carbon::now() -> subMonths(6) -> format('Ymd');
@@ -153,9 +139,10 @@ class CompanySearch extends Controller
      return $data[0];
 }
 
-public function get_price(Request $req){
-  $ticker = $req->ticker;
-  $url = 'https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?date=20170529&qopts.columns=close&ticker=' . $ticker .'&api_key=JxDXY6jBDscX9-pYTiov';
+public function get_price(Request $request){
+  $ticker = $request->ticker;
+  $date = $this->getDateString();
+  $url = 'https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?date='.$date.'&qopts.columns=close&ticker=' . $ticker .'&api_key=JxDXY6jBDscX9-pYTiov';
   $client = new \GuzzleHttp\Client();
   $res = $client->get(
       $url,
@@ -165,7 +152,13 @@ public function get_price(Request $req){
   $contents = $res->getBody();
   $ar = json_decode($contents, true);
   $data = array_values(array_values($ar));
-  return array_values((array_values($data[0]))[1])->close;
+  return $data[0]['data'][0][0];
+  //return array_values((array_values($data[0]))[1])->close;
+}
+
+public function testuseroutput(){
+  $id = Auth::user()->id;
+  return User::find($id)->stocks;
 }
 
 

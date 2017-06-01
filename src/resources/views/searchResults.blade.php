@@ -53,12 +53,8 @@
       	  var ctx = document.getElementById('myChart').getContext('2d');
           var myl = [];// ["January", "February", "March", "April", "May", "June", "July"];
           var myd = [];//[0, 10, 5, 2, 20, 30, 45];
-          var ds = [{
-              label: "My First dataset",
-              backgroundColor: 'rgb(255, 99, 132)',
-              borderColor: 'rgb(255, 99, 132)',
-              data: myd,
-          }];
+          var ds = [
+          ];
           var chartData =  {
               labels: myl,
               datasets: ds
@@ -71,7 +67,17 @@
               data: chartData,
 
               // Configuration options go here
-              options: {}
+              options: {
+                scales: {
+                  yAxes: [{
+                    scaleLabel: {
+                      display: true,
+                      labelString: "Price",
+                      fontSize: 20
+                    }
+                  }]
+                }
+              }
           });
 
           var index;
@@ -90,8 +96,15 @@
                 nmyd.push((data[index])[2]);
 
               }
+              var rgb = 'rgb(255, 0, 255)';
+              if (flag == 1)
+                rgb = 'rgb(255, 255, 0)';
+                if (flag == 2)
+                  rgb = 'rgb(255, 0, 0)';
+                  if (flag == 3)
+                    rgb = 'rgb(0, 255, 0)';
               var cmp = {
-                label: ticker, borderColor: 'rgb(0,0,0)', data: nmyd,
+                label: ticker, borderColor: rgb, data: nmyd,
               };
               ds.push(cmp);
               flag= flag+1;
@@ -110,7 +123,8 @@
                 var cmp = {
                   label: ticker, borderColor: 'rgb(0,0,0)', data: nmyd,
                 };
-                ds.push(cmp);
+                ds.push(cmp
+                );
 
                 myl = nmyl;
                 myd =nmyd;
@@ -122,23 +136,11 @@
       };
       </script>
 
-      <div id="msg">This message will be replaced using Ajax.
-         Click the button to replace the message.</div>
-
-           <button onClick="viewTicker()" id="getMessage">Replace Message</button>
-
     </div>
   </div>
 </div>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
-  <div id = 'msg'>This message will be replaced using Ajax.
-           Click the button to replace the message.</div>
-
-
-            <button onClick="getMessage()"> Replace Message</button>
 
           <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 

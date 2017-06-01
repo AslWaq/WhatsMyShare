@@ -46,7 +46,7 @@ class CompanySearch extends Controller
       }
       $date = $this -> getDateString();
       $tickstring = substr($tickstring,0,-1);
-      $url = 'https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?date='. $date . '&qopts.columns=ticker,date,close&ticker='.$tickstring.'&api_key=JxDXY6jBDscX9-pYTiov';
+      $url = 'https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?date='.$date.'&qopts.columns=ticker,date,close&ticker='.$tickstring.'&api_key=JxDXY6jBDscX9-pYTiov';
 
       $client = new \GuzzleHttp\Client();
       $res = $client->get(

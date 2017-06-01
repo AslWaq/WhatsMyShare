@@ -13,7 +13,10 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         DB::table('tickers')->delete();
-        
+        DB::table('users')->delete();
+        DB::table('portfolio')->delete();
+
         $this->call(TickersTableSeeder::class);
+        $this->call(UsersTableSeeder::class);
     }
 }

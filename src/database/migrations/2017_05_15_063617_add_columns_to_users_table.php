@@ -16,6 +16,7 @@ class AddColumnsToUsersTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->decimal('invest_score',20,2)->nullable();
             $table->decimal('cash',20,2)->nullable();
+            $table->json('shopping_cart')->nullable();
         });
     }
 

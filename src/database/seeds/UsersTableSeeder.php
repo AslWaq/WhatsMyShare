@@ -47,7 +47,8 @@ class UsersTableSeeder extends Seeder
         ['user_id' => $user1 -> id, 'stock_ticker' => 'MSFT', 'shares' => 100, 'price' => 69.84],
         ['user_id' => $user1 -> id, 'stock_ticker' => 'AMZN', 'shares' => 126, 'price' => 994.62],
         ['user_id' => $user1 -> id, 'stock_ticker' => 'EBAY', 'shares' => 10, 'price' => 34.30],
-        ['user_id' => $user1 -> id, 'stock_ticker' => 'EA', 'shares' => 143, 'price' => 113.33]
+        ['user_id' => $user1 -> id, 'stock_ticker' => 'EA', 'shares' => 143, 'price' => 113.33],
+        ['user_id' => $user5 -> id, 'stock_ticker' => 'FB', 'shares' => 86, 'price' => 129.42]
       ]);
 
     }

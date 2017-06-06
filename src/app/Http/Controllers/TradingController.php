@@ -18,5 +18,19 @@ class TradingController extends Controller
     $usr->save();
     return view('checkoutPage');
   }
+  public function addToCart(Request $req){
+    $usr = Auth::user();
+    $sc =  $req->item;
+
+    $c = $usr->shopping_cart;
+    $cart = json_decode($c);
+    return $cart;
+
+    array_push($cart, $sc);
+    $usr->shopping_cart = $cart;
+    $usr->save();
+    return $cart;
+  }
+
     //
 }

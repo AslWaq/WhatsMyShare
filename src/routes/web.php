@@ -23,7 +23,7 @@ Route::get('/fb-login', 'TransactionController@redrect');
 Route::get('/fbcb', 'TransactionController@fbCallback');
 Route::get('/search-stocks', 'TransactionController@stockSearch');
 Route::post('/search-cat', 'CompanySearch@showByCategory');
-Route::get('/buy', 'PortfolioTransactionController@buyStocks');
+Route::get('/buy/{order}', 'PortfolioTransactionController@buyStocks');
 Route::get('search/autocomplete', ['as' => 'search-autocomplete', 'uses' => 'SearchController@autocomplete']);
 Route::get('/getmsg/{ticker}','CompanySearch@companyHalfYear');
 Route::get('/my-cart','TradingController@viewCart');

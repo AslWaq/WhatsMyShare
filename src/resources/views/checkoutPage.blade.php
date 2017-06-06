@@ -23,8 +23,23 @@ $( document ).ready(function(){
 function plOrder(ticker){
   var taction = $('input[name=action' + ticker + ']:checked').val();
   var stockN = $('#action'+ticker).val();
+  var ord = [];
   if (taction){
-    alert(taction+stockN);
+    if (stockN){
+      var pr = $('#'+ticker).text();
+      ord = [ticker, stockN, pr];
+      var order = JSON.stringify(ord);
+
+      $.get('buy/' + order, function(data){
+          console.log(data);
+
+
+          });
+
+    }else{
+      alert(taction+stockN);
+    }
+
   }
   else{
     alert('taction2');
@@ -55,7 +70,7 @@ function delItem(ticker){
 
 						<div class="col-md-6">
               <div class="col-md-6 text-right">
-							<h4 class="product-name"><strong>{{$item}}</strong></h4><h4><small id="{{ $item }}" onload="getP('{{ $item }}')">price(USD): $ </small></h4>
+							<h4 class="product-name"><strong>{{$item}}</strong></h4><h4><small id="{{ $item }}" onload="getP('{{ $item }}')"></small></h4>
             </div>
             <div class="col-md-6 text-right">
               <h4 class="product-name"><strong>Action</strong></h4>

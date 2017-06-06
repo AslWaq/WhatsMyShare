@@ -67,17 +67,26 @@ class CompanySearch extends Controller
       //return $category_closing_prices;
     }
 
-    public function showBySearch (Request $request){
-      $searchTerm = $request->textSearch;
-      $tickers = Ticker::where('ticker', 'LIKE', "%$searchTerm%")
-      ->orWhere('name', 'LIKE', "%$searchTerm%")->get();
+    public function autocomplete (Request $request){
+      $searchTerm = $request->term;
+      $results = array();
 
-      if (!$tickers->isEmpty()){
-        $ticker = ($tickers->first())->ticker;
-        return view('quandl');
-      } else{
-        return "error";
+      $queries = DB::table('tickers')->where('ticker', 'LIKE', '%'.$searchTerm.'%')
+      ->orWhere('name', 'LIKE', '%'.$searchTerm.'%')->take(5)->get();
+
+      foreach ($queries as $query){
+        $results[] = ['ticker'=>$query->ticker, 'name'=>$query->name];
       }
+
+      return response()->json($results);
+
+
+      // if (!$tickers->isEmpty()){
+      //   $ticker = ($tickers->first())->ticker;
+      //   return view('quandl');
+      // } else{
+      //   return "error";
+      // }
     }
 
     public function companyDescription (Request $request){

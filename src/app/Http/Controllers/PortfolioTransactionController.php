@@ -39,6 +39,16 @@ class PortfolioTransactionController extends Controller
           }
 
         $user->cash -= $transTotal;
+        
+        $cartArray = json_decode($user->shopping_cart);
+        for ($x=0; $x < count($cartArray); $x++){
+          if ($cartArray[$x][0] == $ar[0]){
+            $y = $x;
+          }
+        }
+        unset($cartArray[$y]);
+        $cart = json_encode($cartArray);
+        $user->shopping_cart = $cart;
         $user->save();
       }
       return "hooray!";

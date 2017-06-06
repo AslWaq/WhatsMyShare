@@ -141,7 +141,7 @@ class CompanySearch extends Controller
 public function get_price(Request $request){
   $ticker = $request->ticker;
   $date = $this->getDateString();
-  $url = 'https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?date='.$date.'&qopts.columns=close&ticker=' . $ticker .'&api_key=JxDXY6jBDscX9-pYTiov';
+  $url = 'https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?date='.$date.'&qopts.columns=ticker,close&ticker=' . $ticker .'&api_key=JxDXY6jBDscX9-pYTiov';
   $client = new \GuzzleHttp\Client();
   $res = $client->get(
       $url,
@@ -151,7 +151,7 @@ public function get_price(Request $request){
   $contents = $res->getBody();
   $ar = json_decode($contents, true);
   $data = array_values(array_values($ar));
-  return $data[0]['data'][0][0];
+  return $data[0]['data'][0];
   //return array_values((array_values($data[0]))[1])->close;
 }
 

@@ -2,32 +2,67 @@
 
 @section('content')
 <script>
-function getP(ticker){
 
 
-  $.get('get-price/' + ticker, function(data){
-        document.getElementById("jh").innerHtml = data;
-        console.log(data);
-      });
+$( document ).ready(function(){
+  var sc = {!! Auth::user()->shopping_cart !!};
+  var ticker;
+  var i = 0;
+  var pr = 0;
+  for(i = 0; i<sc.length; i++){
+    ticker = sc[i];
+      $.get('get-price/' + ticker, function(data){
+            $('#'+ data[0]).append(data[1]);
+
+
+          });
+
     }
+});
+
+function plOrder(ticker){
+  var taction = $('input[name=action' + ticker + ']:checked').val();
+  var stockN = $('#action'+ticker).val();
+  if (taction){
+    alert(taction+stockN);
+  }
+  else{
+    alert('taction2');
+  //$.get('buy/' + order, function(data){
+  //console.log(taction);
+  //});
+  }
+};
+function delItem(ticker){
+  $('.'+ticker).hide();
+  //if (taction){
+  //  alert(taction+stockN);
+  //}
+  //else{
+    //alert('taction2');
+  //$.get('buy/' + order, function(data){
+  //console.log(taction);
+  //});
+
+};
 </script>
 <div class="container" style="background-color: white">
 
 <br>
 <br>
   @foreach(json_decode(Auth::user()->shopping_cart) as $item)
-					<div class="row">
+					<div class="row {{$item}}">
 
 						<div class="col-md-6">
               <div class="col-md-6 text-right">
-							<h4 class="product-name"><strong>{{$item}}</strong></h4><h4><small id="{{ $item }}" onload="getP('{{ $item }}')">price: USD 49.05</small></h4>
+							<h4 class="product-name"><strong>{{$item}}</strong></h4><h4><small id="{{ $item }}" onload="getP('{{ $item }}')">price(USD): $ </small></h4>
             </div>
             <div class="col-md-6 text-right">
               <h4 class="product-name"><strong>Action</strong></h4>
 
-              <form action="">
-                  <input type="radio" name="action" value="buy"> Buy
-                  <input type="radio" name="action" value="short"> Short
+              <form >
+                  <input type="radio" name="action{{$item}}" value="buy"> Buy
+                  <input type="radio" name="action{{$item}}" value="short"> Short
 
               </form>
 
@@ -39,20 +74,21 @@ function getP(ticker){
                 <small>cost</small>
 							</div>
 							<div class="col-md-4">
-								<input type="number" min="1" class="form-control" value="1">
+								<input id="action{{$item}}" type="number" min="1" class="form-control" value="1">
 
 							</div>
               <div class="col-md-2">
-								<button type="button" class="btn btn-primary">
+								<button onclick="plOrder('{{$item}}')" type="button" class="btn btn-primary">
                   Buy
 								</button>
 							</div>
 							<div class="col-md-2">
-								<button type="button" class="btn btn-link btn-xs">
+								<button onclick="delItem('{{$item}}')" type="button" class="btn btn-link btn-xs">
 									<span class="glyphicon glyphicon-trash"> </span>
 								</button>
 							</div>
 						</div>
+            <hr>
 					</div>
 					<hr>
           @endforeach
@@ -63,7 +99,7 @@ function getP(ticker){
 								<button type="button" class="btn btn-primary btn-sm btn-block">Update cart</button>
 							</div>
               <div class="col-xs-3">
-								<button id="jh" onClick="(getP('FB'))" type="button" class="btn btn-primary btn-sm btn-block">{{ Auth::user()->shopping_cart }}</button>
+								<button id="jh" onload="(getP('FB'))" type="button" class="btn btn-primary btn-sm btn-block">{{ Auth::user()->shopping_cart }}</button>
 							</div>
 						</div>
 					</div>

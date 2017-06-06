@@ -37,7 +37,7 @@
               <td><a target="_blank" href="{{ $cmpnyObj->get($cmpny[0])['link']}}">{{ $cmpnyObj->get($cmpny[0])['name']}}</a></td>
               <td>${{ $cmpny[2] }}</td>
               <td><button onClick="viewTicker('{{ $cmpny[0] }}')" class="fa fa-line-chart"></button></td>
-              <td><button onClick="addToCart('{{ $cmpny[0] }}')" class="fa fa-cart-plus"></button></td>
+              <td><button onClick="addToCart('{{ $cmpny[0] }}', '{{ $cmpnyObj->get($cmpny[0])['name']}}')" class="fa fa-cart-plus"></button></td>
           </tr>
           @endforeach
 
@@ -137,12 +137,11 @@
               }
               });
       };
-      function addToCart(ticker){
-        var taction = $('input[name=action' + ticker + ']:checked').val();
-        var stockN = $('#action'+ticker).val();
-        var ord = [];
-        if (taction){
-          $.get('buy/' + order, function(data){
+      function addToCart(ticker, name){
+
+          var i = [ticker, name];
+          var item = JSON.stringify(i);
+              $.get('add-to-cart/' + item, function(data){
                 console.log(data);
               });
       };

@@ -28,3 +28,4 @@ Route::get('search/autocomplete', ['as' => 'search-autocomplete', 'uses' => 'Sea
 Route::get('/getmsg/{ticker}','CompanySearch@companyHalfYear');
 Route::get('/my-cart','TradingController@viewCart');
 Route::get('/get-price/{ticker}','CompanySearch@get_price');
+Route::get('/add-to-cart/{item}','TradingController@addToCart');

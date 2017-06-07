@@ -11,17 +11,10 @@ use App\Ticker;
 class PortfolioTransactionController extends Controller
 {
     public function buyStocks(Request $request){
-      // $ar = array(
-      //   array("FB",10,153.63),
-      //   array("MSFT",20,72.28),
-      //   array("WMT",10,80.26)
-      // );
-      $ar = json_decode($request->order);
-      $user = User::find(Auth::user()->id);
-      // $arlength=count($ar);
-      //
-      // $transTotal = $ar[0][1];
 
+      $ar = json_decode($request->order);
+
+      $user = User::find(Auth::user()->id);
 
       $transTotal = ( $ar[1] * $ar[2]);
 
@@ -46,9 +39,45 @@ class PortfolioTransactionController extends Controller
           }
 
         $user->cash -= $transTotal;
+
+        $cartArray = json_decode($user->shopping_cart);
+        for ($x=0; $x < count($cartArray); $x++){
+          if (json_decode($cartArray[$x])[0] == $ar[0]){
+            $y = $x;
+          }
+        }
+        unset($cartArray[$y]);
+        $cart = json_encode($cartArray);
+        $user->shopping_cart = $cart;
         $user->save();
       }
       return "hooray!";
       //return view('dashboard');
+  }
+
+  public function sellStock(Request $request){
+    $user = User::find(Auth::user()->id);
+    $ar = json_decode($request->stockChoice);
+
+    $stock = Stock::where('user_id', '=', $user->id)->where('stock_ticker','=',$ar[0])->first();
+    if ($stock->shares < $ar[1]){//if trying to sell more than you own
+      return "impossible";
+    }elseif($stock->shares == $ar[1]){
+      $user->cash += ($ar[1] * $ar[2]);
+      //invest score change = (new price * shares sold) - (old price * shares sold)
+      $user->invest_score += ($ar[1] * $ar[2]) - (($stock->price) * $ar[1]);
+      $user->save();
+      $stock->delete();
+    }else{
+      $stock->shares -= $ar[1];
+      $user->invest_score += ($ar[1] * $ar[2]) - (($stock->price) * $ar[1]);
+      $stock->price = $ar[2];
+      $stock->initial_val = ($stock->shares) * ($stock->price);
+      $stock->save();
+
+      $user->cash += ($ar[1] * $ar[2]);
+      $user->invest_score += ($ar[1] * $ar[2]);
+      $user->save();
     }
+  }
 }

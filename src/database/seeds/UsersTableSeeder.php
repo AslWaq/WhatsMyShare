@@ -15,31 +15,36 @@ class UsersTableSeeder extends Seeder
         'name' => 'Bruce Wayne',
         'email' => 'batman@gmail.com',
         'password' => bcrypt('test12'),
-        'cash' => 20000
+        'cash' => 20000,
+        'shopping_cart' => json_encode(array())
       ));
       $user2 = App\User::create(array(
         'name' => 'Diana Prince',
         'email' => 'wonderwoman@gmail.com',
         'password' => bcrypt('test12'),
-        'cash' => 108000.49
+        'cash' => 108000.49,
+        'shopping_cart' => json_encode(array())
       ));
       $user3 = App\User::create(array(
         'name' => 'Patrick Bateman',
         'email' => 'ampsycho@gmail.com',
         'password' => bcrypt('test12'),
-        'cash' => 2340.94
+        'cash' => 2340.94,
+        'shopping_cart' => json_encode(array())
       ));
       $user4 = App\User::create(array(
         'name' => 'Jane Macron',
         'email' => 'jmac@gmail.com',
         'password' => bcrypt('test12'),
-        'cash' => 46879.53
+        'cash' => 46879.53,
+        'shopping_cart' => json_encode(array())
       ));
       $user5 = App\User::create(array(
         'name' => 'Matt Damon',
         'email' => 'bourne@gmail.com',
         'password' => bcrypt('test12'),
-        'cash' => 185.86
+        'cash' => 185.86,
+        'shopping_cart' => json_encode(array())
       ));
 
       DB::table('portfolio')->insert([

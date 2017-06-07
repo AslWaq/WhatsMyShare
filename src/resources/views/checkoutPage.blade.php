@@ -10,7 +10,8 @@ $( document ).ready(function(){
   var i = 0;
   var pr = 0;
   for(i = 0; i<sc.length; i++){
-    ticker = sc[i];
+    ticker = JSON.parse(sc[i])[0];
+    console.log(JSON.parse(sc[i])[0]);
       $.get('get-price/' + ticker, function(data){
             $('#'+ data[0]).append(data[1]);
 
@@ -66,18 +67,19 @@ function delItem(ticker){
 <br>
 <br>
   @foreach(json_decode(Auth::user()->shopping_cart) as $item)
-					<div class="row {{$item}}">
+  @php( $item = json_decode($item))
+					<div class="row {{$item[0]}}">
 
 						<div class="col-md-6">
               <div class="col-md-6 text-right">
-							<h4 class="product-name"><strong>{{$item}}</strong></h4><h4><small id="{{ $item }}" onload="getP('{{ $item }}')"></small></h4>
+							<h4 class="product-name"><strong>{{$item[0]}}</strong></h4><h4><small id="{{ $item[0] }}" onload="getP('{{ $item[0] }}')"></small></h4>
             </div>
             <div class="col-md-6 text-right">
               <h4 class="product-name"><strong>Action</strong></h4>
 
               <form >
-                  <input type="radio" name="action{{$item}}" value="buy"> Buy
-                  <input type="radio" name="action{{$item}}" value="short"> Short
+                  <input type="radio" name="action{{$item[0]}}" value="buy"> Buy
+                  <input type="radio" name="action{{$item[0]}}" value="short"> Short
 
               </form>
 
@@ -89,16 +91,16 @@ function delItem(ticker){
                 <small>cost</small>
 							</div>
 							<div class="col-md-4">
-								<input id="action{{$item}}" type="number" min="1" class="form-control" value="1">
+								<input id="action{{$item[0]}}" type="number" min="1" class="form-control" value="1">
 
 							</div>
               <div class="col-md-2">
-								<button onclick="plOrder('{{$item}}')" type="button" class="btn btn-primary">
+								<button onclick="plOrder('{{$item[0]}}')" type="button" class="btn btn-primary">
                   Buy
 								</button>
 							</div>
 							<div class="col-md-2">
-								<button onclick="delItem('{{$item}}')" type="button" class="btn btn-link btn-xs">
+								<button onclick="delItem('{{$item[0]}}')" type="button" class="btn btn-link btn-xs">
 									<span class="glyphicon glyphicon-trash"> </span>
 								</button>
 							</div>

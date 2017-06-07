@@ -37,7 +37,7 @@
               <td><a target="_blank" href="{{ $cmpnyObj->get($cmpny[0])['link']}}">{{ $cmpnyObj->get($cmpny[0])['name']}}</a></td>
               <td>${{ $cmpny[2] }}</td>
               <td><button onClick="viewTicker('{{ $cmpny[0] }}')" class="fa fa-line-chart"></button></td>
-              <td><button onClick="addToCart('{{ $cmpny[0] }}', '{{ $cmpnyObj->get($cmpny[0])['name']}}')" class="fa fa-cart-plus"></button></td>
+              <td id="{{ $cmpny[0] }}"><button onClick="addToCart('{{ $cmpny[0] }}', '{{ $cmpnyObj->get($cmpny[0])['name']}}')" class="fa fa-cart-plus"></button></td>
           </tr>
           @endforeach
 
@@ -144,6 +144,7 @@
               $.get('add-to-cart/' + item, function(data){
                 console.log(data);
               });
+              $('#'+ticker).text("Added");
       };
       </script>
 

@@ -11,25 +11,28 @@ class TradingController extends Controller
     $this->middleware('auth');
   }
   public function viewCart(){
-    $usr = Auth::user();
-    $sc = array('FB', 'ALL', 'AAL');
-    $scj = json_encode($sc);
-    $usr->shopping_cart = $scj;
-    $usr->save();
+    //$usrCartJson = Auth::user()->shopping_cart;
+    //$sc = array('FB', 'ALL', 'AAL');
+    //$scj = json_encode($sc);
+    //$usr->shopping_cart = $scj;
+    //$usr->save();
     return view('checkoutPage');
   }
   public function addToCart(Request $req){
     $usr = Auth::user();
-    $sc =  $req->item;
-
-    $c = $usr->shopping_cart;
-    $cart = json_decode($c);
-    return $cart;
-
-    array_push($cart, $sc);
-    $usr->shopping_cart = $cart;
+    $addedItem = ($req->item);
+    //$item = json_encode($sc);
+    $usrCartJson = $usr->shopping_cart;
+    $usrCartArray = json_decode($usrCartJson);
+    //return $cart;
+    if (!in_array($addedItem, $usrCartArray)){
+      array_push($usrCartArray, $addedItem);
+    }
+    $usrCartJson = json_encode($usrCartArray);
+    $usr->shopping_cart = $usrCartJson;
     $usr->save();
-    return $cart;
+    return $usr->shopping_cart;
+
   }
 
     //

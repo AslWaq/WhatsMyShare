@@ -147,27 +147,35 @@ class CompanySearch extends Controller
      return $data[0];
 }
 
-public function get_price(Request $request){
-  $ticker = $request->ticker;
-  $date = $this->getDateString();
-  $url = 'https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?date='.$date.'&qopts.columns=ticker,close&ticker=' . $ticker .'&api_key=JxDXY6jBDscX9-pYTiov';
-  $client = new \GuzzleHttp\Client();
-  $res = $client->get(
+  public function get_price(Request $request){
+    $ticker = $request->ticker;
+    $date = $this->getDateString();
+    $url = 'https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?date='.$date.'&qopts.columns=ticker,close&ticker=' . $ticker .'&api_key=JxDXY6jBDscX9-pYTiov';
+    $client = new \GuzzleHttp\Client();
+    $res = $client->get(
       $url,
       ['auth' =>  ['api_key', 'JxDXY6jBDscX9-pYTiov', 'digest']]
-  );
+    );
 
-  $contents = $res->getBody();
-  $ar = json_decode($contents, true);
-  $data = array_values(array_values($ar));
-  return $data[0]['data'][0];
-  //return array_values((array_values($data[0]))[1])->close;
-}
+    $contents = $res->getBody();
+    $ar = json_decode($contents, true);
+    $data = array_values(array_values($ar));
+    return $data[0]['data'][0];
+    //return array_values((array_values($data[0]))[1])->close;
+  }
 
-public function testuseroutput(){
-  $id = Auth::user()->id;
-  return User::find($id)->stocks;
-}
+  public function testuseroutput(){
+    $id = Auth::user()->id;
+    return User::find($id)->stocks;
+  }
+
+  public function dailyInvestScore(){
+    $stocks = DB::table('portfolio')->distinct()->select('stock_ticker')->get();
+    return $stocks;
+    // foreach ($stocks as $stock){
+    //
+    // }
+  }
 
 
 }

@@ -67,7 +67,8 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
             'cash' => 30000,
-            'invest_score' => 0
+            'invest_score' => 30000,
+            'shopping_cart' => json_encode(array())
         ]);
     }
 }

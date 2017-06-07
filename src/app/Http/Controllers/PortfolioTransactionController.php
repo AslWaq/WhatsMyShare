@@ -39,10 +39,10 @@ class PortfolioTransactionController extends Controller
           }
 
         $user->cash -= $transTotal;
-        
+
         $cartArray = json_decode($user->shopping_cart);
         for ($x=0; $x < count($cartArray); $x++){
-          if ($cartArray[$x][0] == $ar[0]){
+          if (json_decode($cartArray[$x])[0] == $ar[0]){
             $y = $x;
           }
         }
@@ -64,11 +64,13 @@ class PortfolioTransactionController extends Controller
       return "impossible";
     }elseif($stock->shares == $ar[1]){
       $user->cash += ($ar[1] * $ar[2]);
-      $user->invest_score += ($ar[1] * $ar[2]);
+      //invest score change = (new price * shares sold) - (old price * shares sold)
+      $user->invest_score += ($ar[1] * $ar[2]) - (($stock->price) * $ar[1]);
       $user->save();
       $stock->delete();
     }else{
       $stock->shares -= $ar[1];
+      $user->invest_score += ($ar[1] * $ar[2]) - (($stock->price) * $ar[1]);
       $stock->price = $ar[2];
       $stock->initial_val = ($stock->shares) * ($stock->price);
       $stock->save();

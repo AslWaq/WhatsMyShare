@@ -18,7 +18,7 @@ $( document ).ready(function(){
 
           });
 
-    }
+    }  
 });
 
 function plOrder(ticker){

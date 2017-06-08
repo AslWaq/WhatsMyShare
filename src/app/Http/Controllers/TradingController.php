@@ -34,6 +34,22 @@ class TradingController extends Controller
     return $usr->shopping_cart;
 
   }
+  public function delItem(Request $req){
+    $user = Auth::user();
+    $ticker = $req->item;
+    $y = null;
+    $cartArray = json_decode($user->shopping_cart);
+    for ($x=0; $x < count($cartArray); $x++){
+      if (json_decode($cartArray[$x])[0] == $ticker){
+        $y = $x;
+      }
+    }
+    unset($cartArray[$y]);
+    $cart = json_encode(array_values($cartArray));
+    $user->shopping_cart = $cart;
+    $user->save();
+    return('hurray');
+  }
 
     //
 }

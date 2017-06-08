@@ -9,11 +9,19 @@ use App\User;
 use App\Http\Controllers\Controller;
 use Auth;
 use Session;
+use App\Stock;
 
 class TransactionController extends Controller
 {
+  public function __construct(){
+    $this->middleware('auth');
+  }
     public function dashboard(){
-      return view('fb_login');
+      $usr = Auth::user()->id;
+      $portfolio = User::find($usr)->stocks;
+
+      //return $portfolio;
+      return view('user_details',compact('portfolio'));
     }//
 
     public function redrect(){

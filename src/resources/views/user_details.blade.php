@@ -3,23 +3,26 @@
 @section('content')
 <!-- Container (Services Section) -->
 <div class="container-fluid text-center">
-  <h2>SERVICES</h2>
-  <h4>What we offer</h4>
+  <h2 style="color:white">My Dashboard</h2>
+
   <br>
   <div class="row">
     <div class="col-sm-3" style="background-color:black; color:white">
 
-      <h4>POWER</h4>
-      <p>Lorem ipsum dolor sit amet..</p>
+      <h4>MY ACCOUNT SUMMARY</h4>
+      <p><span>Liquid Cash Balance: </span><span style="color:green"> {{Auth::user()->cash}}</span></p>
     </div>
     <div class="col-sm-3 col-sm-offset-1" style="background-color:black; color:white">
 
-      <h4>LOVE</h4>
-      <p>Lorem ipsum dolor sit amet..</p>
+      <h4>MY PORTFOLIO</h4>
+      @foreach ($portfolio as $stock)
+          <p>{{$stock->stock_ticker}} <span>{{$stock->shares}}</span></p>
+      @endforeach
+
     </div>
     <div class="col-sm-3 col-sm-offset-1" style="background-color:black; color:white">
 
-      <h4>JOB DONE</h4>
+      <h4>MY SHORTED STOCKS</h4>
       <p>Lorem ipsum dolor sit amet..</p>
     </div>
   </div>

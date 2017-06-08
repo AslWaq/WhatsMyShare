@@ -171,11 +171,43 @@ class CompanySearch extends Controller
 
   public function dailyInvestScore(){
     $stocks = DB::table('portfolio')->distinct()->select('stock_ticker')->get();
-    return $stocks;
-    // foreach ($stocks as $stock){
-    //
-    // }
-  }
+    $tickstring = '';
+    foreach ($stocks as $tick){
+      $tickstring .= $tick->stock_ticker . ',';
+    }
+    $date = $this->getDateString();
+    $tickstring = substr($tickstring,0,-1);
 
+    $url = 'https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?date='.$date.
+    '&qopts.columns=ticker,close&ticker='.$tickstring.'&api_key=JxDXY6jBDscX9-pYTiov';
+
+    $client = new \GuzzleHttp\Client();
+    $res = $client->get(
+        $url,
+        ['auth' =>  ['api_key', 'JxDXY6jBDscX9-pYTiov', 'digest']]
+    );
+    $contents = $res->getBody();
+    $ar = json_decode($contents, true);
+    $ar2 = array_values(array_values($ar)[0]);
+    $data = $ar2[0];
+
+    $users = User::all();
+    foreach ($users as $user){
+      $total = 0;
+      if (!$user->stocks()->get() == null){
+        for ($x=0; $x<count($data); $x++){
+          $stock = $user->stocks()->where('stock_ticker', $data[$x][0])->first();
+          if (!$stock == null){
+            $total += ($stock->shares * $data[$x][1]);
+          }
+        }
+        $user->invest_score = ($user->cash) + $total;
+        $user->save();
+      }else{
+        $user->invest_score = $user->cash;
+        $user->save();
+      }
+    }
+  }
 
 }

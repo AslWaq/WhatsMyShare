@@ -18,8 +18,13 @@ $( document ).ready(function(){
 
           });
 
-    }  
+    }
 });
+
+function CalcCost(ticker){
+  var cost = $('#'+ticker).text() * $('#action'+ticker).val();
+  $('#cost'+ticker).text(cost);
+}
 
 function plOrder(ticker){
   var taction = $('input[name=action' + ticker + ']:checked').val();
@@ -36,7 +41,7 @@ function plOrder(ticker){
 
 
           });
-
+        location.reload();
     }else{
       alert(taction+stockN);
     }
@@ -50,15 +55,12 @@ function plOrder(ticker){
   }
 };
 function delItem(ticker){
-  $('.'+ticker).hide();
-  //if (taction){
-  //  alert(taction+stockN);
-  //}
-  //else{
-    //alert('taction2');
-  //$.get('buy/' + order, function(data){
-  //console.log(taction);
-  //});
+  $.get('del-item/' + ticker, function(data){
+      console.log(data);
+
+
+      });
+    location.reload();
 
 };
 </script>
@@ -91,8 +93,8 @@ function delItem(ticker){
                 <small>cost</small>
 							</div>
 							<div class="col-md-4">
-								<input id="action{{$item[0]}}" type="number" min="1" class="form-control" value="1">
-
+								<input onkeyup="CalcCost('{{$item[0]}}')"id="action{{$item[0]}}" type="number" min="1" class="form-control" value="1">
+                <small id="cost{{$item[0]}}"></small>
 							</div>
               <div class="col-md-2">
 								<button onclick="plOrder('{{$item[0]}}')" type="button" class="btn btn-primary">

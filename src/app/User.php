@@ -38,4 +38,22 @@ class User extends Authenticatable
     public function stocks(){
       return $this->hasMany('App\Stock','user_id');
     }
+
+    //retrieve shorted stocks for users
+    public function shorts(){
+      return $this->hasMany('App\Short', 'user_id');
+    }
+
+    //retrieve friends/ppl you're following
+    public function friends(){
+      return $this->belongsToMany('User','friends_users','user_id','friend_id');
+    }
+
+    public function addFriend(User $user){
+      $this->friends()->attach($user->id);
+    }
+
+    public function removeFriend(User $user){
+      $this->friends()->detach($user->id);
+    }
 }

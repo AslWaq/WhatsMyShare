@@ -10,19 +10,14 @@ use App\Http\Controllers\Controller;
 use Auth;
 use Session;
 use App\Stock;
+use App\Ticker;
 
 class TransactionController extends Controller
 {
   public function __construct(){
     $this->middleware('auth');
   }
-    public function dashboard(){
-      $usr = Auth::user()->id;
-      $portfolio = User::find($usr)->stocks;
 
-      //return $portfolio;
-      return view('user_details',compact('portfolio'));
-    }//
 
     public function redrect(){
       $fb = app(SammyK\LaravelFacebookSdk\LaravelFacebookSdk::class);
@@ -70,6 +65,17 @@ class TransactionController extends Controller
 
 
     public function stockSearch(){
-      return view('stockChoice');
+      $results = array();
+
+      //$queries = DB::table('tickers')->where('ticker', 'LIKE', '%'.$searchTerm.'%')
+      //->orWhere('name', 'LIKE', '%'.$searchTerm.'%')->take(5)->get();
+      $queries = Ticker::all();
+
+      foreach ($queries as $query){
+        array_push($results,$query->name);
+      }
+
+      $results = json_encode($results);
+      return view('stockChoice', compact('results'));
     }
 }

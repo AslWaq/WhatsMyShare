@@ -1,8 +1,36 @@
 @extends('layouts.master')
 
 @section('content')
+<link rel ="stylesheet" href="jquery-ui.min.css">
+<script src="jquery-ui.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+  var suggestions;
+$(document).ready(function(){
+    var suggestions = {!!$results!!};
+    // $("#textSearch").keyup(function(){
+    //   var keyword = $('#textSearch').val();
+    //   //console.log(keyword);
+    //   $.get('autocomplete/' + keyword, function(data){
+    //       //console.log(data);
+    //       console.log(JSON.parse(data));
+    //
+    //       });
 
 
+          $( "#textSearch" ).autocomplete({
+            source: suggestions,
+            messages: {
+              noResults: "",
+              results: function() {}
+            }
+          });
+
+    });
+
+
+</script>
   <div class="container">
       <div class="row">
           <div class="col-md-6 col-md-offset-3">
@@ -39,7 +67,7 @@
     {{ csrf_field() }}
     <label style="color: white">Search by Company Name</label>
     <div class="input-group">
-      <input name="textSearch" type="email" class="form-control" placeholder="Company Name" required>
+      <input id="textSearch" name="textSearch" type="text" class="form-control" placeholder="Company Name" required>
       <div class="input-group-btn">
         <button type="submit" class="btn btn-primary">Search</button>
       </div>

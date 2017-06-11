@@ -71,6 +71,7 @@
             <li><a href="{{ route('login') }}">Login</a></li>
             <li><a href="{{ route('register') }}">Register</a></li>
         @else
+            <li>{{Auth::User()->cash}}</li>
             @if (Auth::user()->facebook_user_id)
               <img src="https://graph.facebook.com/{{ Auth::user()->facebook_user_id }}/picture?width=70&height=70">
             @endif

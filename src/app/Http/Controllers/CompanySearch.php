@@ -37,6 +37,55 @@ class CompanySearch extends Controller
       return $dt->format('Ymd');
     }
 
+    public function dashboard(){
+      $usr = Auth::user()->id;
+      $user = User::find($usr);
+      $portfolio = $user->stocks;
+      $namearray = array();
+      $tickstring = '';
+      foreach ($portfolio as $stock){
+        $tick = Ticker::where('ticker',$stock->stock_ticker)->first();
+        array_push($namearray,$tick->name);
+        $tickstring .= $stock->stock_ticker . ',';
+      }
+      $tickstring = substr($tickstring,0,-1);
+      //return $tickstring;
+      $date = $this -> getDateString();
+      $url = 'https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?date='.$date.'&qopts.columns=ticker,close&ticker='.$tickstring.'&api_key=JxDXY6jBDscX9-pYTiov';
+
+      $client = new \GuzzleHttp\Client();
+      $res = $client->get(
+          $url,
+          ['auth' =>  ['api_key', 'JxDXY6jBDscX9-pYTiov', 'digest']]
+      );
+      $contents = $res->getBody();
+      $ar = json_decode($contents,true);
+      $data = array_values(array_values($ar)[0]);
+      //$dataagain = array_values($data[0]);
+      $closing_prices = $data[0];
+      //create a key->value array for ticker->price
+      $keys = array();
+      $values = array();
+      for ($x=0; $x < count($closing_prices); $x++){
+        array_push($keys,$closing_prices[$x][0]);
+        array_push($values,$closing_prices[$x][1]);
+      }
+      $prices = array_combine($keys,$values);
+      //end method for creating key->value array for ticker price
+      $investValue = 0;
+      foreach($portfolio as $stock){
+        $investValue += $stock->shares * ($prices{$stock->stock_ticker});
+      }
+
+      //return $prices{'AMZN'};
+
+
+
+
+      //return $portfolio;
+      return view('user_details',compact('portfolio','namearray','prices','investValue'));
+    }//
+
     public function showByCategory (Request $request){
       $cmpnyObj = Ticker::where('category',$request->categoryChoice)->get();
       //$tickers = DB::table('tickers')->select('ticker')->where('category', '=', $request->categoryChoice)->get();
@@ -67,17 +116,18 @@ class CompanySearch extends Controller
     }
 
     public function autocomplete (Request $request){
-      $searchTerm = $request->term;
+      $searchTerm = $request->key;
+      //$search_param = "{$searchTerm}%";
       $results = array();
 
       $queries = DB::table('tickers')->where('ticker', 'LIKE', '%'.$searchTerm.'%')
       ->orWhere('name', 'LIKE', '%'.$searchTerm.'%')->take(5)->get();
 
       foreach ($queries as $query){
-        $results[] = ['ticker'=>$query->ticker, 'name'=>$query->name];
+        array_push($results,$query->name);
       }
 
-      return response()->json($results);
+      return json_encode($results);
 
 
       // if (!$tickers->isEmpty()){
@@ -171,11 +221,43 @@ class CompanySearch extends Controller
 
   public function dailyInvestScore(){
     $stocks = DB::table('portfolio')->distinct()->select('stock_ticker')->get();
-    return $stocks;
-    // foreach ($stocks as $stock){
-    //
-    // }
-  }
+    $tickstring = '';
+    foreach ($stocks as $tick){
+      $tickstring .= $tick->stock_ticker . ',';
+    }
+    $date = $this->getDateString();
+    $tickstring = substr($tickstring,0,-1);
 
+    $url = 'https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?date='.$date.
+    '&qopts.columns=ticker,close&ticker='.$tickstring.'&api_key=JxDXY6jBDscX9-pYTiov';
+
+    $client = new \GuzzleHttp\Client();
+    $res = $client->get(
+        $url,
+        ['auth' =>  ['api_key', 'JxDXY6jBDscX9-pYTiov', 'digest']]
+    );
+    $contents = $res->getBody();
+    $ar = json_decode($contents, true);
+    $ar2 = array_values(array_values($ar)[0]);
+    $data = $ar2[0];
+
+    $users = User::all();
+    foreach ($users as $user){
+      $total = 0;
+      if (!$user->stocks()->get() == null){
+        for ($x=0; $x<count($data); $x++){
+          $stock = $user->stocks()->where('stock_ticker', $data[$x][0])->first();
+          if (!$stock == null){
+            $total += ($stock->shares * $data[$x][1]);
+          }
+        }
+        $user->invest_score = ($user->cash) + $total;
+        $user->save();
+      }else{
+        $user->invest_score = $user->cash;
+        $user->save();
+      }
+    }
+  }
 
 }

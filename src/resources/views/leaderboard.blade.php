@@ -13,7 +13,8 @@ function usrProf(id){
   var i;
   console.log(id);
   $.get('usr-prof/' + id, function(data){
-    console.log(data.cash());
+    console.log(data.name);
+    
       $('#port').text('portf');
   });
   //   location.reload();

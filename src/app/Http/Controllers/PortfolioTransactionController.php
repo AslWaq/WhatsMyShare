@@ -81,4 +81,9 @@ class PortfolioTransactionController extends Controller
       $user->save();
     }
   }
+  public function leaderboard(){
+    $users = User::all();
+    //return $users;
+    return view('leaderboard', compact('users'));
+  }
 }

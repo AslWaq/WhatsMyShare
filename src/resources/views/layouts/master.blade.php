@@ -49,7 +49,7 @@
   }(document, 'script', 'facebook-jssdk'));</script>
 
 
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-inverse" style="background-color: black">
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -71,6 +71,8 @@
             <li><a href="{{ route('login') }}">Login</a></li>
             <li><a href="{{ route('register') }}">Register</a></li>
         @else
+            <li>{{Auth::User()->cash}}</li>
+
             @if (Auth::user()->facebook_user_id)
               <img src="https://graph.facebook.com/{{ Auth::user()->facebook_user_id }}/picture?width=70&height=70">
             @endif

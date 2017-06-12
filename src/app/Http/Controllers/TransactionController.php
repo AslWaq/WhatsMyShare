@@ -14,9 +14,9 @@ use App\Ticker;
 
 class TransactionController extends Controller
 {
-  public function __construct(){
-    $this->middleware('auth');
-  }
+  //public function __construct(){
+    //$this->middleware('auth');
+  //}
 
 
     public function redrect(){
@@ -77,5 +77,10 @@ class TransactionController extends Controller
 
       $results = json_encode($results);
       return view('stockChoice', compact('results'));
+    }
+    public function usrProf(Request $req){
+      $curUser = User::find($req->id);
+      return $curUser;
+      //$port = user
     }
 }

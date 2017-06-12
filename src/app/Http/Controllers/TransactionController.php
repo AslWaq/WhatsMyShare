@@ -14,10 +14,6 @@ use App\Ticker;
 
 class TransactionController extends Controller
 {
-  public function __construct(){
-    $this->middleware('auth');
-  }
-
 
     public function redrect(){
       $fb = app(SammyK\LaravelFacebookSdk\LaravelFacebookSdk::class);
@@ -57,8 +53,12 @@ class TransactionController extends Controller
 
       $facebook_user = $response->getGraphUser();
       $user = User::createOrUpdateGraphNode($facebook_user);
-
+      if ($user->cash == null){
+        $user->cash = 30000;
+        $user->invest_score = 30000;
+      }
       Auth::login($user);
+      $user->save();
       return redirect('/');
 
     }

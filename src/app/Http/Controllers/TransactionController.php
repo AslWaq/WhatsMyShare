@@ -84,6 +84,7 @@ class TransactionController extends Controller
       $curUser = User::find($req->id);
       $users = User::all();
       //return $users;
+      
       return view('leaderboard', compact('users', 'curUser', 'user'));
       //$port = user
     }

@@ -84,7 +84,7 @@ $(document).ready(function() {
         <div class="col-sm-3 col-sm-offset-1" style="background-color:black; color:white">
           <h4>SHORTED STOCKS</h4>
           @foreach($curUser->shorts as $short)
-            <p>{{$stock->stock_ticker}}<span style="color: purple"> Shares: {{$stock->shares}}</span></p>
+            <p>{{$short->stock_ticker}}<span style="color: purple"> Shares: {{$short->shares}}</span></p>
 
           @endforeach
         </div>

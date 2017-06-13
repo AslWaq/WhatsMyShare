@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Carbon\Carbon;
 
 class UsersTableSeeder extends Seeder
 {
@@ -83,6 +84,8 @@ class UsersTableSeeder extends Seeder
       $user1->addFriend($user3->id);
       $user1->save();
 
+      $dt = Carbon::now()->format('Y-m-d');
+
       DB::table('portfolio')->insert([
         ['user_id' => $user1 -> id, 'stock_ticker' => 'FB', 'shares' => 100, 'price' => 151.46],
         ['user_id' => $user1 -> id, 'stock_ticker' => 'MSFT', 'shares' => 100, 'price' => 69.84],
@@ -100,6 +103,11 @@ class UsersTableSeeder extends Seeder
         ['user_id' => $user5 -> id, 'stock_ticker' => 'FB', 'shares' => 86, 'price' => 129.42],
         ['user_id' => $user5 -> id, 'stock_ticker' => 'FB', 'shares' => 86, 'price' => 129.42],
         ['user_id' => $user5 -> id, 'stock_ticker' => 'FB', 'shares' => 86, 'price' => 129.42]
+      ]);
+
+      DB::table('shorts')->insert([
+        ['user_id' => $user1 -> id, 'stock_ticker' => 'AMZN', 'shares' => 40, 'initial_price' => 563.45, 'shorted_at' => $dt],
+        ['user_id' => $user1 -> id, 'stock_ticker' => 'BAC', 'shares' => 48, 'initial_price' => 108.45, 'shorted_at' => $dt]
       ]);
 
     }

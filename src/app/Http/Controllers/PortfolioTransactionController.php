@@ -7,6 +7,7 @@ use Auth;
 use App\User;
 use App\Stock;
 use App\Ticker;
+use App\Short;
 
 class PortfolioTransactionController extends Controller
 {

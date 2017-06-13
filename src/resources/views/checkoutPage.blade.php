@@ -1,9 +1,11 @@
 @extends('layouts.master')
 
 @section('content')
+
+<h3 style="color: white" class="text-center">Your Shopping Cart</h3>
+
+<br>
 <script>
-
-
 $( document ).ready(function(){
   var sc = {!! Auth::user()->shopping_cart !!};
   var ticker;
@@ -19,8 +21,14 @@ $( document ).ready(function(){
           });
 
     }
-});
 
+
+});
+function btnE(ticker){
+  $('#button'+ticker).attr("disabled", false);
+  $('#button'+ticker).text($('input[name=action' + ticker + ']:checked').val());
+  CalcCost(ticker);
+}
 function CalcCost(ticker){
   var cost = $('#'+ticker).text() * $('#action'+ticker).val();
   $('#cost'+ticker).text(cost);
@@ -32,11 +40,12 @@ function plOrder(ticker){
   var ord = [];
   if (taction){
     if (stockN){
+
       var pr = $('#'+ticker).text();
       ord = [ticker, stockN, pr];
       var order = JSON.stringify(ord);
 
-      $.get('buy/' + order, function(data){
+      $.get(taction + '/' + order, function(data){
           console.log(data);
 
 
@@ -48,10 +57,8 @@ function plOrder(ticker){
 
   }
   else{
-    alert('taction2');
-  //$.get('buy/' + order, function(data){
-  //console.log(taction);
-  //});
+    alert('tac');
+
   }
 };
 function delItem(ticker){
@@ -80,8 +87,8 @@ function delItem(ticker){
               <h4 class="product-name"><strong>Action</strong></h4>
 
               <form >
-                  <input type="radio" name="action{{$item[0]}}" value="buy"> Buy
-                  <input type="radio" name="action{{$item[0]}}" value="short"> Short
+                  <input onclick="btnE('{{$item[0]}}')" type="radio" name="action{{$item[0]}}" value="buy"> Buy
+                  <input onclick="btnE('{{$item[0]}}')" type="radio" name="action{{$item[0]}}" value="short"> Short
 
               </form>
 
@@ -97,7 +104,7 @@ function delItem(ticker){
                 <small id="cost{{$item[0]}}"></small>
 							</div>
               <div class="col-md-2">
-								<button onclick="plOrder('{{$item[0]}}')" type="button" class="btn btn-primary">
+								<button disabled id="button{{$item[0]}}" onclick="plOrder('{{$item[0]}}')" type="button" class="btn btn-primary">
                   Buy
 								</button>
 							</div>
@@ -115,11 +122,9 @@ function delItem(ticker){
 						<div class="text-center">
 
 							<div class="col-xs-3">
-								<button type="button" class="btn btn-primary btn-sm btn-block">Update cart</button>
+								<a href="/search-stocks" type="button" class="btn btn-primary btn-sm btn-block">Search More Stocks</a>
 							</div>
-              <div class="col-xs-3">
-								<button id="jh" onload="(getP('FB'))" type="button" class="btn btn-primary btn-sm btn-block">{{ Auth::user()->shopping_cart }}</button>
-							</div>
+
 						</div>
 					</div>
 

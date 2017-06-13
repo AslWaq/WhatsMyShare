@@ -14,9 +14,6 @@ use App\Ticker;
 
 class TransactionController extends Controller
 {
-  //public function __construct(){
-    //$this->middleware('auth');
-  //}
 
 
     public function redrect(){
@@ -57,8 +54,12 @@ class TransactionController extends Controller
 
       $facebook_user = $response->getGraphUser();
       $user = User::createOrUpdateGraphNode($facebook_user);
-
+      if ($user->cash == null){
+        $user->cash = 30000;
+        $user->invest_score = 30000;
+      }
       Auth::login($user);
+      $user->save();
       return redirect('/');
 
     }
@@ -79,8 +80,12 @@ class TransactionController extends Controller
       return view('stockChoice', compact('results'));
     }
     public function usrProf(Request $req){
+      $user = Auth::user();
       $curUser = User::find($req->id);
-      return $curUser;
+      $users = User::all();
+      //return $users;
+      
+      return view('leaderboard', compact('users', 'curUser', 'user'));
       //$port = user
     }
 }

@@ -24,6 +24,7 @@ Route::get('/fbcb', 'TransactionController@fbCallback');
 Route::get('/search-stocks', 'TransactionController@stockSearch');
 Route::post('/search-cat', 'CompanySearch@showByCategory');
 Route::get('/buy/{order}', 'PortfolioTransactionController@buyStocks');
+Route::get('/short/{order}', 'PortfolioTransactionController@getShort');
 Route::get('/leaderboard', 'PortfolioTransactionController@leaderboard');
 Route::get('/leaderboard/following', 'PortfolioTransactionController@friends');
 Route::get('/autocomplete/{key}','CompanySearch@autocomplete');

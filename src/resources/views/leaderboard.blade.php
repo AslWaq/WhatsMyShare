@@ -9,6 +9,7 @@ $(document).ready(function() {
 
     } );
 } );
+
 // function usrProf(id){
 //   var i;
 //   console.log(id);
@@ -22,6 +23,7 @@ $(document).ready(function() {
 //   //   location.reload();
 //
 // };
+
 </script>
 @php($id = 1)
 <h3 class="text-center" style="color: white">LEADEROARDS</h3>

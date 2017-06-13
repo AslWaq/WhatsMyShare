@@ -65,7 +65,49 @@
     <div class="col-sm-3 col-sm-offset-1" style="background-color:black; color:white">
 
       <h4>MY SHORTED STOCKS</h4>
-      <p>Lorem ipsum dolor sit amet..</p>
+      @php ($j = 0)
+      @foreach (Auth::user()->shorts as $short)
+      <div class="container">
+          <div class="row">
+              <div class="col-sm-3 col-md-3">
+                  <div class="panel-group" id="accordion">
+                      <div class="panel panel-default">
+                          <div class="panel-heading">
+                              <h4 class="panel-title">
+                                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{$i}}">
+                                    <p>{{$short->stock_ticker}}</p></a>
+                              </h4>
+                          </div>
+                          <div id="collapse{{$i}}" class="panel-collapse collapse">
+                              <div class="panel-body">
+                                  <table class="table">
+                                    <tr>
+                                        <td><p>Shares: {{$short->shares}}</p></td>
+                                    </tr>
+                                      <tr>
+                                          <td><p>Price: <span class="label label-success">$</span></p></td>
+                                      </tr>
+                                      <tr>
+                                          <td>
+                                              <p>Gain: <span class="label label-success"></span></p>
+                                          </td>
+                                      </tr>
+
+                                      <tr>
+                                          <td>
+                                              <a href="#">Pay Back</a>
+                                          </td>
+                                      </tr>
+                                  </table>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          </div>
+            @php ($i++)
+      @endforeach
     </div>
   </div>
   <br><br>

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Short extends Model
 {
     protected $table = 'shorts';
-
+    public $timestamps = false;
     protected $fillable = [
         'user_id', 'stock_ticker', 'shares','initial_price', 'shorted_at'
     ];

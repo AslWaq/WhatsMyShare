@@ -80,8 +80,11 @@ class TransactionController extends Controller
       return view('stockChoice', compact('results'));
     }
     public function usrProf(Request $req){
+      $user = Auth::user();
       $curUser = User::find($req->id);
-      return $curUser;
+      $users = User::all();
+      //return $users;
+      return view('leaderboard', compact('users', 'curUser', 'user'));
       //$port = user
     }
 }

@@ -9,16 +9,19 @@ $(document).ready(function() {
 
     } );
 } );
-function usrProf(id){
-  var i;
-  console.log(id);
-  $.get('usr-prof/' + id, function(data){
-    console.log(data.cash());
-      $('#port').text('portf');
-  });
-  //   location.reload();
-
-};
+// function usrProf(id){
+//   var i;
+//   console.log(id);
+//   $.get('usr-prof/' + id, function(data){
+//
+//     console.log(data[1].length);
+//     for (i=0; i<data[1].length; i++){
+//       $('#port').append(data[1][i].stock_ticker);
+//     }
+//   });
+//   //   location.reload();
+//
+// };
 </script>
 @php($id = 1)
 <h3 class="text-center" style="color: white">LEADEROARDS</h3>
@@ -28,8 +31,21 @@ function usrProf(id){
     <div class="col-sm-7 sidenav pull-right" style="background-color: rgb(200,200,200); padding: 10px; margin-right: 10px">
 
       <div class="row">
-        <div class="col-sm-3 col-sm-offset-1" style="background-color:black; color:white">
-           <img class="responsive" src="https://www.w3schools.com/images/w3schools_green.jpg" alt="HTML5 Icon" style="width: 200px;height:128px;">
+        <div class="col-sm-4">
+          <img class="responsive" src="https://www.w3schools.com/images/w3schools_green.jpg" alt="HTML5 Icon" style="width: 200px;height:128px;">
+        </div>
+
+        <div class="col-sm-4">
+          {{$curUser->name}}
+        </div>
+        <div class="col-sm-4">
+          <button class="btn btn-primary pull-right" type="button" name="button">
+            @if(Auth::user()->friends->isEmpty())
+              Follow
+            @else
+              Unfollow
+            @endif
+          </button>
         </div>
       </div>
       <br>
@@ -37,24 +53,30 @@ function usrProf(id){
       <div class="row">
         <div class="col-sm-3 col-sm-offset-1" style="background-color:black; color:white">
           <h4>ACCOUNT SUMMARY</h4>
-          <p>Lorem ipsum dolor sit amet..</p>
+          <p>{{$curUser->invest_score}}</p>
+          <p>{{$curUser->cash}}</p>
         </div>
         <div class="col-sm-3 col-sm-offset-1" style="background-color:black; color:white">
           <h4>PORTFOLIO</h4>
-            <div id="port">
-                <p>Lorem ipsum dolor sit amet..</p>
-            </div>
+            @foreach($curUser->stocks as $stock)
+              <p>{{$stock->stock_ticker}}<span style="color: purple"> Shares: {{$stock->shares}}</span></p>
+
+            @endforeach
+
         </div>
         <div class="col-sm-3 col-sm-offset-1" style="background-color:black; color:white">
           <h4>SHORTED STOCKS</h4>
-          <p>Lorem ipsum dolor sit amet..</p>
+          @foreach($curUser->shorts as $short)
+            <p>{{$stock->stock_ticker}}<span style="color: purple"> Shares: {{$stock->shares}}</span></p>
+
+          @endforeach
         </div>
       </div>
     </div>
     <div class="col-sm-4" style="background-color: rgb(200,200,200); padding: 10px; margin-left: 10px">
       <ul class="nav nav-tabs" style="background-color: white; margin:0px; padding: 3px;">
-        <li class="active"><a data-toggle="tab" href="#home">Your Group</a></li>
-        <li><a data-toggle="tab" href="#menu1">Everybody</a></li>
+        <li class="active"><a href="/leaderboard">Everybody</a></li>
+        <li><a href="/leaderboard/following">Following</a></li>
       </ul>
       <br>
       <table id="example" class="display table" width="100%" cellspacing="0">
@@ -69,7 +91,7 @@ function usrProf(id){
         <tbody>
           @foreach($users as $user)
           <tr>
-            <td><a onclick="usrProf('{{$user->id}}')"id="{{$user->id}}">{{$user->name}}</a></td>
+            <td><a href="/usr-prof/{{$user->id}}" "id="{{$user->id}}">{{$user->name}}</a></td>
             <td></td>
             <td>{{$user->invest_score}}</td>
           </tr>

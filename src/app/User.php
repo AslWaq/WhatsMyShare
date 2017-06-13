@@ -46,14 +46,14 @@ class User extends Authenticatable
 
     //retrieve friends/ppl you're following
     public function friends(){
-      return $this->belongsToMany('User','friends_users','user_id','friend_id');
+      return $this->belongsToMany('App\User','friends_users','user_id','friend_id');
     }
 
-    public function addFriend(User $user){
-      $this->friends()->attach($user->id);
+    public function addFriend($id){
+      $this->friends()->attach($id);
     }
 
-    public function removeFriend(User $user){
-      $this->friends()->detach($user->id);
+    public function removeFriend($id){
+      $this->friends()->detach($id);
     }
 }

@@ -25,6 +25,7 @@ Route::get('/search-stocks', 'TransactionController@stockSearch');
 Route::post('/search-cat', 'CompanySearch@showByCategory');
 Route::get('/buy/{order}', 'PortfolioTransactionController@buyStocks');
 Route::get('/leaderboard', 'PortfolioTransactionController@leaderboard');
+Route::get('/leaderboard/following', 'PortfolioTransactionController@friends');
 Route::get('/autocomplete/{key}','CompanySearch@autocomplete');
 Route::get('/getmsg/{ticker}','CompanySearch@companyHalfYear');
 Route::get('/my-cart','TradingController@viewCart');

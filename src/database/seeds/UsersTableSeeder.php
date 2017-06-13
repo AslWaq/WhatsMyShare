@@ -79,6 +79,10 @@ class UsersTableSeeder extends Seeder
         'shopping_cart' => json_encode(array())
       ));
 
+      $user1->addFriend($user2->id);
+      $user1->addFriend($user3->id);
+      $user1->save();
+
       DB::table('portfolio')->insert([
         ['user_id' => $user1 -> id, 'stock_ticker' => 'FB', 'shares' => 100, 'price' => 151.46],
         ['user_id' => $user1 -> id, 'stock_ticker' => 'MSFT', 'shares' => 100, 'price' => 69.84],

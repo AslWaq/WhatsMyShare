@@ -83,7 +83,18 @@ class PortfolioTransactionController extends Controller
   }
   public function leaderboard(){
     $users = User::all();
+    //$user = Auth::user();
+    $curUser = $users->first();
+    //return $user->friends;
     //return $users;
-    return view('leaderboard', compact('users'));
+    return view('leaderboard', compact('users', 'curUser'));
+  }
+  public function friends(){
+    $users = Auth::user()->friends;
+    //$user = Auth::user();
+    $curUser = $users->first();
+    //return $user->friends;
+    //return $users;
+    return view('leaderboard', compact('users', 'curUser'));
   }
 }

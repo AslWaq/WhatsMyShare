@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
         DB::table('tickers')->delete();
         DB::table('users')->delete();
         DB::table('portfolio')->delete();
+        DB::table('shorts')->delete();
 
         $this->call(TickersTableSeeder::class);
         $this->call(UsersTableSeeder::class);

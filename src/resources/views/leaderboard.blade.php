@@ -24,29 +24,46 @@ $(document).ready(function() {
 // };
 </script>
 @php($id = 1)
-<h3 class="text-center" style="color: white">LEADEROARDS</h3>
+<?php
+  $isFollowed = false;
+  $friends = Auth::user()->friends;
+  if ($friends == null){
+    $isFollowed = false;
+  }else{
+    foreach ($friends as $friend){
+      if ($friend->id = $curUser->id){
+        $isFollowed = true;
+      }
+    }
+  }
+?>
+<h3 class="text-center" style="color: white">LEADERBOARDS</h3>
 <br>
 <div class="container-fluid">
   <div class="row content">
     <div class="col-sm-7 sidenav pull-right" style="background-color: rgb(200,200,200); padding: 10px; margin-right: 10px">
 
       <div class="row">
+        @if ($curUser->facebook_user_id != null)
         <div class="col-sm-4">
-          <img class="responsive" src="https://www.w3schools.com/images/w3schools_green.jpg" alt="HTML5 Icon" style="width: 200px;height:128px;">
+          <img class="responsive" src="https://graph.facebook.com/{{ $curUser->facebook_user_id }}/picture?width=200&height=128" alt="HTML5 Icon" style="width: 200px;height:128px;">
         </div>
+        @endif
 
         <div class="col-sm-4">
           {{$curUser->name}}
         </div>
+        @if ($curUser->id != Auth::user()->id)
         <div class="col-sm-4">
           <button class="btn btn-primary pull-right" type="button" name="button">
-            @if(Auth::user()->friends->isEmpty())
+            @if($isFollowed == true)
               Follow
             @else
               Unfollow
             @endif
           </button>
         </div>
+        @endif
       </div>
       <br>
       <br>

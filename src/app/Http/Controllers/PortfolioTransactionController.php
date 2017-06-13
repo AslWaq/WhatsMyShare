@@ -8,6 +8,8 @@ use App\User;
 use App\Stock;
 use App\Ticker;
 use App\Short;
+use Carbon\Carbon;
+
 
 class PortfolioTransactionController extends Controller
 {
@@ -107,12 +109,12 @@ class PortfolioTransactionController extends Controller
     $user->shopping_cart = $cart;
     $user->save();
   }else{
-    return view('dashboard'); //send back message saying you already have this stock shorted
+    //return view('dashboard'); //send back message saying you already have this stock shorted
   }
 
 
 
-    return view('dashboard');
+    //return view('dashboard');
   }
 
   //pay the Short back

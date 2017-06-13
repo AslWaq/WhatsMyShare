@@ -62,7 +62,7 @@
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
         <li><a href="search-stocks">Stock Trading</a></li>
-        <li><a href="#"></a></li>
+        <li><a href="leaderboard">Leaderboard</a></li>
         <li><a href="my-cart">My Cart</a></li>
         <li><a href="#">Contact</a></li>
       </ul>

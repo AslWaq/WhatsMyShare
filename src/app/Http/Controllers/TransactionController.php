@@ -58,6 +58,9 @@ class TransactionController extends Controller
         $user->cash = 30000;
         $user->invest_score = 30000;
       }
+      if($user->shopping_cart == null){
+        $user->shopping_cart = json_encode(array());
+      }
       Auth::login($user);
       $user->save();
       return redirect('/');
@@ -84,8 +87,8 @@ class TransactionController extends Controller
       $curUser = User::find($req->id);
       $users = User::all();
       //return $users;
-      
-      return view('leaderboard', compact('users', 'curUser', 'user'));
+      Session(['curUser'=>$curUser]);
+      //return view('leaderboard', compact('users', 'curUser', 'user'));
       //$port = user
     }
 }

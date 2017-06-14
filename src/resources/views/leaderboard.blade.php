@@ -2,7 +2,7 @@
 
 @section('content')
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
-@php($id = 1)
+@php($curUser = session('curUser'))
 <script>
 $(document).ready(function() {
     $('#example').DataTable( {
@@ -10,19 +10,19 @@ $(document).ready(function() {
     } );
 } );
 
-// function usrProf(id){
-//   var i;
-//   console.log(id);
-//   $.get('usr-prof/' + id, function(data){
-//
-//     console.log(data[1].length);
-//     for (i=0; i<data[1].length; i++){
-//       $('#port').append(data[1][i].stock_ticker);
-//     }
-//   });
-//   //   location.reload();
-//
-// };
+function usrProf(id){
+  var i;
+  console.log(id);
+  $.get('usr-prof/' + id, function(data){
+
+    console.log(data[1].length);
+    for (i=0; i<data[1].length; i++){
+      $('#port').append(data[1][i].stock_ticker);
+    }
+  });
+     location.reload();
+
+};
 
 </script>
 @php($id = 1)
@@ -72,6 +72,7 @@ $(document).ready(function() {
       <div class="row">
         <div class="col-sm-3 col-sm-offset-1" style="background-color:black; color:white">
           <h4>ACCOUNT SUMMARY</h4>
+
           <p>{{$curUser->invest_score}}</p>
           <p>{{$curUser->cash}}</p>
         </div>
@@ -110,7 +111,7 @@ $(document).ready(function() {
         <tbody>
           @foreach($users as $user)
           <tr>
-            <td><a href="/usr-prof/{{$user->id}}" "id="{{$user->id}}">{{$user->name}}</a></td>
+            <td><a onclick="usrProf('{{$user->id}}')" id="{{$user->id}}">{{$user->name}}</a></td>
             <td></td>
             <td>{{$user->invest_score}}</td>
           </tr>

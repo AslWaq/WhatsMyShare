@@ -6,7 +6,8 @@
 <script>
 $(document).ready(function() {
     $('#example').DataTable( {
-
+      ordering: false,
+      "bSort": false
     } );
 } );
 
@@ -26,21 +27,9 @@ $(document).ready(function() {
 
 </script>
 @php($id = 1)
-<?php
-  $isFollowed = false;
-  $friends = Auth::user()->friends;
-  if ($friends == null){
-    $isFollowed = false;
-  }else{
-    foreach ($friends as $friend){
-      if ($friend->id = $curUser->id){
-        $isFollowed = true;
-      }
-    }
-  }
-?>
 <h3 class="text-center" style="color: white">LEADERBOARDS</h3>
 <br>
+@if (!($users->isEmpty()))
 <div class="container-fluid">
   <div class="row content">
     <div class="col-sm-7 sidenav pull-right" style="background-color: rgb(200,200,200); padding: 10px; margin-right: 10px">
@@ -55,13 +44,14 @@ $(document).ready(function() {
         <div class="col-sm-4">
           {{$curUser->name}}
         </div>
+
         @if ($curUser->id != Auth::user()->id)
         <div class="col-sm-4">
           <button class="btn btn-primary pull-right" type="button" name="button">
-            @if($isFollowed == true)
-              Follow
-            @else
+            @if($isFriend)
               Unfollow
+            @else
+              Follow
             @endif
           </button>
         </div>
@@ -93,10 +83,15 @@ $(document).ready(function() {
       </div>
     </div>
     <div class="col-sm-4" style="background-color: rgb(200,200,200); padding: 10px; margin-left: 10px">
-      <ul class="nav nav-tabs" style="background-color: white; margin:0px; padding: 3px;">
-        <li class="active"><a href="/leaderboard">Everybody</a></li>
-        <li><a href="/leaderboard/following">Following</a></li>
-      </ul>
+
+        @if($fflag)
+          <li><a href="/leaderboard">Everybody</a></li>
+          <li class="active"><a href="/leaderboard/following">Following</a></li>
+        @else
+          <li class="active"><a href="/leaderboard">Everybody</a></li>
+          <li><a href="/leaderboard/following">Following</a></li>
+        @endif
+
       <br>
       <table id="example" class="display table" width="100%" cellspacing="0">
         <thead>
@@ -110,7 +105,11 @@ $(document).ready(function() {
         <tbody>
           @foreach($users as $user)
           <tr>
-            <td><a href="/usr-prof/{{$user->id}}" "id="{{$user->id}}">{{$user->name}}</a></td>
+            @if($fflag)
+              <td><a href="/leaderboard/following/usr-prof/{{$user->pivot->friend_id}}" id="{{$user->pivot}}">{{$user->name}}</a></td>
+            @else
+              <td><a href="/leaderboard/usr-prof/{{$user->id}}" id="{{$user->id}}">{{$user->name}}</a></td>
+            @endif
             <td></td>
             <td>{{$user->invest_score}}</td>
           </tr>
@@ -131,4 +130,7 @@ $(document).ready(function() {
 
   </div>
 </div>
+@else
+<h4 class="text-center">Get some friends</h4>
+@endif
 @endsection

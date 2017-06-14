@@ -58,6 +58,9 @@ class TransactionController extends Controller
         $user->cash = 30000;
         $user->invest_score = 30000;
       }
+      if($user->shopping_cart == null){
+        $user->shopping_cart = json_encode(array());
+      }
       Auth::login($user);
       $user->save();
       return redirect('/');
@@ -82,10 +85,35 @@ class TransactionController extends Controller
     public function usrProf(Request $req){
       $user = Auth::user();
       $curUser = User::find($req->id);
-      $users = User::all();
+      $users = User::orderBy('invest_score', 'desc')->get();
+      $isFriend = false;
+      $friends = $user->friends;
+      if ($friends != null){
+        foreach ($friends as $friend){
+          if ($friend->id == $curUser->id){
+            $isFriend = true;
+          }
+        }
+      }
       //return $users;
-      
-      return view('leaderboard', compact('users', 'curUser', 'user'));
+      $fflag = false;
+      return view('leaderboard', compact('users', 'curUser','isFriend', 'fflag'));
+      //$port = user
+    }
+
+    public function friendProf(Request $req){
+      $user = Auth::user();
+      $curUser = User::find($req->id);
+      $users = $user->friends;
+      $isFriend = false;
+      foreach ($users as $friend){
+        if ($friend->id == $curUser->id){
+          $isFriend = true;
+        }
+      }
+      //return $users;
+      $fflag = true;
+      return view('leaderboard', compact('users', 'curUser', 'isFriend', 'fflag'));
       //$port = user
     }
 }

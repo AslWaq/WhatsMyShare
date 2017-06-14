@@ -46,6 +46,7 @@ $(document).ready(function() {
         </div>
 
         @if ($curUser->id != Auth::user()->id)
+        @if ($isFBFriend == false)
         <div class="col-sm-4">
           <button class="btn btn-primary pull-right" type="button" name="button">
             @if($isFriend)
@@ -55,6 +56,7 @@ $(document).ready(function() {
             @endif
           </button>
         </div>
+        @endif
         @endif
       </div>
       <br>

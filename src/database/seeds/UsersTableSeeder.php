@@ -82,6 +82,7 @@ class UsersTableSeeder extends Seeder
 
       $user1->addFriend($user2->id);
       $user1->addFriend($user3->id);
+      $user1->addFriend($user6->id);
       $user1->save();
 
       $dt = Carbon::now()->format('Y-m-d');

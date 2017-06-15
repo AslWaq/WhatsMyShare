@@ -132,22 +132,40 @@ class PortfolioTransactionController extends Controller
 
   }
   public function leaderboard(){
-    $users = User::all();
+    $users = User::orderBy('invest_score', 'desc')->get();
     //$user = Auth::user();
-    if($request->session)
     $curUser = $users->first();
-    session(['curUser' => $curUser]);
-    //return $user->friends;
-    //return $users;
-    return view('leaderboard', compact('users'));
+
+    $isFriend = false;
+    $friends = Auth::user()->friends;
+    if ($friends != null){
+      foreach ($friends as $friend){
+        if ($friend->id == $curUser->id){
+          $isFriend = true;
+        }
+      }
+    }
+    $fflag = false;
+    return view('leaderboard', compact('users', 'curUser', 'isFriend', 'fflag'));
+
   }
   public function friends(){
     $users = Auth::user()->friends;
     //$user = Auth::user();
     $curUser = $users->first();
+
+    $isFriend = false;
+    foreach ($users as $friend){
+      if ($friend->id == $curUser->id){
+          $isFriend = true;
+        }
+      }
+
     //return $user->friends;
     //return $users;
-    Session(['curUser' => $curUser]);
-    return view('leaderboard', compact('users'));
+
+    $fflag = true;
+    return view('leaderboard', compact('users', 'curUser', 'isFriend', 'fflag'));
+
   }
 }

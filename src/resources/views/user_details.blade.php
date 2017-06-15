@@ -1,6 +1,30 @@
 @extends('layouts.master')
 
 @section('content')
+<script>
+$( document ).ready(function(){
+  $('#'+ticker).change(
+    $('#button'+ticker).attr("disabled", false);
+  )
+});
+function sellShares(ticker, price){
+  var shares = $('#'+ticker).val();
+  var ord = [];
+  ord = [ticker, shares, price];
+  var order = JSON.stringify(ord);
+
+  $.get('sell/' + order, function(data){
+        console.log(data);
+
+
+    });
+    location.reload();
+
+
+
+
+};
+</script>
 <!-- Container (Services Section) -->
 <div class="container-fluid ">
   <h2 style="color:white">My Dashboard</h2>
@@ -47,7 +71,35 @@
 
                                       <tr>
                                           <td>
-                                              <a href="#">Sell</a>
+
+                                              <!-- Trigger the modal with a button -->
+                                              <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal{{$stock->stock_ticker}}">Sell</button>
+
+                                              <!-- Modal -->
+                                              <div id="myModal{{$stock->stock_ticker}}" class="modal fade" role="dialog">
+                                                <div class="modal-dialog">
+
+                                                  <!-- Modal content-->
+                                                  <div class="modal-content"  style="color: black">
+                                                    <div class="modal-header">
+                                                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                      <h4 class="modal-title">Sell {{$namearray[$i]}} Shares</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                      <p>How many shares do you want to sell?</p>
+                                                      <form class="form-inline">
+
+                                                        <input class="form-control" name="stockSelling" type="number">
+                                                        <span><a id="button{{$stock->stock_ticker}}" onclick="sellShares('{{$stock->stock_ticker}}','$prices[$stock->stock_ticker]}}')" class="btn btn-primary" disabled>Sell</a></span>
+                                                      </form>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                    </div>
+                                                  </div>
+
+                                                </div>
+                                              </div>
                                           </td>
                                       </tr>
                                   </table>

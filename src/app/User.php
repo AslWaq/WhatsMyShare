@@ -46,7 +46,7 @@ class User extends Authenticatable
 
     //retrieve friends/ppl you're following
     public function friends(){
-      return $this->belongsToMany('App\User','friends_users','user_id','friend_id');
+      return $this->belongsToMany('App\User','friends_users','user_id','friend_id')->orderBy('invest_score','desc');
     }
 
     public function addFriend($id){

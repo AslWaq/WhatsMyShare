@@ -57,13 +57,13 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="dashboard">Home</a>
+      <a class="navbar-brand" href="/dashboard">Home</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li><a href="search-stocks">Stock Trading</a></li>
-        <li><a href="leaderboard">Leaderboard</a></li>
-        <li><a href="my-cart">My Cart</a></li>
+        <li><a href="/search-stocks">Stock Trading</a></li>
+        <li><a href="/leaderboard">Leaderboard</a></li>
+        <li><a href="/my-cart">My Cart</a></li>
         <li><a href="#">Contact</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">

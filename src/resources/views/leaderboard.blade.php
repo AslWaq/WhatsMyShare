@@ -2,11 +2,12 @@
 
 @section('content')
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
-@php($curUser = session('curUser'))
+
 <script>
 $(document).ready(function() {
     $('#example').DataTable( {
-
+      ordering: false,
+      "bSort": false
     } );
 } );
 
@@ -26,42 +27,33 @@ function usrProf(id){
 
 </script>
 @php($id = 1)
-<?php
-  $isFollowed = false;
-  $friends = Auth::user()->friends;
-  if ($friends == null){
-    $isFollowed = false;
-  }else{
-    foreach ($friends as $friend){
-      if ($friend->id = $curUser->id){
-        $isFollowed = true;
-      }
-    }
-  }
-?>
 <h3 class="text-center" style="color: white">LEADERBOARDS</h3>
 <br>
+@if (!($users->isEmpty()))
 <div class="container-fluid">
   <div class="row content">
-    <div class="col-sm-7 sidenav pull-right" style="background-color: rgb(200,200,200); padding: 10px; margin-right: 10px">
+    <div class="col-sm-7 sidenav pull-right" style="background-color: rgb(200,200,200); padding: 10px">
 
       <div class="row">
-        @if ($curUser->facebook_user_id != null)
+
         <div class="col-sm-4">
+          @if ($curUser->facebook_user_id != null)
           <img class="responsive" src="https://graph.facebook.com/{{ $curUser->facebook_user_id }}/picture?width=200&height=128" alt="HTML5 Icon" style="width: 200px;height:128px;">
+          @endif
         </div>
-        @endif
+
 
         <div class="col-sm-4">
           {{$curUser->name}}
         </div>
+
         @if ($curUser->id != Auth::user()->id)
         <div class="col-sm-4">
           <button class="btn btn-primary pull-right" type="button" name="button">
-            @if($isFollowed == true)
-              Follow
-            @else
+            @if($isFriend)
               Unfollow
+            @else
+              Follow
             @endif
           </button>
         </div>
@@ -70,13 +62,13 @@ function usrProf(id){
       <br>
       <br>
       <div class="row">
-        <div class="col-sm-3 col-sm-offset-1" style="background-color:black; color:white">
+        <div class="col-sm-3 col-sm-offset-1" style="background-color:white; color:black">
           <h4>ACCOUNT SUMMARY</h4>
 
           <p>{{$curUser->invest_score}}</p>
           <p>{{$curUser->cash}}</p>
         </div>
-        <div class="col-sm-3 col-sm-offset-1" style="background-color:black; color:white">
+        <div class="col-sm-3 col-sm-offset-1" style="background-color:white; color:black">
           <h4>PORTFOLIO</h4>
             @foreach($curUser->stocks as $stock)
               <p>{{$stock->stock_ticker}}<span style="color: purple"> Shares: {{$stock->shares}}</span></p>
@@ -84,7 +76,7 @@ function usrProf(id){
             @endforeach
 
         </div>
-        <div class="col-sm-3 col-sm-offset-1" style="background-color:black; color:white">
+        <div class="col-sm-3 col-sm-offset-1" style="background-color: white; color:black">
           <h4>SHORTED STOCKS</h4>
           @foreach($curUser->shorts as $short)
             <p>{{$short->stock_ticker}}<span style="color: purple"> Shares: {{$short->shares}}</span></p>
@@ -94,10 +86,15 @@ function usrProf(id){
       </div>
     </div>
     <div class="col-sm-4" style="background-color: rgb(200,200,200); padding: 10px; margin-left: 10px">
-      <ul class="nav nav-tabs" style="background-color: white; margin:0px; padding: 3px;">
-        <li class="active"><a href="/leaderboard">Everybody</a></li>
-        <li><a href="/leaderboard/following">Following</a></li>
-      </ul>
+
+        @if($fflag)
+          <li><a href="/leaderboard">Everybody</a></li>
+          <li class="active"><a href="/leaderboard/following">Following</a></li>
+        @else
+          <li class="active"><a href="/leaderboard">Everybody</a></li>
+          <li><a href="/leaderboard/following">Following</a></li>
+        @endif
+
       <br>
       <table id="example" class="display table" width="100%" cellspacing="0">
         <thead>
@@ -111,7 +108,13 @@ function usrProf(id){
         <tbody>
           @foreach($users as $user)
           <tr>
-            <td><a onclick="usrProf('{{$user->id}}')" id="{{$user->id}}">{{$user->name}}</a></td>
+
+            @if($fflag)
+              <td><a href="/leaderboard/following/usr-prof/{{$user->pivot->friend_id}}" id="{{$user->pivot}}">{{$user->name}}</a></td>
+            @else
+              <td><a href="/leaderboard/usr-prof/{{$user->id}}" id="{{$user->id}}">{{$user->name}}</a></td>
+            @endif
+
             <td></td>
             <td>{{$user->invest_score}}</td>
           </tr>
@@ -132,4 +135,7 @@ function usrProf(id){
 
   </div>
 </div>
+@else
+<h4 class="text-center">Get some friends</h4>
+@endif
 @endsection

@@ -66,35 +66,46 @@ class TransactionController extends Controller
       if($user->shopping_cart == null){
         $user->shopping_cart = json_encode(array());
       }
-      if ($user->friends->isEmpty()){
-        for ($i = 0; $i < $facebookFriendsCount; $i++){
-          $fID = User::where('facebook_user_id', $friends[$i]->id)->first()->id;
-          $user->addFriend($fID, true);
-        }
-      }else{
-        $larFriends = $user->friends;
-        for ($i = 0;$i < $facebookFriendsCount; $i++){
-          $dontBother = true;
-          foreach ($larFriends as $larFriend){
-            if (!$larFriend->facebook_user_id){
-              continue;
-            }elseif ($larFriend->facebook_user_id == $friends[$i]->id){
-              if(!$larFriend->pivot->facebook_friend){
-                $user->removeFriend($larFriend->id);
-                $user->addFriend($larFriend->id,true);
-              }
-            }else {
-              $dontBother = false;
+      if ($facebookFriendsCount > 0){
+        if ($user->friends->isEmpty()){
+          for ($i = 0; $i < $facebookFriendsCount; $i++){
+            $fbFriend = User::where('facebook_user_id', $friends[$i]->id)->first();
+            if ($fbFriend){
+            $fID = $fbFriend->id;
+            $user->addFriend($fID, true);
             }
           }
-          if(!dontBother){
-            $fID = User::where('facebook_user_id', $friends[$i]->id)->first()->id;
-            $user->addFriend($fID, true);
+        }else{
+          for ($i = 0;$i < $facebookFriendsCount; $i++){
+            $user = User::find($user->id);
+            $larFriends = $user->friends;
+            $dontBother = true;
+            foreach ($larFriends as $larFriend){
+              if (!$larFriend->facebook_user_id){
+                continue;
+              }elseif ($larFriend->facebook_user_id == $friends[$i]->id){
+                if($larFriend->pivot->facebook_friend == false){
+                  $user->removeFriend($larFriend->id);
+                  $user = User::find($user->id);
+                  $user->addFriend($larFriend->id,true);
+                }else{
+                  continue;
+                }
+              }else {
+                $dontBother = false;
+              }
+            }
+            if($dontBother == false){
+              $fbFriend = User::where('facebook_user_id', $friends[$i]->id)->first();
+              if($fbFriend){
+                $user->addFriend($fbFriend->id, true);
+              }
+            }
           }
         }
       }
-      Auth::login($user);
       $user->save();
+      Auth::login($user);
       return redirect('/');
 
     }

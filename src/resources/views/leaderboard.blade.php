@@ -2,7 +2,7 @@
 
 @section('content')
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
-@php($id = 1)
+
 <script>
 $(document).ready(function() {
     $('#example').DataTable( {
@@ -11,19 +11,19 @@ $(document).ready(function() {
     } );
 } );
 
-// function usrProf(id){
-//   var i;
-//   console.log(id);
-//   $.get('usr-prof/' + id, function(data){
-//
-//     console.log(data[1].length);
-//     for (i=0; i<data[1].length; i++){
-//       $('#port').append(data[1][i].stock_ticker);
-//     }
-//   });
-//   //   location.reload();
-//
-// };
+function usrProf(id){
+  var i;
+  console.log(id);
+  $.get('usr-prof/' + id, function(data){
+
+    console.log(data[1].length);
+    for (i=0; i<data[1].length; i++){
+      $('#port').append(data[1][i].stock_ticker);
+    }
+  });
+     location.reload();
+
+};
 
 </script>
 @php($id = 1)
@@ -32,7 +32,7 @@ $(document).ready(function() {
 @if (!($users->isEmpty()))
 <div class="container-fluid">
   <div class="row content">
-    <div class="col-sm-7 sidenav pull-right" style="background-color: rgb(200,200,200); padding: 10px; margin-right: 10px">
+    <div class="col-sm-7 sidenav pull-right" style="background-color: rgb(200,200,200); padding: 10px">
 
       <div class="row">
         <div class="col-sm-4">
@@ -68,12 +68,13 @@ $(document).ready(function() {
       <br>
       <br>
       <div class="row">
-        <div class="col-sm-3 col-sm-offset-1" style="background-color:black; color:white">
+        <div class="col-sm-3 col-sm-offset-1" style="background-color:white; color:black">
           <h4>ACCOUNT SUMMARY</h4>
+
           <p>{{$curUser->invest_score}}</p>
           <p>{{$curUser->cash}}</p>
         </div>
-        <div class="col-sm-3 col-sm-offset-1" style="background-color:black; color:white">
+        <div class="col-sm-3 col-sm-offset-1" style="background-color:white; color:black">
           <h4>PORTFOLIO</h4>
             @foreach($curUser->stocks as $stock)
               <p>{{$stock->stock_ticker}}<span style="color: purple"> Shares: {{$stock->shares}}</span></p>
@@ -81,7 +82,7 @@ $(document).ready(function() {
             @endforeach
 
         </div>
-        <div class="col-sm-3 col-sm-offset-1" style="background-color:black; color:white">
+        <div class="col-sm-3 col-sm-offset-1" style="background-color: white; color:black">
           <h4>SHORTED STOCKS</h4>
           @foreach($curUser->shorts as $short)
             <p>{{$short->stock_ticker}}<span style="color: purple"> Shares: {{$short->shares}}</span></p>
@@ -113,11 +114,13 @@ $(document).ready(function() {
         <tbody>
           @foreach($users as $user)
           <tr>
+
             @if($fflag)
               <td><a href="/leaderboard/following/usr-prof/{{$user->pivot->friend_id}}" id="{{$user->pivot}}">{{$user->name}}</a></td>
             @else
               <td><a href="/leaderboard/usr-prof/{{$user->id}}" id="{{$user->id}}">{{$user->name}}</a></td>
             @endif
+
             <td></td>
             <td>{{$user->invest_score}}</td>
           </tr>

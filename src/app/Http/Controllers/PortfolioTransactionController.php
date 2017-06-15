@@ -135,6 +135,7 @@ class PortfolioTransactionController extends Controller
     $users = User::orderBy('invest_score', 'desc')->get();
     //$user = Auth::user();
     $curUser = $users->first();
+
     $isFriend = false;
     $isFBFriend = false;
     $friends = Auth::user()->friends()->orderBy('invest_score','desc')->get();
@@ -168,7 +169,13 @@ class PortfolioTransactionController extends Controller
 
     //return $user->friends;
     //return $users;
+
     $fflag = true;
+<<<<<<< HEAD
     return view('leaderboard', compact('users', 'curUser', 'isFriend', 'isFBFriend', 'fflag'));
+=======
+    return view('leaderboard', compact('users', 'curUser', 'isFriend', 'fflag'));
+
+>>>>>>> master
   }
 }

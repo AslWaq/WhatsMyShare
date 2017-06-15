@@ -163,6 +163,7 @@ class TransactionController extends Controller
         }
       }
       //return $users;
+
       $fflag = true;
       return view('leaderboard', compact('users', 'curUser', 'isFriend','isFBFriend', 'fflag'));
       //$port = user

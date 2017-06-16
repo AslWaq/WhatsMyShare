@@ -16,6 +16,7 @@ class CreateFriendsTable extends Migration
         Schema::create('friends_users', function (Blueprint $table) {
             $table->integer('user_id')->unsigned();
             $table->integer('friend_id')->unsigned();
+            $table->boolean('facebook_friend')->nullable();
 
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('friend_id')->references('id')->on('users');

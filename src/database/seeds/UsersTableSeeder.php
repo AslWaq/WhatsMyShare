@@ -80,9 +80,9 @@ class UsersTableSeeder extends Seeder
         'shopping_cart' => json_encode(array())
       ));
 
-      $user1->addFriend($user2->id);
-      $user1->addFriend($user3->id);
-      $user1->addFriend($user6->id);
+      $user1->addFriend($user2->id, false);
+      $user1->addFriend($user3->id, false);
+      $user1->addFriend($user6->id, false);
       $user1->save();
 
       $dt = Carbon::now()->format('Y-m-d');

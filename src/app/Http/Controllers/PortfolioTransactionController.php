@@ -59,11 +59,12 @@ class PortfolioTransactionController extends Controller
       //return view('dashboard');
   }
 
-  public function sellStock(Request $request){
+  public function sellStocks(Request $request){
     $user = User::find(Auth::user()->id);
-    $ar = json_decode($request->stockChoice);
+    $ar = json_decode($request->order);
 
     $stock = Stock::where('user_id', '=', $user->id)->where('stock_ticker','=',$ar[0])->first();
+  
     if ($stock->shares < $ar[1]){//if trying to sell more than you own
       return "impossible";
     }elseif($stock->shares == $ar[1]){

@@ -2,13 +2,18 @@
 
 @section('content')
 <script>
-$( document ).ready(function(){
-  $('#'+ticker).change(
+function activateBtn(ticker){
+  console.log($('#shares'+ticker).val());
+  if(($('#shares'+ticker).val()) > 0){
+    console.log($('#shares'+ticker).val() > 1);
     $('#button'+ticker).attr("disabled", false);
-  )
-});
+  }else{
+    $('#button'+ticker).attr("disabled", true);
+  }
+};
+
 function sellShares(ticker, price){
-  var shares = $('#'+ticker).val();
+  var shares = $('#shares'+ticker).val();
   var ord = [];
   ord = [ticker, shares, price];
   var order = JSON.stringify(ord);
@@ -89,8 +94,8 @@ function sellShares(ticker, price){
                                                       <p>How many shares do you want to sell?</p>
                                                       <form class="form-inline">
 
-                                                        <input class="form-control" name="stockSelling" type="number">
-                                                        <span><a id="button{{$stock->stock_ticker}}" onclick="sellShares('{{$stock->stock_ticker}}','$prices[$stock->stock_ticker]}}')" class="btn btn-primary" disabled>Sell</a></span>
+                                                        <input id="shares{{$stock->stock_ticker}}" onkeyup="activateBtn('{{$stock->stock_ticker}}')" onchange="activateBtn('{{$stock->stock_ticker}}')" class="form-control" name="stockSelling" type="number">
+                                                        <span><a id="button{{$stock->stock_ticker}}" onclick="sellShares('{{$stock->stock_ticker}}','{{$prices[$stock->stock_ticker]}}')" class="btn btn-primary" disabled>Sell</a></span>
                                                       </form>
                                                     </div>
                                                     <div class="modal-footer">

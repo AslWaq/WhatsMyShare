@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use App\User;
 
 class TradingController extends Controller
 {
@@ -49,6 +50,17 @@ class TradingController extends Controller
     $user->shopping_cart = $cart;
     $user->save();
     return('hurray');
+  }
+
+  public function friendorFoe(Request $request){
+    // should be a boolean value true or false
+    $follow = $request->following;
+    $user = Auth::user();
+    if($follow){
+      $user->addFriend($request->followID,false);
+    }else{
+      $user->removeFriend($request->followID);
+    }
   }
 
     //

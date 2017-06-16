@@ -35,7 +35,6 @@ function usrProf(id){
     <div class="col-sm-7 sidenav pull-right" style="background-color: rgb(200,200,200); padding: 10px">
 
       <div class="row">
-
         <div class="col-sm-4">
           @if ($curUser->facebook_user_id != null)
           <img class="responsive" src="https://graph.facebook.com/{{ $curUser->facebook_user_id }}/picture?width=200&height=128" alt="HTML5 Icon" style="width: 200px;height:128px;">
@@ -47,8 +46,13 @@ function usrProf(id){
           {{$curUser->name}}
         </div>
 
-        @if ($curUser->id != Auth::user()->id)
+
         <div class="col-sm-4">
+        @if ($isFBFriend == true)
+        <i class="fa fa-facebook-square pull-right" style="color:blue;font-size:16px"> Friend</i>
+        @endif
+        @if ($curUser->id != Auth::user()->id)
+          @if ($isFBFriend == false)
           <button class="btn btn-primary pull-right" type="button" name="button">
             @if($isFriend)
               Unfollow
@@ -56,8 +60,10 @@ function usrProf(id){
               Follow
             @endif
           </button>
-        </div>
+          @endif
         @endif
+        </div>
+
       </div>
       <br>
       <br>

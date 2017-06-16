@@ -33,6 +33,7 @@ Route::get('/getmsg/{ticker}','CompanySearch@companyHalfYear');
 Route::get('/my-cart','TradingController@viewCart');
 Route::get('/get-price/{ticker}','CompanySearch@get_price');
 Route::get('/add-to-cart/{item}','TradingController@addToCart');
+Route::get('/change-fr-status/{id}/{status}','TradingController@friendOrFoe');
 Route::get('/testdaily', 'CompanySearch@dailyInvestScore');
 Route::get('/del-item/{item}','TradingController@delItem');
 Route::get('/leaderboard/usr-prof/{id}', 'TransactionController@usrProf');

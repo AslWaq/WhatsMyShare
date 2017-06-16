@@ -54,12 +54,15 @@ class TradingController extends Controller
 
   public function friendorFoe(Request $request){
     // should be a boolean value true or false
-    $follow = $request->following;
+    //return $request->id;
+    $follow = $request->status;
     $user = Auth::user();
-    if($follow){
-      $user->addFriend($request->followID,false);
+    if(strcmp($follow, "Follow")==0){
+      $user->addFriend($request->id,false);
+      return "Unfollow";
     }else{
-      $user->removeFriend($request->followID);
+      $user->removeFriend($request->id);
+      return "Follow";
     }
   }
 

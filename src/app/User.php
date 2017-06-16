@@ -34,6 +34,9 @@ class User extends Authenticatable
         'password', 'remember_token', 'access_token'
     ];
 
+    public function scores(){
+      return $this->hasMany('App\Score', 'user_id');
+    }
     //retrieve stocks from portfolio for users
     public function stocks(){
       return $this->hasMany('App\Stock','user_id');

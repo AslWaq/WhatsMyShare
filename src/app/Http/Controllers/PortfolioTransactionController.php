@@ -69,7 +69,6 @@ class PortfolioTransactionController extends Controller
     }elseif($stock->shares == $ar[1]){
       $user->cash += ($ar[1] * $ar[2]);
       //invest score change = (new price * shares sold) - (old price * shares sold)
-      $user->invest_score += ($ar[1] * $ar[2]);
       $user->save();
       $stock->delete();
     }else{
@@ -79,7 +78,6 @@ class PortfolioTransactionController extends Controller
       $stock->save();
 
       $user->cash += ($ar[1] * $ar[2]);
-      $user->invest_score += ($ar[1] * $ar[2]);
       $user->save();
     }
   }
@@ -123,14 +121,17 @@ class PortfolioTransactionController extends Controller
     $user = Auth::user();
     $ar = json_decode($request->order);
     $short = Short::where('user_id',$user->id)->where('stock_ticker',$ar[0])->first();
-    $user->cash -= (($short->shares) * $ar[1]);
-    $user->invest_score += (($short->shares) * $ar[1]) - (($short->shares) * ($short->initial_price));
+    $gainOrLoss = (($short->shares) * $ar[1]) - (($short->shares) * ($short->initial_price));
+    if ($gainOrLoss > 0){
+      $user->cash -= $gainOrLoss;
+    }else{
+      $user->cash -= $gainOrLoss;
+    }
+    $user->invest_score -= $gainOrLoss;
     $user->save();
     $short->delete();
-
-
-
   }
+  
   public function leaderboard(){
     $users = User::orderBy('invest_score', 'desc')->get();
     //$user = Auth::user();
@@ -171,11 +172,7 @@ class PortfolioTransactionController extends Controller
     //return $users;
 
     $fflag = true;
-<<<<<<< HEAD
     return view('leaderboard', compact('users', 'curUser', 'isFriend', 'isFBFriend', 'fflag'));
-=======
-    return view('leaderboard', compact('users', 'curUser', 'isFriend', 'fflag'));
 
->>>>>>> master
   }
 }

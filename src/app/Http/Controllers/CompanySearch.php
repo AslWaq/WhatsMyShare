@@ -1,4 +1,4 @@
-ph<?php
+<?php
 
 namespace App\Http\Controllers;
 
@@ -52,29 +52,31 @@ class CompanySearch extends Controller
       //return $tickstring;
       $date = $this -> getDateString();
       $url = 'https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?date='.$date.'&qopts.columns=ticker,close&ticker='.$tickstring.'&api_key=JxDXY6jBDscX9-pYTiov';
-
-      $client = new \GuzzleHttp\Client();
-      $res = $client->get(
-          $url,
-          ['auth' =>  ['api_key', 'JxDXY6jBDscX9-pYTiov', 'digest']]
-      );
-      $contents = $res->getBody();
-      $ar = json_decode($contents,true);
-      $data = array_values(array_values($ar)[0]);
-      //$dataagain = array_values($data[0]);
-      $closing_prices = $data[0];
-      //create a key->value array for ticker->price
-      $keys = array();
-      $values = array();
-      for ($x=0; $x < count($closing_prices); $x++){
-        array_push($keys,$closing_prices[$x][0]);
-        array_push($values,$closing_prices[$x][1]);
-      }
-      $prices = array_combine($keys,$values);
-      //end method for creating key->value array for ticker price
       $investValue = 0;
-      foreach($portfolio as $stock){
-        $investValue += $stock->shares * ($prices{$stock->stock_ticker});
+      $prices = array();
+      if (!$portfolio->isEmpty()){
+        $client = new \GuzzleHttp\Client();
+        $res = $client->get(
+            $url,
+            ['auth' =>  ['api_key', 'JxDXY6jBDscX9-pYTiov', 'digest']]
+        );
+        $contents = $res->getBody();
+        $ar = json_decode($contents,true);
+        $data = array_values(array_values($ar)[0]);
+        $closing_prices = $data[0];
+        //create a key->value array for ticker->price
+        $keys = array();
+        $values = array();
+        for ($x=0; $x < count($closing_prices); $x++){
+          array_push($keys,$closing_prices[$x][0]);
+          array_push($values,$closing_prices[$x][1]);
+        }
+        $prices = array_combine($keys,$values);
+        //end method for creating key->value array for ticker price
+        $investValue = 0;
+        foreach($portfolio as $stock){
+          $investValue += $stock->shares * ($prices{$stock->stock_ticker});
+        }
       }
 
       //return $prices{'AMZN'};
@@ -240,6 +242,7 @@ class CompanySearch extends Controller
     $ar = json_decode($contents, true);
     $ar2 = array_values(array_values($ar)[0]);
     $data = $ar2[0];
+    $dt = Carbon::now()->format('Y-m-d');
 
     $users = User::all();
     foreach ($users as $user){
@@ -253,9 +256,11 @@ class CompanySearch extends Controller
         }
         $user->invest_score = ($user->cash) + $total;
         $user->save();
+        DB::table('scores')->insert([$user->id,$user->invest_score,$dt]);
       }else{
         $user->invest_score = $user->cash;
         $user->save();
+        DB::table('scores')->insert([$user->id,$user->invest_score,$dt]);
       }
     }
   }

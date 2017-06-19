@@ -18,7 +18,10 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
-        'password' => $password ?: $password = bcrypt('secret'),
-        'remember_token' => str_random(10),
+        'password' => $password ?: $password = bcrypt('test12'),
+        'shopping_cart' => json_encode(array()),
+        'cash' => $faker->randomFloat($nbMaxDecimals = 2, $min = 0, $max = 200000),
+        'invest_score' => $faker->randomFloat($nbMaxDecimals = 2, $min = 0, $max = 1000000),
+        'remember_token' => str_random(10)
     ];
 });

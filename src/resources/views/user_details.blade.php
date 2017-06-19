@@ -31,14 +31,14 @@ function sellShares(ticker, price){
 };
 </script>
 <!-- Container (Services Section) -->
-<div class="container-fluid ">
+<div class="container-fluid " style="margin: auto; width: 96%">
   <h2 style="color:white">My Dashboard</h2>
 
   <br>
   <div class="row">
     <div class="col-sm-3" style="background-color:black; color:white">
 
-      <h4>MY ACCOUNT SUMMARY</h4>
+      <h4 style="background-color: grey; padding: 5px;">MY ACCOUNT SUMMARY</h4>
       <p><span>Liquid Cash Balance: </span><span style="color:green">${{Auth::user()->cash}}</span></p>
       <p><span>Portfolio Value: </span><span style="color:green">${{$investValue}}</span></p>
       <p><span>Invest Score: </span><span style="color:green">${{$investValue + Auth::user()->cash}}</span></p>

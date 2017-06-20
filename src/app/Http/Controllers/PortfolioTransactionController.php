@@ -64,7 +64,7 @@ class PortfolioTransactionController extends Controller
     $ar = json_decode($request->order);
 
     $stock = Stock::where('user_id', '=', $user->id)->where('stock_ticker','=',$ar[0])->first();
-  
+
     if ($stock->shares < $ar[1]){//if trying to sell more than you own
       return "impossible";
     }elseif($stock->shares == $ar[1]){
@@ -120,13 +120,17 @@ class PortfolioTransactionController extends Controller
   public function buyShort(Request $request){
     //buy the shares, lose cash. but invest score may still go up if you bought at lower price than you shorted
     $user = Auth::user();
-    $ar = json_decode($request->order);
-    $short = Short::where('user_id',$user->id)->where('stock_ticker',$ar[0])->first();
-    $gainOrLoss = (($short->shares) * $ar[1]) - (($short->shares) * ($short->initial_price));
+
+    //$ar = json_decode($request->order);
+    $short = Short::where('user_id',$user->id)->where('stock_ticker',$request->ticker)->first();
+  //return $short->shares;
+    $gainOrLoss = (($short->shares) * $request->price) - (($short->shares) * ($short->initial_price));
     $user->cash -= $gainOrLoss;
     $user->invest_score -= $gainOrLoss;
     $user->save();
     $short->delete();
+    $request->session()->flash('transMsg', 'You paid back '. $request->ticker . ' shorts. Your gain from these shorts is: $'. $gainOrLoss);
+    return redirect('/dashboard');
   }
 
   public function leaderboard(){

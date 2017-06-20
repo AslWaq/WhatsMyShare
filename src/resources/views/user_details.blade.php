@@ -32,9 +32,15 @@ function sellShares(ticker, price){
 </script>
 <!-- Container (Services Section) -->
 <div class="container-fluid " style="margin: auto; width: 96%">
-  <h2 style="color:white">My Dashboard</h2>
+  <h2 class="text-center"style="color:white">My Dashboard</h2>
+  @if (Session::has('transMsg'))
+    <div style="max-width: 250px" class="alert alert-info pull-right">
+      {{Session::pull('transMsg')}}
+    </div>
+  @endif
 
   <br>
+
   <div class="row">
     <div class="col-sm-3" style="background-color:black; color:white">
 
@@ -142,17 +148,40 @@ function sellShares(ticker, price){
                                         <td><p>Shares: {{$short->shares}}</p></td>
                                     </tr>
                                       <tr>
-                                          <td><p>Price: <span class="label label-success">$</span></p></td>
+                                          <td><p>Price: <span class="label label-success">$ {{$shortsArray[$short->stock_ticker][0]}}</span></p></td>
                                       </tr>
                                       <tr>
                                           <td>
-                                              <p>Gain: <span class="label label-success"></span></p>
+                                              <p>Gain: <span class="label label-success">{{$shortsArray[$short->stock_ticker][1]}}%</span></p>
                                           </td>
                                       </tr>
 
                                       <tr>
                                           <td>
-                                              <a href="#">Pay Back</a>
+                                              <a type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal{{$short->stock_ticker}}">Pay Back</a>
+                                              <!-- Modal -->
+                                              <div id="myModal{{$short->stock_ticker}}" class="modal fade" role="dialog">
+                                                <div class="modal-dialog">
+
+                                                  <!-- Modal content-->
+                                                  <div class="modal-content"  style="color: black">
+                                                    <div class="modal-header">
+                                                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                      <h4 class="modal-title">Pay back {{$short->stock_ticker}} Shares</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                      <p>Are you sure you want to pay back these stocks?</p>
+                                                      <p>The gains or losses you have made on these short will be reflected on your cash balance</p>
+
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                      <a href="/payback-shorts/{{$short->stock_ticker}}/{{$shortsArray[$short->stock_ticker][0]}} type="button" class="btn btn-primary">Continue</a>
+                                                      <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Cancel</button>
+                                                    </div>
+                                                  </div>
+
+                                                </div>
+                                              </div>
                                           </td>
                                       </tr>
                                   </table>

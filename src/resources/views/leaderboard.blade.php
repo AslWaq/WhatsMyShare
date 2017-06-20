@@ -24,6 +24,15 @@ function usrProf(id){
      location.reload();
 
 };
+function changeFrdStatus(id){
+  var st = $('#fol'+id).text();
+  console.log(id);
+  $.get('/change-fr-status/' + id+ '/' + st, function(data){
+    $('#fol'+id).text(data);
+    console.log(data);
+  });
+
+};
 
 </script>
 @php($id = 1)
@@ -53,13 +62,13 @@ function usrProf(id){
         @endif
         @if ($curUser->id != Auth::user()->id)
           @if ($isFBFriend == false)
-          <button class="btn btn-primary pull-right" type="button" name="button">
+          <a id="fol{{$curUser->id}}" onclick="changeFrdStatus('{{$curUser->id}}')" class="btn btn-primary pull-right" type="button" name="button">
             @if($isFriend)
               Unfollow
             @else
               Follow
             @endif
-          </button>
+          </a>
           @endif
         @endif
         </div>

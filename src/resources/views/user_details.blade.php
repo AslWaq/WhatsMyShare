@@ -40,8 +40,8 @@ function sellShares(ticker, price){
 
       <h4>MY ACCOUNT SUMMARY</h4>
       <p><span>Liquid Cash Balance: </span><span style="color:green">${{Auth::user()->cash}}</span></p>
-      <p><span>Portfolio Value: </span><span style="color:green">${{$investValue}}</span></p>
-      <p><span>Invest Score: </span><span style="color:green">${{$investValue + Auth::user()->cash}}</span></p>
+      <!--<p><span>Portfolio Value: </span><span style="color:green">${{$investValue}}</span></p>-->
+      <p><span>Invest Score: </span><span style="color:green">${{Auth::user()->invest_score}}</span></p>
     </div>
     <div class="col-sm-3 col-sm-offset-1" style="background-color:black; color:white">
 

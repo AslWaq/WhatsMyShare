@@ -8,6 +8,7 @@ use DateTime;
 use App\Ticker;
 use Auth;
 use App\User;
+use App\Short;
 use DB;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
@@ -39,23 +40,26 @@ class CompanySearch extends Controller
 
     public function dashboard(){
       $usr = Auth::user()->id;
-      $user = User::find($usr);
+      $user = Auth::user();
       $portfolio = $user->stocks;
       $namearray = array();
       $tickstring = '';
-      foreach ($portfolio as $stock){
-        $tick = Ticker::where('ticker',$stock->stock_ticker)->first();
-        array_push($namearray,$tick->name);
-        $tickstring .= $stock->stock_ticker . ',';
+      if (!$portfolio->isEmpty()){
+        foreach ($portfolio as $stock){
+          $tick = Ticker::where('ticker',$stock->stock_ticker)->first();
+          array_push($namearray,$tick->name);
+          $tickstring .= $stock->stock_ticker . ',';
+        }
+        $tickstring = substr($tickstring,0,-1);
       }
-      $tickstring = substr($tickstring,0,-1);
       //return $tickstring;
       $date = $this -> getDateString();
       $url = 'https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?date='.$date.'&qopts.columns=ticker,close&ticker='.$tickstring.'&api_key=JxDXY6jBDscX9-pYTiov';
       $investValue = 0;
       $prices = array();
+      $client = new \GuzzleHttp\Client();
+      //get the portfolio and the current prices
       if (!$portfolio->isEmpty()){
-        $client = new \GuzzleHttp\Client();
         $res = $client->get(
             $url,
             ['auth' =>  ['api_key', 'JxDXY6jBDscX9-pYTiov', 'digest']]
@@ -79,13 +83,45 @@ class CompanySearch extends Controller
         }
       }
 
+      $shorts = $user->shorts;
+      $shortKeys = array();
+      $shortValues = array();
+      $shortString = '';
+      $shortsArray = array();
+      if (!$shorts->isEmpty()){
+        foreach ($shorts as $short){
+          $shortString .= $short->stock_ticker . ',';
+        }
+        $shortString = substr($shortString,0,-1);
+        $shortUrl = 'https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?date='
+        .$date.'&qopts.columns=ticker,close&ticker='.$shortString.'&api_key=JxDXY6jBDscX9-pYTiov';
+        $response = $client->get(
+            $shortUrl,
+            ['auth' =>  ['api_key', 'JxDXY6jBDscX9-pYTiov', 'digest']]
+        );
+        $contents = $response->getBody();
+        $shortAr = json_decode($contents,true);
+        $shortData = array_values(array_values($shortAr)[0]);
+        $shortPrices = $shortData[0];
+
+        for ($y=0; $y < count($shortPrices); $y++){
+          $short = Short::where('stock_ticker',$shortPrices[$y][0])->first();
+          $gainOrLoss = (($short->shares * $shortPrices[$y][1]) - ($short->shares * $short->initial_price))/($short->shares * $short->initial_price);
+          $gainOrLoss = round(-1 * 100 * $gainOrLoss);
+          $shortKeys[]=$shortPrices[$y][0];
+          $shortValues[]=array($shortPrices[$y][1],$gainOrLoss);
+        }
+        $shortsArray = array_combine($shortKeys,$shortValues);
+      }
+
+
       //return $prices{'AMZN'};
 
 
 
 
       //return $portfolio;
-      return view('user_details',compact('portfolio','namearray','prices','investValue'));
+      return view('user_details',compact('portfolio','namearray','prices','investValue', 'shortsArray'));
     }//
 
     public function showByCategory (Request $request){

@@ -2,8 +2,13 @@
 
 @section('content')
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+@php ($chartData = array())
+@php ($chartLabels = array())
+@foreach ($curUser->scores as $score)
+  @php (array_push($chartData, $score->score))
+  @php (array_push($chartLabels, $score->date))
 
-
+@endforeach
 <script>
 $(document).ready(function() {
     $('#example').DataTable( {
@@ -37,16 +42,17 @@ function changeFrdStatus(id){
 //------------------------------------------
 $(document).ready(function() {
 var labl = '{!!$curUser->name!!}';
-var scores = '{!!$curUser->scores!!}'
+var scores = JSON.parse('{!!json_encode($chartData)!!}');
+var usrLabels = JSON.parse('{!!json_encode($chartLabels)!!}');
 console.log(scores);
 var ctx = document.getElementById("myChart").getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'line',
     data: {
-        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+        labels: usrLabels,
         datasets: [{
             label: labl,
-            data: [12, 19, 3, 5, 2, 3],
+            data: scores,
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)'
             ],

@@ -38,3 +38,4 @@ Route::get('/testdaily', 'CompanySearch@dailyInvestScore');
 Route::get('/del-item/{item}','TradingController@delItem');
 Route::get('/leaderboard/usr-prof/{id}', 'TransactionController@usrProf');
 Route::get('/leaderboard/following/usr-prof/{id}', 'TransactionController@friendProf');
+Route::get('/payback-shorts/{ticker}/{price}', 'PortfolioTransactionController@buyShort');

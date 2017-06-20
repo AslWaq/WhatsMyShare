@@ -2,7 +2,13 @@
 
 @section('content')
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+@php ($chartData = array())
+@php ($chartLabels = array())
+@foreach ($curUser->scores as $score)
+  @php (array_push($chartData, $score->score))
+  @php (array_push($chartLabels, $score->date))
 
+@endforeach
 <script>
 $(document).ready(function() {
     $('#example').DataTable( {
@@ -33,6 +39,41 @@ function changeFrdStatus(id){
   });
 
 };
+//------------------------------------------
+$(document).ready(function() {
+var labl = '{!!$curUser->name!!}';
+var scores = JSON.parse('{!!json_encode($chartData)!!}');
+var usrLabels = JSON.parse('{!!json_encode($chartLabels)!!}');
+console.log(scores);
+var ctx = document.getElementById("myChart").getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: usrLabels,
+        datasets: [{
+            label: labl,
+            data: scores,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+});
+//------------------------------------
 
 </script>
 @php($id = 1)
@@ -99,6 +140,7 @@ function changeFrdStatus(id){
           @endforeach
         </div>
       </div>
+      <canvas style="background-color: rgb(200,200,200)" id="myChart"></canvas>
     </div>
     <div class="col-sm-4" style="background-color: rgb(200,200,200); padding: 10px; margin-left: 10px">
 

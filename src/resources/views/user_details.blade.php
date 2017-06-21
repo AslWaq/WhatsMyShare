@@ -1,6 +1,11 @@
 @extends('layouts.master')
 
 @section('content')
+<style>
+.panel-default > .panel-heading {
+    background-color:#000;
+}
+</style>
 <script>
 function activateBtn(ticker){
   console.log($('#shares'+ticker).val());
@@ -32,7 +37,7 @@ function sellShares(ticker, price){
 </script>
 <!-- Container (Services Section) -->
 <div class="container-fluid " style="margin: auto; width: 96%">
-  <h2 class="text-center"style="color:white">My Dashboard</h2>
+  <h2 class="text-center"style="color:black">My Dashboard</h2>
   @if (Session::has('transMsg'))
     <div style="max-width: 250px" class="alert alert-info pull-right">
       {{Session::pull('transMsg')}}
@@ -42,16 +47,16 @@ function sellShares(ticker, price){
   <br>
 
   <div class="row">
-    <div class="col-sm-3" style="background-color:black; color:white">
+    <div class="col-sm-3" style="background-color: white; border-color: black; border-style: solid; border-width: 0.5px">
 
-      <h4 style="background-color: grey; padding: 5px;">MY ACCOUNT SUMMARY</h4>
+      <h4 >My Account Summary</h4>
       <p><span>Liquid Cash Balance: </span><span style="color:green">${{Auth::user()->cash}}</span></p>
       <!--<p><span>Portfolio Value: </span><span style="color:green">${{$investValue}}</span></p>-->
       <p><span>Invest Score: </span><span style="color:green">${{Auth::user()->invest_score}}</span></p>
     </div>
-    <div class="col-sm-3 col-sm-offset-1" style="background-color:black; color:white">
+    <div class="col-sm-3 col-sm-offset-1" style="background-color: white; border-color: black; border-style: solid; border-width: 0.5px">
 
-      <h4>MY PORTFOLIO</h4>
+      <h4>My Portfolio</h4>
       @php ($i = 0)
       @foreach ($portfolio as $stock)
       <div class="container">
@@ -125,9 +130,9 @@ function sellShares(ticker, price){
       @endforeach
 
     </div>
-    <div class="col-sm-3 col-sm-offset-1" style="background-color:black; color:white">
+    <div class="col-sm-3 col-sm-offset-1" style="background-color: white; border-color: black; border-style: solid; border-width: 0.5px">
 
-      <h4>MY SHORTED STOCKS</h4>
+      <h4>My Shorted Stocks</h4>
       @php ($j = 0)
       @foreach (Auth::user()->shorts as $short)
       <div class="container">

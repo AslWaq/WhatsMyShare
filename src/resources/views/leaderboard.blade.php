@@ -2,6 +2,9 @@
 
 @section('content')
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+<h3 class="text-center" style="color: black">LEADERBOARDS</h3>
+<br>
+@if (!($users->isEmpty()))
 @php ($chartData = array())
 @php ($chartLabels = array())
 @foreach ($curUser->scores as $score)
@@ -9,6 +12,7 @@
   @php (array_push($chartLabels, $score->date))
 
 @endforeach
+
 <script>
 $(document).ready(function() {
     $('#example').DataTable( {
@@ -77,9 +81,8 @@ var myChart = new Chart(ctx, {
 
 </script>
 @php($id = 1)
-<h3 class="text-center" style="color: white">LEADERBOARDS</h3>
-<br>
-@if (!($users->isEmpty()))
+
+
 <div class="container-fluid">
   <div class="row content">
     <div class="col-sm-7 sidenav pull-right" style="background-color: rgb(200,200,200); padding: 10px">
@@ -145,11 +148,19 @@ var myChart = new Chart(ctx, {
     <div class="col-sm-4" style="background-color: rgb(200,200,200); padding: 10px; margin-left: 10px">
 
         @if($fflag)
+        <ul class="nav nav-tabs">
           <li><a href="/leaderboard">Everybody</a></li>
           <li class="active"><a href="/leaderboard/following">Following</a></li>
+        </ul>
+          <!--<li><a href="/leaderboard">Everybody</a></li>
+          <li class="active"><a href="/leaderboard/following">Following</a></li>-->
         @else
+        <ul class="nav nav-tabs">
           <li class="active"><a href="/leaderboard">Everybody</a></li>
           <li><a href="/leaderboard/following">Following</a></li>
+        </ul>
+          <!--<li class="active"><a href="/leaderboard">Everybody</a></li>
+          <li><a href="/leaderboard/following">Following</a></li>-->
         @endif
 
       <br>

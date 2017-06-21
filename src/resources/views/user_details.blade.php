@@ -32,12 +32,14 @@ function sellShares(ticker, price){
 </script>
 <!-- Container (Services Section) -->
 <div class="container-fluid " style="margin: auto; width: 96%">
+  <div class="row">
   <h2 class="text-center"style="color:white">My Dashboard</h2>
   @if (Session::has('transMsg'))
     <div style="max-width: 250px" class="alert alert-info pull-right">
       {{Session::pull('transMsg')}}
     </div>
   @endif
+</div>
 
   <br>
 

@@ -5,6 +5,7 @@ namespace App\Console;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use App\User;
+use App\Score;
 use Carbon\Carbon;
 use DB;
 
@@ -29,7 +30,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
-        $schedule->call(function () {
+        $schedule->call(function (){
           $dt = Carbon::now();
           //check if saturday or sunday and move back to friday
           if ($dt->dayOfWeek == Carbon::SATURDAY){
@@ -127,12 +128,15 @@ class Kernel extends ConsoleKernel
               $user->save();
             }
           }
-          foreach ($users as $user){
-            DB::table('scores')->insert(['user_id'=>$user->id, 'score'=>$user->invest_score, 'date'=>$dte]);
+          $todayScores = Score::where('date','=', $dte)->get();
+          if ($todayScores->isEmpty()){
+            foreach ($users as $user){
+              DB::table('scores')->insert(['user_id'=>$user->id, 'score'=>$user->invest_score, 'date'=>$dte]);
+            }
           }
 
 
-        })->weekdays()->at('00:30');
+        })->weekdays();
     }
 
     /**

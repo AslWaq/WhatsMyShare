@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Bootstrap Example</title>
+  <title>WhatsMyShare</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -17,8 +17,23 @@
     .navbar {
       margin-bottom: 50px;
       border-radius: 0;
+      color: rgb(200,200,200);
 
-      color: blue;
+    }
+    .glyphicon.glyphicon-shopping-cart{
+    font-size: 20px;
+    }
+    .navbar-inverse {
+    padding-right: 0px;
+    margin-right: -14px;
+    }
+    .navbar-inverse .navbar-brand {
+      color: rgb(180,180,180);
+      font-weight: bolder;
+    }
+    .navbar-inverse .navbar-nav > li > a {
+      color: rgb(180,180,180);
+      font-weight: bolder;
     }
 
     /* Add a gray background color and some padding to the footer */
@@ -27,14 +42,16 @@
       padding: 25px;
     }
     body {
-      background-color: rgba(100,100,100,1);
+      background-color: white;
     }
-    .panel .panel-heading{
-      background-color: rgba(160,160,180,1);
+    .third {
+      float: left;
+      width: 100%;
+      width: 33.3333%;
+      min-width: 400px;
+      padding: 0 8px;
     }
-    .panel{
-      background-color: rgba(180,180,150,1);
-    }
+
   </style>
 </head>
 <body>
@@ -48,54 +65,64 @@
   }(document, 'script', 'facebook-jssdk'));</script>
 
 
-<nav class="navbar navbar-inverse" style="background-color: black">
+<nav class="navbar navbar-inverse" style="background-color:rgb(58,58,58)">
+
   <div class="container-fluid">
+
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
+      <a><img class="logo pull-left" style="margin-right: 20px" src="wmslogo.png" width="80" height="50"></a>
       <a class="navbar-brand" href="/dashboard">Home</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
         <li><a href="/search-stocks">Stock Trading</a></li>
         <li><a href="/leaderboard">Leaderboard</a></li>
-        <li><a href="/my-cart">My Cart</a></li>
-        <li><a href="#">Contact</a></li>
+          @if (!Auth::guest())
+            <li><a href="/my-cart"><span class="glyphicon glyphicon-shopping-cart "></span>{{ count(json_decode(Auth::user()->shopping_cart,true)) }}</a></li>
+          @endif
       </ul>
       <ul class="nav navbar-nav navbar-right">
         @if (Auth::guest())
             <li><a href="{{ route('login') }}">Login</a></li>
             <li><a href="{{ route('register') }}">Register</a></li>
         @else
-            <li>{{Auth::User()->cash}}</li>
 
-            @if (Auth::user()->facebook_user_id)
-              <img src="https://graph.facebook.com/{{ Auth::user()->facebook_user_id }}/picture?width=70&height=70">
-            @endif
-            <li class="dropdown">
+            <li style="padding-right: 20px">Cash: <span class="label label-primary">${{Auth::User()->cash}}</span></li>
+            <li style="padding-right: 100px">Invest Score: <span class="label label-primary">${{Auth::user()->invest_score}}</span></li>
+
+
+
+
+          <!--  <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
 
                     {{ Auth::user()->name }} <span class="caret"></span>
 
                 </a>
-
-                <ul class="dropdown-menu" role="menu">
-                    <li>
+              -->
+                <!--<ul class="dropdown-menu" role="menu">-->
+                    <!--<li>-->
+                      {{ Auth::user()->name }}
                         <a href="{{ route('logout') }}"
                             onclick="event.preventDefault();
                                      document.getElementById('logout-form').submit();">
-                            Logout
+                            <span class="glyphicon glyphicon-log-out" style="padding-left: 5px"></span>
                         </a>
 
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             {{ csrf_field() }}
                         </form>
-                    </li>
-                </ul>
-            </li>
+                        @if (Auth::user()->facebook_user_id)
+                          <img src="https://graph.facebook.com/{{ Auth::user()->facebook_user_id }}/picture?width=70&height=50">
+                        @endif
+                    <!--</li>-->
+                <!--</ul>-->
+
         @endif
       </ul>
     </div>

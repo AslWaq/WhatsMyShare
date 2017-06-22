@@ -6,7 +6,6 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
-  var suggestions;
 $(document).ready(function(){
     var suggestions = {!!$results!!};
     // $("#textSearch").keyup(function(){
@@ -20,14 +19,10 @@ $(document).ready(function(){
 
 
           $( "#textSearch" ).autocomplete({
-            source: suggestions,
-            messages: {
-              noResults: "",
-              results: function() {}
-            }
+            source: suggestions
           });
 
-    });
+});
 
 
 </script>
@@ -67,7 +62,7 @@ $(document).ready(function(){
     {{ csrf_field() }}
     <label style="color: white">Search by Company Name</label>
     <div class="input-group">
-      <input id="textSearch" name="textSearch" type="text" class="form-control" placeholder="Company Name" required>
+      <input id="textSearch" name="textSearch" type="text" class="form-control" required>
       <div class="input-group-btn">
         <button type="submit" class="btn btn-primary">Search</button>
       </div>

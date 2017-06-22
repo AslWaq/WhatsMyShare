@@ -300,5 +300,35 @@ class CompanySearch extends Controller
       }
     }
   }
+  public function searchByName(Request $request){
+    $name = $request->textSearch;
+    //return $name;
+    $searchedStock = Ticker::where('name', $name)->first();
+    //return $searchedStock;
+    $cat = Ticker::where('category',$searchedStock->category)->get();
+
+    $tickstring = '';
+    foreach ($cat as $tick){
+      $tickstring .= $tick->ticker . ',';
+    }
+    //return $tickstring;
+    $date = $this -> getDateString();
+    $tickstring = substr($tickstring,0,-1);
+    $url = 'https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?date='.$date.'&qopts.columns=ticker,date,close&ticker='.$tickstring.'&api_key=JxDXY6jBDscX9-pYTiov';
+
+    $client = new \GuzzleHttp\Client();
+    $res = $client->get(
+        $url,
+        ['auth' =>  ['api_key', 'JxDXY6jBDscX9-pYTiov', 'digest']]
+    );
+    $contents = $res->getBody();
+    $ar = json_decode($contents, true);
+    $data = array_values(array_values($ar)[0]);
+    //$dataagain = array_values($data[0]);
+    $category_closing_prices = $data[0];
+    $cmpnyObj = $cat->keyBy('ticker');
+    return view('searchResults', compact('category_closing_prices','cmpnyObj'));
+
+  }
 
 }

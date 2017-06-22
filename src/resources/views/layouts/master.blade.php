@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Bootstrap Example</title>
+  <title>WhatsMyShare</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -44,12 +44,14 @@
     body {
       background-color: white;
     }
-    .panel .panel-heading{
-      background-color: rgba(160,160,180,1);
+    .third {
+      float: left;
+      width: 100%;
+      width: 33.3333%;
+      min-width: 400px;
+      padding: 0 8px;
     }
-    .panel{
-      background-color: rgba(180,180,150,1);
-    }
+
   </style>
 </head>
 <body>
@@ -64,13 +66,16 @@
 
 
 <nav class="navbar navbar-inverse" style="background-color:rgb(58,58,58)">
+
   <div class="container-fluid">
+
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
+      <a><img class="logo pull-left" style="margin-right: 20px" src="wmslogo.png" width="80" height="50"></a>
       <a class="navbar-brand" href="/dashboard">Home</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">

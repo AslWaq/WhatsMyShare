@@ -36,8 +36,9 @@ function usrProf(id){
 };
 function changeFrdStatus(id){
   var st = $('#fol'+id).text();
-  console.log(id);
-  $.get('/change-fr-status/' + id+ '/' + st, function(data){
+  var status = st.trim();
+  console.log(status);
+  $.get('/change-fr-status/' + id+ '/' + status, function(data){
     $('#fol'+id).text(data);
     console.log(data);
   });

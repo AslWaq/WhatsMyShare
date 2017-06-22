@@ -3,7 +3,7 @@
 @section('content')
 <style>
 .panel-default > .panel-heading {
-    background-color:#000;
+    background-color: rgb(200,200,255);
 }
 </style>
 <script>
@@ -37,25 +37,37 @@ function sellShares(ticker, price){
 </script>
 <!-- Container (Services Section) -->
 <div class="container-fluid " style="margin: auto; width: 96%">
-  <h2 class="text-center"style="color:black">My Dashboard</h2>
-  @if (Session::has('transMsg'))
-    <div style="max-width: 250px" class="alert alert-info pull-right">
-      {{Session::pull('transMsg')}}
-    </div>
-  @endif
+  <div class="row">
+    <h2 class="text-center">My Dashboard</h2>
+
+    @if (Session::has('transMsg'))
+      <div style="max-width: 250px" class="alert alert-info pull-right">
+        {{Session::pull('transMsg')}}
+      </div>
+    @endif
+  </div>
 
   <br>
 
   <div class="row">
-    <div class="col-sm-3" style="background-color: white; border-color: black; border-style: solid; border-width: 0.5px">
-
+    <!--div class="col-sm-3" style="background-color: white; border-color: black; border-style: solid; border-width: 0.5px"-->
+      <div class="third">
+        <div class="panel panel-primary">
+          <div class="panel-heading">My Portfolio</div>
+          <div class="panel-body">
       <h4 >My Account Summary</h4>
       <p><span>Liquid Cash Balance: </span><span style="color:green">${{Auth::user()->cash}}</span></p>
       <!--<p><span>Portfolio Value: </span><span style="color:green">${{$investValue}}</span></p>-->
       <p><span>Invest Score: </span><span style="color:green">${{Auth::user()->invest_score}}</span></p>
     </div>
-    <div class="col-sm-3 col-sm-offset-1" style="background-color: white; border-color: black; border-style: solid; border-width: 0.5px">
+  </div>
+</div>
+    <!--div class="col-sm-3 col-sm-offset-1" style="background-color: white; border-color: black; border-style: solid; border-width: 0.5px"-->
 
+      <div class="third">
+        <div class="panel panel-primary">
+          <div class="panel-heading">My Portfolio</div>
+          <div class="panel-body">
       <h4>My Portfolio</h4>
       @php ($i = 0)
       @foreach ($portfolio as $stock)
@@ -128,10 +140,14 @@ function sellShares(ticker, price){
           </div>
             @php ($i++)
       @endforeach
-
     </div>
-    <div class="col-sm-3 col-sm-offset-1" style="background-color: white; border-color: black; border-style: solid; border-width: 0.5px">
-
+  </div>
+    </div>
+    <!--div class="col-sm-3 col-sm-offset-1" style="background-color: white; border-color: black; border-style: solid; border-width: 0.5px"-->
+      <div class="third">
+        <div class="panel panel-primary">
+          <div class="panel-heading">My Shorted Stocks</div>
+          <div class="panel-body">
       <h4>My Shorted Stocks</h4>
       @php ($j = 0)
       @foreach (Auth::user()->shorts as $short)
@@ -180,7 +196,7 @@ function sellShares(ticker, price){
 
                                                     </div>
                                                     <div class="modal-footer">
-                                                      <a href="/payback-shorts/{{$short->stock_ticker}}/{{$shortsArray[$short->stock_ticker][0]}} type="button" class="btn btn-primary">Continue</a>
+                                                      <a href="/payback-shorts/{{$short->stock_ticker}}/{{$shortsArray[$short->stock_ticker][0]}}" type="button" class="btn btn-primary">Continue</a>
                                                       <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Cancel</button>
                                                     </div>
                                                   </div>
@@ -200,6 +216,8 @@ function sellShares(ticker, price){
             @php ($i++)
       @endforeach
     </div>
+  </div>
+</div>
   </div>
   <br><br>
 

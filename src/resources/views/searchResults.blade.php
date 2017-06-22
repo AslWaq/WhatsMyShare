@@ -57,6 +57,7 @@
       	  var ctx = document.getElementById('myChart').getContext('2d');
           var myl = [];// ["January", "February", "March", "April", "May", "June", "July"];
           var myd = [];//[0, 10, 5, 2, 20, 30, 45];
+          var flag = 0;
           var ds = [
           ];
           var chartData =  {
@@ -72,12 +73,26 @@
 
               // Configuration options go here
               options: {
+                legend: {
+                  onClick: function(event, legendItem) {
+                    var index = legendItem.datasetIndex;
+                    //var ci = this.chart;
+
+
+                    ds.splice(index,1);
+                    flag -= 1;
+                    chart.update();
+                  }
+                },
                 scales: {
                   yAxes: [{
+                    ticks: {
+                      beginAtZero: true   // minimum value will be 0.
+                    },
                     scaleLabel: {
                       display: true,
-                      labelString: "Price",
-                      fontSize: 20
+                      labelString: "Price (in USD)",
+                      fontSize: 15
                     }
                   }]
                 }
@@ -88,7 +103,7 @@
           var nmyl = [];
           var nmyd = [];
           var url = 'getmsg/';
-          var flag = 0;
+
 
           function viewTicker(ticker){
 

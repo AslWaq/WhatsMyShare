@@ -36,7 +36,7 @@ function sellShares(ticker, price){
 };
 </script>
 <!-- Container (Services Section) -->
-<div class="container-fluid " style="margin: auto; width: 96%">
+<div class="container-fluid " style="margin: auto; width: 96% ">
   <div class="row">
     <h2 class="text-center">My Dashboard</h2>
 

@@ -6,55 +6,23 @@
 @section('content')
 
 <script>
+$(document).ready(function() {
+    $('#example').DataTable( {
+      ordering: false,
+      "bSort": false
+    } );
+} );
 
 </script>
 <div class="container-fluid">
   <div class="row content">
-    <div class="col-sm-4 sidenav" style="background-color: rgb(200,200,200)">
-    <h3>Search Results</h3>
-      <table  id="example" class="display, table" width="100%" cellspacing="0">
-        <thead>
-            <tr>
-                <th>Ticker</th>
-                <th>Name</th>
-                <th>Price (USD)</th>
-                <th>View Chart</th>
-                <th>Add to Cart</th>
-
-            </tr>
-        </thead>
-        <tfoot>
-            <tr>
-              <th>Ticker</th>
-              <th>Name</th>
-              <th>Price</th>
-
-            </tr>
-        </tfoot>
-        <tbody>
-          @foreach($category_closing_prices as $cmpny)
-          <tr>
-              <td>{{ $cmpny[0] }}</td>
-              <td><a target="_blank" href="{{ $cmpnyObj->get($cmpny[0])['link']}}">{{ $cmpnyObj->get($cmpny[0])['name']}}</a></td>
-              <td>${{ $cmpny[2] }}</td>
-              <td><button onClick="viewTicker('{{ $cmpny[0] }}')" class="fa fa-line-chart"></button></td>
-              <td id="{{ $cmpny[0] }}"><button onClick="addToCart('{{ $cmpny[0] }}', '{{ $cmpnyObj->get($cmpny[0])['name']}}')" class="fa fa-cart-plus"></button></td>
-          </tr>
-          @endforeach
-
-          </tbody>
-        </table>
-
-
-    </div>
-
-    <div class="col-sm-8">
+    <div class="col-sm-6 col-md-8 push-md-4 push-sm-6">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"> </script>
 
-  	<canvas style="background-color: rgb(200,200,200)" id="myChart"></canvas>
-  	<script>
-      	  var ctx = document.getElementById('myChart').getContext('2d');
+    <canvas style="background-color: rgb(200,200,200); width: 100%" id="myChart"></canvas>
+    <script>
+          var ctx = document.getElementById('myChart').getContext('2d');
           var myl = [];// ["January", "February", "March", "April", "May", "June", "July"];
           var myd = [];//[0, 10, 5, 2, 20, 30, 45];
           var flag = 0;
@@ -159,12 +127,52 @@
           var item = JSON.stringify(i);
               $.get('add-to-cart/' + item, function(data){
                 console.log(data);
+                $('#cart-content').text(data);
               });
               $('#'+ticker).text("Added");
       };
       </script>
 
     </div>
+    <div class="col-sm-6 col-md-4 sidenav pull-md-8 pull-sm-6" style="background-color: rgb(200,200,200)">
+    <h3>Search Results</h3>
+    <div class="table-responsive">
+      <table  id="example" class="display table" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Ticker</th>
+                <th>Name</th>
+                <th>Price (USD)</th>
+                <th>View Chart</th>
+                <th>Add to Cart</th>
+
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+              <th>Ticker</th>
+              <th>Name</th>
+              <th>Price</th>
+
+            </tr>
+        </tfoot>
+        <tbody>
+          @foreach($category_closing_prices as $cmpny)
+          <tr>
+              <td>{{ $cmpny[0] }}</td>
+              <td><a target="_blank" href="{{ $cmpnyObj->get($cmpny[0])['link']}}">{{ $cmpnyObj->get($cmpny[0])['name']}}</a></td>
+              <td>${{ $cmpny[2] }}</td>
+              <td><button onClick="viewTicker('{{ $cmpny[0] }}')" class="fa fa-line-chart"></button></td>
+              <td id="{{ $cmpny[0] }}"><button onClick="addToCart('{{ $cmpny[0] }}', '{{ $cmpnyObj->get($cmpny[0])['name']}}')" class="fa fa-cart-plus"></button></td>
+          </tr>
+          @endforeach
+
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
   </div>
 </div>
 

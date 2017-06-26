@@ -79,36 +79,86 @@ function delItem(ticker){
   @php( $item = json_decode($item))
 					<div class="row {{$item[0]}}">
 
-						<div class="col-md-6">
-              <div class="col-md-6 text-right">
-							<h4 class="product-name"><strong>{{$item[0]}}</strong></h4><h4><small id="{{ $item[0] }}" onload="getP('{{ $item[0] }}')"></small></h4>
-            </div>
-            <div class="col-md-6 text-right">
-              <h4 class="product-name"><strong>Action</strong></h4>
+						<div class="cartSection1">
+                <div class="prod-name">
+    							<h4 class="product-name"><strong>{{$item[0]}}</strong></h4><h4><small id="{{ $item[0] }}" onload="getP('{{ $item[0] }}')"></small></h4>
+                </div>
+                <div class="chosen-act">
+                  <h4 class="product-name"><strong>Action</strong></h4>
 
-              <form >
-                  <input onclick="btnE('{{$item[0]}}')" type="radio" name="action{{$item[0]}}" value="buy"> Buy
-                  <input onclick="btnE('{{$item[0]}}')" type="radio" name="action{{$item[0]}}" value="short"> Short
+                  <form >
+                      <input onclick="btnE('{{$item[0]}}')" type="radio" name="action{{$item[0]}}" value="buy"> Buy
+                      <input onclick="btnE('{{$item[0]}}')" type="radio" name="action{{$item[0]}}" value="short"> Short
 
-              </form>
+                  </form>
 
-            </div>
+                </div>
 						</div>
-						<div class="col-md-6">
-							<div class="col-md-4 text-right">
+
+            <style>
+              .cartSection2{
+                float:left;
+                width: 100%;
+                width: 65%;
+                min-width: 350px;
+                padding-bottom: 10px;
+
+              }
+              .cartSection1 {
+                float:left;
+                width: 100%;
+                width: 35%;
+                min-width: 100px;
+                padding-bottom: 10px;
+
+              }
+              .prod-name {
+                float: left;
+                width: 50%;
+                padding-left: 5px;
+              }
+              .chosen-act {
+                float: left;
+                width: 50%;
+                padding-left: 5px;
+              }
+              .del-button {
+                float: left;
+                width: 15%;
+                padding-left: 5px;
+              }
+              .act-button {
+                float: left;
+                width: 15%;
+                padding-left: 5px;
+              }
+              .shares-wanted {
+                float: left;
+                width: 35%;
+                padding-left: 5px;
+              }
+              .shares-input {
+                float: left;
+                width: 35%;
+                padding-left: 5px;
+              }
+            </style>
+
+						<div class="cartSection2 centre-block">
+							<div class="shares-wanted text-right">
 								<h6><strong>Number of shares</strong></h6>
                 <small>cost</small>
 							</div>
-							<div class="col-md-4">
-								<input onkeyup="CalcCost('{{$item[0]}}')"id="action{{$item[0]}}" type="number" min="1" class="form-control" value="1">
+							<div class="shares-input">
+								<input style="max-width: 120px" onkeyup="CalcCost('{{$item[0]}}')"id="action{{$item[0]}}" type="number" min="1" class="form-control" value="1">
                 <small id="cost{{$item[0]}}"></small>
 							</div>
-              <div class="col-md-2">
+              <div class="act-button">
 								<button disabled id="button{{$item[0]}}" onclick="plOrder('{{$item[0]}}')" type="button" class="btn btn-primary">
                   Buy
 								</button>
 							</div>
-							<div class="col-md-2">
+							<div class="del-button pull-right">
 								<button onclick="delItem('{{$item[0]}}')" type="button" class="btn btn-link btn-xs">
 									<span class="glyphicon glyphicon-trash"> </span>
 								</button>
@@ -121,7 +171,7 @@ function delItem(ticker){
 					<div class="row">
 						<div class="text-center">
 
-							<div class="col-xs-3">
+							<div class="col-md-3">
 								<a href="/search-stocks" type="button" class="btn btn-primary btn-sm btn-block">Search More Stocks</a>
 							</div>
 

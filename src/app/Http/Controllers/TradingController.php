@@ -12,20 +12,13 @@ class TradingController extends Controller
     $this->middleware('auth');
   }
   public function viewCart(){
-    //$usrCartJson = Auth::user()->shopping_cart;
-    //$sc = array('FB', 'ALL', 'AAL');
-    //$scj = json_encode($sc);
-    //$usr->shopping_cart = $scj;
-    //$usr->save();
     return view('checkoutPage');
   }
   public function addToCart(Request $req){
     $usr = Auth::user();
     $addedItem = ($req->item);
-    //$item = json_encode($sc);
     $usrCartJson = $usr->shopping_cart;
     $usrCartArray = json_decode($usrCartJson);
-    //return $cart;
     if (!in_array($addedItem, $usrCartArray)){
       array_push($usrCartArray, $addedItem);
     }
@@ -54,7 +47,6 @@ class TradingController extends Controller
 
   public function friendorFoe(Request $request){
     // should be a boolean value true or false
-    //return $request->id;
     $follow = $request->status;
     $user = Auth::user();
     if(strcmp($follow, "Follow")==0){
@@ -65,6 +57,4 @@ class TradingController extends Controller
       return "Follow";
     }
   }
-
-    //
 }

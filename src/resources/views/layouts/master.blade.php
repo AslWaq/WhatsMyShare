@@ -100,8 +100,8 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a><img class="logo pull-left" style="margin-right: 20px" src="wmslogo.png" width="80" height="50"></a>
-      <a class="navbar-brand" href="/dashboard">Home</a>
+      <a href="/dashboard"><img class="logo pull-left" style="margin-right: 20px" src="/wmslogo.png" width="80" height="50"></a>
+      <a class="navbar-brand" href="/dashboard">My Account</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">

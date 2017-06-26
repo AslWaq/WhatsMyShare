@@ -17,7 +17,7 @@ AKAM,Akamai Technologies Inc,IT,https://en.wikipedia.org/wiki/Akamai_Technologie
 ALK,Alaska Air Group Inc,Industrials,https://en.wikipedia.org/wiki/Alaska_Air_Group
 ALB,Albemarle Corp,Materials,https://en.wikipedia.org/wiki/Albemarle_Corporation
 ARE,Alexandria Real Estate Equities Inc,Real Estate,N/A
-ALXN ,Alexion Pharmaceuticals,Health Care,https://en.wikipedia.org/wiki/Alexion_Pharmaceuticals
+ALXN,Alexion Pharmaceuticals,Health Care,https://en.wikipedia.org/wiki/Alexion_Pharmaceuticals
 ALLE,Allegion,Industrials,https://en.wikipedia.org/wiki/Allegion
 AGN,"Allergan, Plc",Health Care,https://en.wikipedia.org/wiki/Allergan
 ADS,Alliance Data Systems,IT,https://en.wikipedia.org/wiki/Alliance_Data_Systems
@@ -30,7 +30,7 @@ AMZN,Amazon.com Inc,Consumer,https://en.wikipedia.org/wiki/Amazon.com_Inc
 AEE,Ameren Corp,Utilities,https://en.wikipedia.org/wiki/Ameren_Corp
 AAL,American Airlines Group,Industrials,https://en.wikipedia.org/wiki/American_Airlines_Group
 AEP,American Electric Power,Utilities,https://en.wikipedia.org/wiki/American_Electric_Power
-AXP ,American Express Co,Financials,https://en.wikipedia.org/wiki/American_Express_Co
+AXP,American Express Co,Financials,https://en.wikipedia.org/wiki/American_Express_Co
 AIG,"American International Group, Inc.",Financials,https://en.wikipedia.org/wiki/American_International_Group
 AMT,American Tower Corp A,Real Estate,https://en.wikipedia.org/wiki/American_Tower_Corp_A
 AWK,American Water Works Company Inc,Utilities,https://en.wikipedia.org/wiki/American_Water_Works
@@ -87,7 +87,7 @@ COF,Capital One Financial,Financials,https://en.wikipedia.org/wiki/Capital_One_F
 CAH,Cardinal Health Inc.,Health Care,https://en.wikipedia.org/wiki/Cardinal_Health
 CBOE,CBOE Holdings,Financials,https://en.wikipedia.org/wiki/Cboe_Holdings
 KMX,Carmax Inc,Consumer,https://en.wikipedia.org/wiki/Carmax_Inc
-CCL,Carnival Corp. ,Consumer,https://en.wikipedia.org/wiki/Carnival_Corp.
+CCL,Carnival Corp.,Consumer,https://en.wikipedia.org/wiki/Carnival_Corp.
 CAT,Catterpillar Inc.,Industrials,https://en.wikipedia.org/wiki/Caterpillar_Inc.
 CBG,CBRE Group,Real Estate,https://en.wikipedia.org/wiki/CBRE_Group
 CBS,CBS Corp.,Consumer,https://en.wikipedia.org/wiki/CBS_Corp.
@@ -96,7 +96,7 @@ CNC,Centene Corporation,Health Care,https://en.wikipedia.org/wiki/Centene_Corpor
 CNP,CenterPoint Energy,Utilities,https://en.wikipedia.org/wiki/CenterPoint_Energy
 CTL,CenturyLink Inc,Telecommunications,https://en.wikipedia.org/wiki/CenturyLink_Inc
 CERN,Cerner,Health Care,https://en.wikipedia.org/wiki/Cerner
-CF ,CF Industries Holdings Inc,Materials,https://en.wikipedia.org/wiki/CF_Industries_Holdings_Inc
+CF,CF Industries Holdings Inc,Materials,https://en.wikipedia.org/wiki/CF_Industries_Holdings_Inc
 SCHW,Charles Schwab Corporation,Financials,https://en.wikipedia.org/wiki/Charles_Schwab_Corporation
 CHTR,Charter Communications,Consumer,https://en.wikipedia.org/wiki/Charter_Communications
 CHK,Chesapeake Energy,Energy,https://en.wikipedia.org/wiki/Chesapeake_Energy
@@ -170,7 +170,7 @@ EA,Electronic Arts,IT,https://en.wikipedia.org/wiki/Electronic_Arts
 EMR,Emerson Electric Company,Industrials,https://en.wikipedia.org/wiki/Emerson_Electric_Company
 ETR,Entergy Corp.,Utilities,https://en.wikipedia.org/wiki/Entergy_Corp.
 EVHC,Envision Healthcare,Health Care,https://en.wikipedia.org/wiki/Envision_Healthcare
-EOG ,EOG Resources,Energy,https://en.wikipedia.org/wiki/EOG_Resources
+EOG,EOG Resources,Energy,https://en.wikipedia.org/wiki/EOG_Resources
 EQT,EQT Corporation,Energy,https://en.wikipedia.org/wiki/EQT_Corporation
 EFX,Equifax Inc.,Industrials,https://en.wikipedia.org/wiki/Equifax_Inc.
 EQIX,Equinix,Real Estate,https://en.wikipedia.org/wiki/Equinix
@@ -245,7 +245,7 @@ IR,Ingersoll-Rand PLC,Industrials,https://en.wikipedia.org/wiki/Ingersoll-Rand_P
 INTC,Intel Corp.,IT,https://en.wikipedia.org/wiki/Intel_Corp.
 ICE,Intercontinental Exchange,Financials,https://en.wikipedia.org/wiki/Intercontinental_Exchange
 IBM,IBM,IT,https://en.wikipedia.org/wiki/IBM
-INCY,Incyte ,Health Care,https://en.wikipedia.org/wiki/Incyte
+INCY,Incyte,Health Care,https://en.wikipedia.org/wiki/Incyte
 IP,International Paper,Materials,https://en.wikipedia.org/wiki/International_Paper
 IPG,Interpublic Group,Consumer,https://en.wikipedia.org/wiki/Interpublic_Group
 IFF,Intl Flavors & Fragrances,Materials,https://en.wikipedia.org/wiki/Intl_Flavors_%26_Fragrances
@@ -256,7 +256,7 @@ IRM,Iron Mountain Incorporated,Real Estate,https://en.wikipedia.org/wiki/Iron_Mo
 JEC,Jacobs Engineering Group,Industrials,https://en.wikipedia.org/wiki/Jacobs_Engineering_Group
 JBHT,J. B. Hunt Transport Services,Industrials,https://en.wikipedia.org/wiki/J._B._Hunt_Transport_Services
 SJM,JM Smucker,Consumer,https://en.wikipedia.org/wiki/JM_Smucker
-JNJ ,Johnson & Johnson,Health Care,https://en.wikipedia.org/wiki/Johnson_%26_Johnson
+JNJ,Johnson & Johnson,Health Care,https://en.wikipedia.org/wiki/Johnson_%26_Johnson
 JCI,Johnson Controls International,Industrials,https://en.wikipedia.org/wiki/Johnson_Controls
 JPM,JPMorgan Chase & Co.,Financials,https://en.wikipedia.org/wiki/JPMorgan_Chase_%26_Co.
 JNPR,Juniper Networks,IT,https://en.wikipedia.org/wiki/Juniper_Networks
@@ -283,7 +283,7 @@ LNC,Lincoln National,Financials,https://en.wikipedia.org/wiki/Lincoln_National
 LKQ,LKQ Corporation,Consumer,https://en.wikipedia.org/wiki/LKQ_Corporation
 LMT,Lockheed Martin Corp.,Industrials,https://en.wikipedia.org/wiki/Lockheed_Martin_Corp.
 L,Loews Corp.,Financials,https://en.wikipedia.org/wiki/Loews_Corp.
-LOW,Lowe's ,Consumer,https://en.wikipedia.org/wiki/Lowe%27s_Cos.
+LOW,Lowe's,Consumer,https://en.wikipedia.org/wiki/Lowe%27s_Cos.
 LYB,LyondellBasell,Materials,https://en.wikipedia.org/wiki/LyondellBasell
 MTB,M&T Bank Corp.,Financials,https://en.wikipedia.org/wiki/M%26T_Bank_Corp.
 MAC,Macerich,Real Estate,https://en.wikipedia.org/wiki/Macerich
@@ -296,9 +296,9 @@ MMC,Marsh & McLennan,Financials,https://en.wikipedia.org/wiki/Marsh_%26_McLennan
 MLM,Martin Marietta Materials,Materials,https://en.wikipedia.org/wiki/Martin_Marietta_Materials
 MAS,Masco Corp.,Industrials,https://en.wikipedia.org/wiki/Masco_Corp.
 MA,Mastercard Inc.,Financials,https://en.wikipedia.org/wiki/Mastercard_Inc.
-MAT,Mattel ,Consumer,https://en.wikipedia.org/wiki/Mattel_Inc.
+MAT,Mattel,Consumer,https://en.wikipedia.org/wiki/Mattel_Inc.
 MKC,McCormick & Co.,Consumer,https://en.wikipedia.org/wiki/McCormick_%26_Co.
-MCD,McDonald's ,Consumer,https://en.wikipedia.org/wiki/McDonald%27s_Corp.
+MCD,McDonald's,Consumer,https://en.wikipedia.org/wiki/McDonald%27s_Corp.
 MCK,McKesson Corp.,Health Care,https://en.wikipedia.org/wiki/McKesson_Corp.
 MJN,Mead Johnson,Consumer,https://en.wikipedia.org/wiki/Mead_Johnson
 MDT,Medtronic Plc,Health Care,https://en.wikipedia.org/wiki/Medtronic_plc
@@ -311,7 +311,7 @@ MU,Micron Technology,IT,https://en.wikipedia.org/wiki/Micron_Technology
 MSFT,Microsoft,IT,https://en.wikipedia.org/wiki/Microsoft_Corp.
 MAA,Mid-America Apartments,Real Estate,https://en.wikipedia.org/wiki/Mid-America_Apartments
 MHK,Mohawk Industries,Consumer,https://en.wikipedia.org/wiki/Mohawk_Industries
-TAP,Molson Coors Brewing ,Consumer,https://en.wikipedia.org/wiki/Molson_Coors_Brewing_Company
+TAP,Molson Coors Brewing,Consumer,https://en.wikipedia.org/wiki/Molson_Coors_Brewing_Company
 MDLZ,Mondelez International,Consumer,https://en.wikipedia.org/wiki/Mondelez
 MON,Monsanto Co.,Materials,https://en.wikipedia.org/wiki/Monsanto_Co.
 MNST,Monster Beverage,Consumer,https://en.wikipedia.org/wiki/Monster_Beverage
@@ -361,7 +361,7 @@ PRGO,Perrigo,Health Care,https://en.wikipedia.org/wiki/Perrigo
 PFE,Pfizer Inc.,Health Care,https://en.wikipedia.org/wiki/Pfizer_Inc.
 PCG,PG&E Corp.,Utilities,https://en.wikipedia.org/wiki/PG%26E_Corp.
 PM,Phillip Morris International,Consumer,https://en.wikipedia.org/wiki/Philip_Morris_International
-PSX,Phillips 66 ,Energy,https://en.wikipedia.org/wiki/Phillips_66
+PSX,Phillips 66,Energy,https://en.wikipedia.org/wiki/Phillips_66
 PNW,Pinnacle West Capital,Utilities,https://en.wikipedia.org/wiki/Arizona_Public_Service
 PXD,Pioneer Natural Resources,Energy,https://en.wikipedia.org/wiki/Pioneer_Natural_Resources
 PNC,PNC Financial Services,Financials,https://en.wikipedia.org/wiki/PNC_Financial_Services
@@ -428,12 +428,12 @@ SYF,Synchrony Financial,Financials,https://en.wikipedia.org/wiki/Synchrony_Finan
 SNPS,Synopsys Inc.,IT,https://en.wikipedia.org/wiki/Synopsys_Inc.
 SYY,Sysco Corp.,Consumer,https://en.wikipedia.org/wiki/Sysco_Corp.
 TROW,T. Rowe Price Group,Financials,https://en.wikipedia.org/wiki/T._Rowe_Price_Group
-TGT,Target ,Consumer,https://en.wikipedia.org/wiki/Target_Corp.
+TGT,Target,Consumer,https://en.wikipedia.org/wiki/Target_Corp.
 TEL,TE Connectivity Ltd.,IT,https://en.wikipedia.org/wiki/TE_Connectivity
 FTI,TechnipFMC,Energy,N/A
 TGNA,"Tegna, Inc.",Consumer,"https://en.wikipedia.org/wiki/Tegna,_Inc."
 TDC,Teradata Corp.,IT,https://en.wikipedia.org/wiki/Teradata_Corp.
-TSO ,Tesoro Petroleum Co.,Energy,https://en.wikipedia.org/wiki/Tesoro_Petroleum_Co.
+TSO,Tesoro Petroleum Co.,Energy,https://en.wikipedia.org/wiki/Tesoro_Petroleum_Co.
 TXN,Texas Instruments,IT,https://en.wikipedia.org/wiki/Texas_Instruments
 TXT,Textron Inc.,Industrials,https://en.wikipedia.org/wiki/Textron_Inc.
 TMO,Thermo Fisher Scientific,Health Care,https://en.wikipedia.org/wiki/Thermo_Fisher_Scientific
@@ -451,13 +451,13 @@ FOXA,Twenty-First Century Fox (Class A),Consumer,https://en.wikipedia.org/wiki/2
 FOX,Twenty-First Century Fox (Class B),Consumer,https://en.wikipedia.org/wiki/21st_Century_Fox
 TSN,Tyson Foods,Consumer,https://en.wikipedia.org/wiki/Tyson_Foods
 UDR,UDR Inc,Real Estate,https://en.wikipedia.org/wiki/UDR_Inc
-ULTA,Ulta Salon Cosmetics & Fragrance ,Consumer,https://en.wikipedia.org/wiki/Ulta_Beauty
+ULTA,Ulta Salon Cosmetics & Fragrance,Consumer,https://en.wikipedia.org/wiki/Ulta_Beauty
 USB,U.S. Bancorp,Financials,https://en.wikipedia.org/wiki/U.S._Bancorp
 UA,Under Armour (Class C),Consumer,https://en.wikipedia.org/wiki/Under_Armour
 UAA,Under Armour (Class A),Consumer,https://en.wikipedia.org/wiki/Under_Armour
 UNP,Union Pacific,Industrials,https://en.wikipedia.org/wiki/Union_Pacific
 UAL,United Continental Holdings,Industrials,https://en.wikipedia.org/wiki/United_Continental_Holdings
-UNH,United Health Group ,Health Care,https://en.wikipedia.org/wiki/United_Health_Group_Inc.
+UNH,United Health Group,Health Care,https://en.wikipedia.org/wiki/United_Health_Group_Inc.
 UPS,United Parcel Service,Industrials,https://en.wikipedia.org/wiki/United_Parcel_Service
 URI,"United Rentals, Inc.",Industrials,"https://en.wikipedia.org/wiki/United_Rentals,_Inc."
 UTX,United Technologies,Industrials,https://en.wikipedia.org/wiki/United_Technologies
@@ -469,13 +469,13 @@ VAR,Varian Medical Systems,Health Care,https://en.wikipedia.org/wiki/Varian_Medi
 VTR,Ventas Inc,Real Estate,https://en.wikipedia.org/wiki/Ventas_Inc
 VRSN,Verisign Inc.,IT,https://en.wikipedia.org/wiki/Verisign_Inc.
 VRSK,Verisk Analytics,Industrials,https://en.wikipedia.org/wiki/Verisk_Analytics
-VZ,Verizon ,Telecommunications,https://en.wikipedia.org/wiki/Verizon_Communications
+VZ,Verizon,Telecommunications,https://en.wikipedia.org/wiki/Verizon_Communications
 VRTX,Vertex Pharmaceuticals Inc,Health Care,https://en.wikipedia.org/wiki/Vertex_Pharmaceuticals_Inc
 VIAB,Viacom Inc.,Consumer,https://en.wikipedia.org/wiki/Viacom_Inc.
 V,Visa,Financials,https://en.wikipedia.org/wiki/Visa_Inc.
 VNO,Vornado Realty Trust,Real Estate,https://en.wikipedia.org/wiki/Vornado_Realty_Trust
 VMC,Vulcan Materials,Materials,https://en.wikipedia.org/wiki/Vulcan_Materials
-WMT,Wal-Mart ,Consumer,https://en.wikipedia.org/wiki/Wal-Mart_Stores
+WMT,Wal-Mart,Consumer,https://en.wikipedia.org/wiki/Wal-Mart_Stores
 WBA,Walgreens Boots Alliance,Consumer,https://en.wikipedia.org/wiki/Walgreens_Boots_Alliance
 DIS,Walt Disney Company,Consumer,https://en.wikipedia.org/wiki/The_Walt_Disney_Company
 WM,Waste Management Inc.,Industrials,https://en.wikipedia.org/wiki/Waste_Management_Inc.
@@ -483,7 +483,7 @@ WAT,Waters Corporation,Health Care,https://en.wikipedia.org/wiki/Waters_Corporat
 WEC,Wec Energy Group Inc,Utilities,https://en.wikipedia.org/wiki/Wec_Energy_Group_Inc
 WFC,Wells Fargo,Financials,https://en.wikipedia.org/wiki/Wells_Fargo
 HCN,Welltower Inc.,Real Estate,https://en.wikipedia.org/wiki/Welltower_Inc.
-WDC,Western Digital ,IT,https://en.wikipedia.org/wiki/Western_Digital
+WDC,Western Digital,IT,https://en.wikipedia.org/wiki/Western_Digital
 WU,Western Union Co,Financials,https://en.wikipedia.org/wiki/Western_Union_Co
 WRK,WestRock Company,Materials,https://en.wikipedia.org/wiki/WestRock_Company
 WY,Weyerhaeuser Corp.,Real Estate,https://en.wikipedia.org/wiki/Weyerhaeuser_Corp.

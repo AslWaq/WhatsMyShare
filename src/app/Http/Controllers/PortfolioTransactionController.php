@@ -129,7 +129,7 @@ class PortfolioTransactionController extends Controller
     $user->invest_score -= $gainOrLoss;
     $user->save();
     $short->delete();
-    $request->session()->flash('transMsg', 'You paid back '. $request->ticker . ' shorts. Your gain from these shorts is: $'. $gainOrLoss);
+    $request->session()->flash('transMsg', 'You paid back '. $request->ticker . ' shorts. Your gain (or loss) from these shorted stocks is: $'. (-1 * $gainOrLoss));
     return redirect('/dashboard');
   }
 

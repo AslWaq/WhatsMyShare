@@ -2,7 +2,7 @@
 
 @section('content')
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
-<h3 class="text-center" style="color: black">LEADERBOARDS</h3>
+<h3 class="text-center" style="color: #07889B">Leaderboards</h3>
 <br>
 @if (!($users->isEmpty()))
 @php ($chartData = array())
@@ -68,10 +68,18 @@ var myChart = new Chart(ctx, {
         }]
     },
     options: {
+        legend: {
+          display: false
+        },
         scales: {
             yAxes: [{
                 ticks: {
                     beginAtZero:true
+                },
+                scaleLabel: {
+                    display: true,
+                    labelString: "Invest Score (USD)",
+                    fontSize: 12
                 }
             }]
         }
@@ -86,7 +94,7 @@ var myChart = new Chart(ctx, {
 
 <div class="container-fluid">
   <div class="row content">
-    <div class="col-sm-7 sidenav pull-right" style="background-color: rgb(200,200,200); padding: 10px">
+    <div class="col-sm-7 sidenav" style="float: right; background-color: #D9D9D9; padding: 10px">
 
       <div class="row">
         <div class="col-sm-4">
@@ -122,31 +130,62 @@ var myChart = new Chart(ctx, {
       <br>
       <br>
       <div class="row">
-        <div class="col-sm-3 col-sm-offset-1" style="background-color:white; color:black">
+        <!--<div class="col-sm-3 col-sm-offset-1" style="background-color:white; color:black">
           <h4>ACCOUNT SUMMARY</h4>
 
           <p>{{$curUser->invest_score}}</p>
           <p>{{$curUser->cash}}</p>
+        </div><-->
+        <div class="col-sm-4">
+          <div class="panel panel-primary">
+            <div class="panel-heading">My Account</div>
+            <div class="panel-body">
+              <h4 >My Account Summary</h4>
+              <p><span>Liquid Cash Balance: </span><span style="color:green">${{$curUser->cash}}</span></p>
+              <p><span>Invest Score: </span><span style="color:green">${{$curUser->invest_score}}</span></p>
+            </div>
+          </div>
         </div>
-        <div class="col-sm-3 col-sm-offset-1" style="background-color:white; color:black">
-          <h4>PORTFOLIO</h4>
-            @foreach($curUser->stocks as $stock)
-              <p>{{$stock->stock_ticker}}<span style="color: purple"> Shares: {{$stock->shares}}</span></p>
-
-            @endforeach
-
+        <div class="col-sm-4">
+          <div class="panel panel-primary">
+            <div class="panel-heading">My Portfolio</div>
+            <div class="panel-body text-center">
+              @php ($stocks = $curUser->stocks)
+              @if($stocks->count() > 0)
+                @if ($stocks->count() >= 3)
+                  @php ($stockRange = 3)
+                @else
+                  @php ($stockRange = $shorts->count())
+                @endif
+                @for ($i=0; $i<$stockRange; $i++)
+                  <p>{{$stocks[$i]->stock_ticker}}<span style="color: purple"> Shares: {{$stocks[$i]->shares}}</span></p>
+                @endfor
+              @endif
+            </div>
+          </div>
         </div>
-        <div class="col-sm-3 col-sm-offset-1" style="background-color: white; color:black">
-          <h4>SHORTED STOCKS</h4>
-          @foreach($curUser->shorts as $short)
-            <p>{{$short->stock_ticker}}<span style="color: purple"> Shares: {{$short->shares}}</span></p>
-
-          @endforeach
+        <div class="col-sm-4">
+          <div class="panel panel-primary">
+            <div class="panel-heading">Shorted Stocks</div>
+            <div class="panel-body text-center">
+              @php ($shorts = $curUser->shorts)
+              @if($shorts->count() > 0)
+                @if ($shorts->count() >= 3)
+                  @php ($shortRange = 3)
+                @else
+                  @php ($shortRange = $shorts->count())
+                @endif
+                @for ($i=0; $i<$shortRange; $i++)
+                  <p>{{$shorts[$i]->stock_ticker}}<span style="color: purple"> Shares: {{$shorts[$i]->shares}}</span></p>
+                @endfor
+              @endif
+            </div>
+          </div>
         </div>
       </div>
-      <canvas style="background-color: rgb(200,200,200)" id="myChart"></canvas>
+      <canvas style="background-color: #D9D9D9" id="myChart"></canvas>
     </div>
-    <div class="col-sm-4" style="background-color: rgb(200,200,200); padding: 10px; margin-left: 10px">
+    <div class="col-sm-4" style="float:left; background-color: #D9D9D9; padding: 10px; margin-left: 10px">
 
         @if($fflag)
         <ul class="nav nav-tabs">

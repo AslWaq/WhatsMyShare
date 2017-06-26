@@ -2,7 +2,7 @@
 
 @section('content')
 
-<h3 style="color: white" class="text-center">Your Shopping Cart</h3>
+<h3 class="text-center" style= "color: #07889B">Your Shopping Cart</h3>
 
 <br>
 <script>

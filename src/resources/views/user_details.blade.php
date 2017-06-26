@@ -38,7 +38,7 @@ function sellShares(ticker, price){
 <!-- Container (Services Section) -->
 <div class="container-fluid " style="margin: auto; width: 96%">
   <div class="row">
-    <h2 class="text-center">My Dashboard</h2>
+    <h3 class="text-center" style= "color: #07889B">My Dashboard</h3>
 
     @if (Session::has('transMsg'))
       <div style="max-width: 250px" class="alert alert-info pull-right">
@@ -53,11 +53,9 @@ function sellShares(ticker, price){
     <!--div class="col-sm-3" style="background-color: white; border-color: black; border-style: solid; border-width: 0.5px"-->
       <div class="third">
         <div class="panel panel-primary">
-          <div class="panel-heading">My Portfolio</div>
+          <div class="panel-heading">My Account</div>
           <div class="panel-body">
-      <h4 >My Account Summary</h4>
       <p><span>Liquid Cash Balance: </span><span style="color:green">${{Auth::user()->cash}}</span></p>
-      <!--<p><span>Portfolio Value: </span><span style="color:green">${{$investValue}}</span></p>-->
       <p><span>Invest Score: </span><span style="color:green">${{Auth::user()->invest_score}}</span></p>
     </div>
   </div>
@@ -68,7 +66,6 @@ function sellShares(ticker, price){
         <div class="panel panel-primary">
           <div class="panel-heading">My Portfolio</div>
           <div class="panel-body">
-      <h4>My Portfolio</h4>
       @php ($i = 0)
       @foreach ($portfolio as $stock)
       <div class="container">
@@ -148,7 +145,6 @@ function sellShares(ticker, price){
         <div class="panel panel-primary">
           <div class="panel-heading">My Shorted Stocks</div>
           <div class="panel-body">
-      <h4>My Shorted Stocks</h4>
       @php ($j = 0)
       @foreach (Auth::user()->shorts as $short)
       <div class="container">
@@ -176,10 +172,12 @@ function sellShares(ticker, price){
                                               <p>Gain: <span class="label label-success">{{$shortsArray[$short->stock_ticker][1]}}%</span></p>
                                           </td>
                                       </tr>
-
+                                      <tr>
+                                          <td><p>Date shorted: <span class="label label-danger">{{$short->shorted_at}}</span></p></td>
+                                      </tr>
                                       <tr>
                                           <td>
-                                              <a type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal{{$short->stock_ticker}}">Pay Back</a>
+                                              <a type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#myModal{{$short->stock_ticker}}">Pay Back</a>
                                               <!-- Modal -->
                                               <div id="myModal{{$short->stock_ticker}}" class="modal fade" role="dialog">
                                                 <div class="modal-dialog">

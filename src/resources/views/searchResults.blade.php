@@ -12,6 +12,7 @@
   <div class="row content">
     <div class="col-sm-4 sidenav" style="background-color: rgb(200,200,200)">
     <h3>Search Results</h3>
+    <h4>Searched for: {{$category}}</h4>
       <table  id="example" class="display, table" width="100%" cellspacing="0">
         <thead>
             <tr>
@@ -36,7 +37,7 @@
           <tr>
               <td>{{ $cmpny[0] }}</td>
               <td><a target="_blank" href="{{ $cmpnyObj->get($cmpny[0])['link']}}">{{ $cmpnyObj->get($cmpny[0])['name']}}</a></td>
-              <td>${{ $cmpny[2] }}</td>
+              <td>${{ number_format((float)$cmpny[2], 2, '.', '') }}</td>
               <td><button onClick="viewTicker('{{ $cmpny[0] }}')" class="fa fa-line-chart"></button></td>
               <td id="{{ $cmpny[0] }}"><button onClick="addToCart('{{ $cmpny[0] }}', '{{ $cmpnyObj->get($cmpny[0])['name']}}')" class="fa fa-cart-plus"></button></td>
           </tr>
@@ -91,7 +92,7 @@
                     },
                     scaleLabel: {
                       display: true,
-                      labelString: "Price (in USD)",
+                      labelString: "Price (USD)",
                       fontSize: 15
                     }
                   }]

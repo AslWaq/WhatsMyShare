@@ -32,7 +32,7 @@ class TradingController extends Controller
     $usrCartJson = json_encode($usrCartArray);
     $usr->shopping_cart = $usrCartJson;
     $usr->save();
-    return $usr->shopping_cart;
+    return sizeof(json_decode($usr->shopping_cart));
 
   }
   public function delItem(Request $req){

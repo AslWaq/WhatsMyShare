@@ -108,22 +108,23 @@
         <li><a href="/search-stocks">Stock Trading</a></li>
         <li><a href="/leaderboard">Leaderboard</a></li>
           @if (!Auth::guest())
-            <li><a href="/my-cart"><span class="glyphicon glyphicon-shopping-cart "></span>{{ count(json_decode(Auth::user()->shopping_cart,true)) }}</a></li>
+            <li><a href="/my-cart"><span class="glyphicon glyphicon-shopping-cart"></span><span id="cart-content">{{ count(json_decode(Auth::user()->shopping_cart,true)) }}</span></a></li>
           @endif
       </ul>
+
       <ul class="nav navbar-nav navbar-right">
         @if (Auth::guest())
             <li><a href="{{ route('login') }}">Login</a></li>
             <li><a href="{{ route('register') }}">Register</a></li>
         @else
 
-            <li style="padding-right: 20px">Cash: <span class="label label-primary">${{Auth::User()->cash}}</span></li>
-            <li style="padding-right: 100px">Invest Score: <span class="label label-primary">${{Auth::user()->invest_score}}</span></li>
+          <li style="margin-right: 20px">Cash: <span class="label label-primary">${{Auth::User()->cash}}</span></li>
+            <li style="">Invest Score: <span class="label label-primary">${{Auth::user()->invest_score}}</span></li>
 
 
 
-
-          <!--  <li class="dropdown">
+<!--
+          <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
 
                     {{ Auth::user()->name }} <span class="caret"></span>

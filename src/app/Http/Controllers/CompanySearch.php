@@ -206,12 +206,15 @@ class CompanySearch extends Controller
   public function searchByName(Request $request){
     $name = $request->textSearch;
     //return $name;
-    $searchedStock = Ticker::where('name', $name)->first();
-    //return $searchedStock;
-    $cat = Ticker::where('category',$searchedStock->category)->get();
+    $searchedStock = Ticker::where('name', $name)->get();
+    if ($searchedStock->isEmpty()){
+      $request->session()->flash('nameSearchError', 'The search query was invalid');
+      return redirect('/search-stocks');
+    }
+    $category = null;
 
     $tickstring = '';
-    foreach ($cat as $tick){
+    foreach ($searchedStock as $tick){
       $tickstring .= $tick->ticker . ',';
     }
     //return $tickstring;
@@ -222,8 +225,8 @@ class CompanySearch extends Controller
     $data = array_values(array_values($ar)[0]);
     //$dataagain = array_values($data[0]);
     $category_closing_prices = $data[0];
-    $cmpnyObj = $cat->keyBy('ticker');
-    return view('searchResults', compact('category_closing_prices','cmpnyObj'));
+    $cmpnyObj = $searchedStock->keyBy('ticker');
+    return view('searchResults', compact('category_closing_prices','category','name','cmpnyObj'));
 
   }
 

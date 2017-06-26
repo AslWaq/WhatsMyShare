@@ -7,11 +7,20 @@
 }
 </style>
 <script>
-function activateBtn(ticker){
-  console.log($('#shares'+ticker).val());
+function activateBtn(ticker, totalShares, price){
+  var sharesToSell = $('#shares'+ticker).val();
+
   if(($('#shares'+ticker).val()) > 0){
-    console.log($('#shares'+ticker).val() > 1);
-    $('#button'+ticker).attr("disabled", false);
+    console.log(sharesToSell);
+    if( parseInt(sharesToSell) > totalShares){
+      $('#button'+ticker).attr("disabled", true);
+      $('#err' + ticker).text('You are trying to sell more than you have');
+    }else {
+      console.log($('#shares'+ticker).val() > 1);
+      $('#button'+ticker).attr("disabled", false);
+      var total = parseInt(sharesToSell) * price;
+      $('#err' + ticker).text('Total: '+ total);
+    }
   }else{
     $('#button'+ticker).attr("disabled", true);
   }
@@ -114,9 +123,10 @@ function sellShares(ticker, price){
                                                       <p>How many shares do you want to sell?</p>
                                                       <form class="form-inline">
 
-                                                        <input id="shares{{$stock->stock_ticker}}" onkeyup="activateBtn('{{$stock->stock_ticker}}')" onchange="activateBtn('{{$stock->stock_ticker}}')" class="form-control" name="stockSelling" type="number">
+                                                        <input id="shares{{$stock->stock_ticker}}" onkeyup="activateBtn('{{$stock->stock_ticker}}', '{{$stock->shares}}', '{{$prices[$stock->stock_ticker]}}')" onchange="activateBtn('{{$stock->stock_ticker}}', '{{$stock->shares}}', '{{$prices[$stock->stock_ticker]}}')" class="form-control" name="stockSelling" type="number">
                                                         <span><a id="button{{$stock->stock_ticker}}" onclick="sellShares('{{$stock->stock_ticker}}','{{$prices[$stock->stock_ticker]}}')" class="btn btn-primary" disabled>Sell</a></span>
                                                       </form>
+                                                      <p style="color: rgb(200,100,100)" id="err{{$stock->stock_ticker}}"><p>
                                                     </div>
                                                     <div class="modal-footer">
                                                       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

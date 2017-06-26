@@ -1,7 +1,6 @@
 @extends('layouts.master')
 
 @section('content')
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
 <h3 class="text-center" style="color: #07889B">Leaderboards</h3>
 <br>
 @if (!($users->isEmpty()))
@@ -214,6 +213,7 @@ var myChart = new Chart(ctx, {
             </tr>
         </thead>
         <tbody>
+          @php ($rankIterator = 1)
           @foreach($users as $user)
           <tr>
 
@@ -223,9 +223,10 @@ var myChart = new Chart(ctx, {
               <td><a href="/leaderboard/usr-prof/{{$user->id}}" id="{{$user->id}}">{{$user->name}}</a></td>
             @endif
 
-            <td></td>
+            <td>{{$rankIterator}}</td>
             <td>{{$user->invest_score}}</td>
           </tr>
+          @php ($rankIterator++)
           @endforeach
         </tbody>
         <tfoot>

@@ -69,6 +69,11 @@ $(document).ready(function(){
       </div>
     </div>
   </form>
+  @if (Session::has('nameSearchError'))
+    <div class="alert alert-danger">
+      {{Session::pull('nameSearchError')}}
+    </div>
+  @endif
   <br>
 
 </div>

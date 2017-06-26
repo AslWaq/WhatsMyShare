@@ -8,11 +8,12 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.1.1/bootstrap-social.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js"></script>
   <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
+  <!--<script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script><-->
   <style>
     /* Remove the navbar's default margin-bottom and rounded borders */
     .ui-autocomplete {
@@ -119,7 +120,7 @@
         @else
 
           <li style="margin-right: 20px">Cash: <span class="label label-primary">${{Auth::User()->cash}}</span></li>
-            <li style="">Invest Score: <span class="label label-primary">${{Auth::user()->invest_score}}</span></li>
+            <li style="margin-right: 20px">Invest Score: <span class="label label-primary">${{Auth::user()->invest_score}}</span></li>
 
 
 

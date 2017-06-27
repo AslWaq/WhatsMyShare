@@ -13,7 +13,7 @@ $(document).ready(function() {
   <div class="row content">
 
 
-    <div class="col-sm-6 col-md-8 push-md-4 push-sm-6">
+    <div class="col-sm-6 col-md-8 col-md-push-4 col-sm-push-6">
 
 
 
@@ -131,7 +131,7 @@ $(document).ready(function() {
       </script>
 
     </div>
-    <div class="col-sm-6 col-md-4 sidenav pull-md-8 pull-sm-6" style="background-color: rgb(200,200,200)">
+    <div class="col-sm-6 col-md-4 sidenav col-md-pull-8 col-sm-pull-6" style="background-color: rgb(200,200,200)">
     <h3>Search Results</h3>
     @if ($category != null)
     <h4>Searched for: {{$category}}</h4>

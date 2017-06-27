@@ -41,7 +41,7 @@
   }
 
     .navbar {
-      margin-bottom: 50px;
+      margin-bottom: 0px;
       border-radius: 0;
       color: rgb(200,200,200);
 

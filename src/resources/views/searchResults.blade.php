@@ -1,24 +1,21 @@
-
-
-
 @extends('layouts.master')
 
 @section('content')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"> </script>
 
 <script>
 $(document).ready(function() {
-    $('#example').DataTable( {
-      ordering: false,
-      "bSort": false
-    } );
+    $('#example').DataTable();
 } );
 
 </script>
 <div class="container-fluid">
   <div class="row content">
+
+
     <div class="col-sm-6 col-md-8 push-md-4 push-sm-6">
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"> </script>
+
 
     <canvas style="background-color: rgb(200,200,200); width: 100%" id="myChart"></canvas>
     <script>
@@ -59,7 +56,7 @@ $(document).ready(function() {
                     },
                     scaleLabel: {
                       display: true,
-                      labelString: "Price (in USD)",
+                      labelString: "Price (USD)",
                       fontSize: 15
                     }
                   }]
@@ -136,8 +133,12 @@ $(document).ready(function() {
     </div>
     <div class="col-sm-6 col-md-4 sidenav pull-md-8 pull-sm-6" style="background-color: rgb(200,200,200)">
     <h3>Search Results</h3>
-    <div class="table-responsive">
-      <table  id="example" class="display table" width="100%" cellspacing="0">
+    @if ($category != null)
+    <h4>Searched for: {{$category}}</h4>
+    @else
+    <h4>Searched for: {{$name}}</h4>
+    @endif
+      <table  id="example" class="display table" width="100%" cellspacing="0" style="background-color: rgb(200,200,200)">
         <thead>
             <tr>
                 <th>Ticker</th>
@@ -161,7 +162,7 @@ $(document).ready(function() {
           <tr>
               <td>{{ $cmpny[0] }}</td>
               <td><a target="_blank" href="{{ $cmpnyObj->get($cmpny[0])['link']}}">{{ $cmpnyObj->get($cmpny[0])['name']}}</a></td>
-              <td>${{ $cmpny[2] }}</td>
+              <td>${{ number_format((float)$cmpny[2], 2, '.', '') }}</td>
               <td><button onClick="viewTicker('{{ $cmpny[0] }}')" class="fa fa-line-chart"></button></td>
               <td id="{{ $cmpny[0] }}"><button onClick="addToCart('{{ $cmpny[0] }}', '{{ $cmpnyObj->get($cmpny[0])['name']}}')" class="fa fa-cart-plus"></button></td>
           </tr>
@@ -169,16 +170,17 @@ $(document).ready(function() {
 
           </tbody>
         </table>
-      </div>
+
 
     </div>
+
 
   </div>
 </div>
 
 
 
-          <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
 
       <script>
          function getMessage(){

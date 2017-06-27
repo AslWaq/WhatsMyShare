@@ -2,7 +2,7 @@
 
 @section('content')
 
-<h3 style="color: white" class="text-center">Your Shopping Cart</h3>
+<h3 class="text-center" style= "color: #07889B">Your Shopping Cart</h3>
 
 <br>
 <script>
@@ -31,7 +31,7 @@ function btnE(ticker){
 }
 function CalcCost(ticker){
   var cost = $('#'+ticker).text() * $('#action'+ticker).val();
-  $('#cost'+ticker).text(cost);
+  $('#cost'+ticker).text(cost.toFixed(2));
 }
 
 function plOrder(ticker){
@@ -87,8 +87,8 @@ function delItem(ticker){
                   <h4 class="product-name"><strong>Action</strong></h4>
 
                   <form >
-                      <input onclick="btnE('{{$item[0]}}')" type="radio" name="action{{$item[0]}}" value="buy"> Buy
-                      <input onclick="btnE('{{$item[0]}}')" type="radio" name="action{{$item[0]}}" value="short"> Short
+                      <input onclick="btnE('{{$item[0]}}')" type="radio" name="action{{$item[0]}}" value="Buy"> Buy
+                      <input onclick="btnE('{{$item[0]}}')" type="radio" name="action{{$item[0]}}" value="Short"> Short
 
                   </form>
 
@@ -150,7 +150,7 @@ function delItem(ticker){
                 <small>cost</small>
 							</div>
 							<div class="shares-input">
-								<input style="max-width: 120px" onkeyup="CalcCost('{{$item[0]}}')"id="action{{$item[0]}}" type="number" min="1" class="form-control" value="1">
+								<input style="max-width: 120px" onkeyup="CalcCost('{{$item[0]}}')" onchange="CalcCost('{{$item[0]}}')" id="action{{$item[0]}}" type="number" min="1" class="form-control" value="1">
                 <small id="cost{{$item[0]}}"></small>
 							</div>
               <div class="act-button">

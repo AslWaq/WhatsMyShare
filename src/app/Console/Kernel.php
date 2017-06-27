@@ -8,9 +8,13 @@ use App\User;
 use App\Score;
 use Carbon\Carbon;
 use DB;
+use App\Traits\DateTrait;
+use App\Traits\QuandlTrait;
 
 class Kernel extends ConsoleKernel
 {
+  use DateTrait;
+  use QuandlTrait;
     /**
      * The Artisan commands provided by your application.
      *
@@ -31,24 +35,6 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')
         //          ->hourly();
         $schedule->call(function (){
-          $dt = Carbon::now();
-          //check if saturday or sunday and move back to friday
-          if ($dt->dayOfWeek == Carbon::SATURDAY){
-            $dt = $dt->subDays(1);
-          }elseif ($dt->dayOfWeek == Carbon::SUNDAY){
-            $dt = $dt->subDays(2);
-          }elseif ($dt->dayOfWeek == Carbon::MONDAY){
-            $dt = $dt->subDays(3);
-          }else{
-            $dt->subDays(1);
-          }
-
-          //2017 holiday check
-          if($dt->isSameDay(Carbon::createFromDate(2017,05,29))){ //memorial day
-            $dt = $dt->subDays(3);
-          }elseif ($dt->isSameDay(Carbon::createFromDate(2017,07,04))){ //independence day
-            $dt = $dt->subDays(1);
-          }
 
 
           $stocks = DB::table('portfolio')->distinct()->select('stock_ticker')->get();
@@ -56,19 +42,12 @@ class Kernel extends ConsoleKernel
           foreach ($stocks as $tick){
             $tickstring .= $tick->stock_ticker . ',';
           }
-          $date = $dt->format('Ymd');
+          $date = $this->getDateString();
           $tickstring = substr($tickstring,0,-1);
 
           $url = 'https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?date='.$date.
           '&qopts.columns=ticker,close&ticker='.$tickstring.'&api_key=JxDXY6jBDscX9-pYTiov';
-
-          $client = new \GuzzleHttp\Client();
-          $res = $client->get(
-              $url,
-              ['auth' =>  ['api_key', 'JxDXY6jBDscX9-pYTiov', 'digest']]
-          );
-          $contents = $res->getBody();
-          $ar = json_decode($contents, true);
+          $ar = $this->getPrices($url);
           $ar2 = array_values(array_values($ar)[0]);
           $data = $ar2[0];
           $nowDate = Carbon::now();
@@ -102,12 +81,7 @@ class Kernel extends ConsoleKernel
             $urlshort = 'https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?date='.$date.
             '&qopts.columns=ticker,close&ticker='.$shortstring.'&api_key=JxDXY6jBDscX9-pYTiov';
 
-            $shortRes = $client->get(
-                $urlshort,
-                ['auth' =>  ['api_key', 'JxDXY6jBDscX9-pYTiov', 'digest']]
-            );
-            $contents = $shortRes->getBody();
-            $ar = json_decode($contents, true);
+            $ar = $this->getPrices($urlshort);
             $ar2 = array_values(array_values($ar)[0]);
             $shortData = $ar2[0];
             foreach ($users as $user){

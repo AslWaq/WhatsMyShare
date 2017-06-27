@@ -34,6 +34,7 @@ $(document).ready(function(){
 
 
   <br>
+  <h3 class="text-center" style="color: #07889B">Stock Search</h3>
   <form method="post" action="/search-cat">
     {{ csrf_field() }}
     <label style="color: white">Search by Category</label>
@@ -68,6 +69,11 @@ $(document).ready(function(){
       </div>
     </div>
   </form>
+  @if (Session::has('nameSearchError'))
+    <div class="alert alert-danger">
+      {{Session::pull('nameSearchError')}}
+    </div>
+  @endif
   <br>
 
 </div>

@@ -27,11 +27,9 @@ class TransactionController extends Controller
       $fb = app(SammyK\LaravelFacebookSdk\LaravelFacebookSdk::class);
       try{
         $token = $fb->getRedirectLoginHelper()->getAccessToken();
-
       }
       catch(Facebook\Exceptions\FacebookSDKException $e){
         dd($e->getMessage());
-
       }
       if(!$token){
         return redirect('/login');
@@ -113,9 +111,6 @@ class TransactionController extends Controller
 
     public function stockSearch(){
       $results = array();
-
-      //$queries = DB::table('tickers')->where('ticker', 'LIKE', '%'.$searchTerm.'%')
-      //->orWhere('name', 'LIKE', '%'.$searchTerm.'%')->take(5)->get();
       $queries = Ticker::all();
 
       foreach ($queries as $query){
@@ -125,6 +120,7 @@ class TransactionController extends Controller
       $results = json_encode($results);
       return view('stockChoice', compact('results'));
     }
+
     public function usrProf(Request $req){
       $user = Auth::user();
       $curUser = User::find($req->id);
@@ -142,10 +138,8 @@ class TransactionController extends Controller
           }
         }
       }
-      //return $users;
       $fflag = false;
       return view('leaderboard', compact('users', 'curUser','isFriend', 'isFBFriend', 'fflag'));
-      //$port = user
     }
 
     public function friendProf(Request $req){
@@ -162,10 +156,7 @@ class TransactionController extends Controller
           }
         }
       }
-      //return $users;
-
       $fflag = true;
       return view('leaderboard', compact('users', 'curUser', 'isFriend','isFBFriend', 'fflag'));
-      //$port = user
     }
 }

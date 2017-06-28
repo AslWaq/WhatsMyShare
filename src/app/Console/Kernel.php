@@ -110,7 +110,7 @@ class Kernel extends ConsoleKernel
           }
 
 
-        })->weekdays();
+        })->daily();
     }
 
     /**

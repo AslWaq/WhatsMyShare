@@ -20,6 +20,25 @@ class CompanySearch extends Controller
   use DateTrait;
   use QuandlTrait;
 
+  public function __construct(){
+    $this->middleware('auth');
+  }
+
+  public function stockSearch(){
+    $results = array();
+
+    //$queries = DB::table('tickers')->where('ticker', 'LIKE', '%'.$searchTerm.'%')
+    //->orWhere('name', 'LIKE', '%'.$searchTerm.'%')->take(5)->get();
+    $queries = Ticker::all();
+
+    foreach ($queries as $query){
+      array_push($results,$query->name);
+    }
+
+    $results = json_encode($results);
+    return view('stockChoice', compact('results'));
+  }
+
     public function dashboard(){
       $usr = Auth::user()->id;
       $user = Auth::user();

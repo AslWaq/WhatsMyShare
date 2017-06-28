@@ -12,11 +12,11 @@ use Session;
 use App\Stock;
 use App\Ticker;
 
-class TransactionController extends Controller
+class FBLoginController extends Controller
 {
 
 
-    public function redrect(){
+    public function fBRedirect(){
       $fb = app(SammyK\LaravelFacebookSdk\LaravelFacebookSdk::class);
 
       $loginUrl = $fb->getRedirectLoginHelper()->getLoginUrl('http://localhost:8000/fbcb',['email', 'user_friends']);
@@ -106,57 +106,5 @@ class TransactionController extends Controller
       Auth::login($user);
       return redirect('/dashboard');
 
-    }
-
-
-    public function stockSearch(){
-      $results = array();
-      $queries = Ticker::all();
-
-      foreach ($queries as $query){
-        array_push($results,$query->name);
-      }
-
-      $results = json_encode($results);
-      return view('stockChoice', compact('results'));
-    }
-
-    public function usrProf(Request $req){
-      $user = Auth::user();
-      $curUser = User::find($req->id);
-      $users = User::orderBy('invest_score', 'desc')->get();
-      $isFriend = false;
-      $isFBFriend = false;
-      $friends = $user->friends()->orderBy('invest_score','desc')->get();
-      if ($friends != null){
-        foreach ($friends as $friend){
-          if ($friend->id == $curUser->id){
-            $isFriend = true;
-            if ($friend->pivot->facebook_friend == true){
-              $isFBFriend = true;
-            }
-          }
-        }
-      }
-      $fflag = false;
-      return view('leaderboard', compact('users', 'curUser','isFriend', 'isFBFriend', 'fflag'));
-    }
-
-    public function friendProf(Request $req){
-      $user = Auth::user();
-      $curUser = User::find($req->id);
-      $users = $user->friends()->orderBy('invest_score','desc')->get();
-      $isFriend = false;
-      $isFBFriend = false;
-      foreach ($users as $friend){
-        if ($friend->id == $curUser->id){
-          $isFriend = true;
-          if ($friend->pivot->facebook_friend == true){
-            $isFBFriend = true;
-          }
-        }
-      }
-      $fflag = true;
-      return view('leaderboard', compact('users', 'curUser', 'isFriend','isFBFriend', 'fflag'));
     }
 }

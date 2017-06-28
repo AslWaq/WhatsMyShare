@@ -13,6 +13,10 @@ use Carbon\Carbon;
 
 class PortfolioTransactionController extends Controller
 {
+    public function __construct(){
+      $this->middleware('auth');
+    }
+
     public function buyStocks(Request $request){
       $ar = json_decode($request->order);
       $user = User::find(Auth::user()->id);
@@ -119,43 +123,5 @@ class PortfolioTransactionController extends Controller
     $request->session()->flash('transMsg', 'You paid back '. $request->ticker . ' shorts. Your gain (or loss) from these shorted stocks is: $'. (-1 * $gainOrLoss));
     return redirect('/dashboard');
   }
-
-  public function leaderboard(){
-    $users = User::orderBy('invest_score', 'desc')->get();
-    $curUser = $users->first();
-
-    $isFriend = false;
-    $isFBFriend = false;
-    $friends = Auth::user()->friends()->orderBy('invest_score','desc')->get();
-    if ($friends != null){
-      foreach ($friends as $friend){
-        if ($friend->id == $curUser->id){
-          $isFriend = true;
-          if ($friend->pivot->facebook_friend == true){
-            $isFBFriend = true;
-          }
-        }
-      }
-    }
-    $fflag = false;
-    return view('leaderboard', compact('users', 'curUser', 'isFriend', 'isFBFriend', 'fflag'));
-  }
-  public function friends(){
-    $users = Auth::user()->friends()->orderBy('invest_score','desc')->get();
-    $curUser = $users->first();
-    $isFBFriend = false;
-    $isFriend = false;
-    foreach ($users as $friend){
-      if ($friend->id == $curUser->id){
-        $isFriend = true;
-        if ($friend->pivot->facebook_friend){
-          $isFBFriend = true;
-        }
-      }
-    }
-
-    $fflag = true;
-    return view('leaderboard', compact('users', 'curUser', 'isFriend', 'isFBFriend', 'fflag'));
-
-  }
+  
 }

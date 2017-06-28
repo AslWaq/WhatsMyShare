@@ -20,6 +20,25 @@ class CompanySearch extends Controller
   use DateTrait;
   use QuandlTrait;
 
+  public function __construct(){
+    $this->middleware('auth');
+  }
+
+  public function stockSearch(){
+    $results = array();
+
+    //$queries = DB::table('tickers')->where('ticker', 'LIKE', '%'.$searchTerm.'%')
+    //->orWhere('name', 'LIKE', '%'.$searchTerm.'%')->take(5)->get();
+    $queries = Ticker::all();
+
+    foreach ($queries as $query){
+      array_push($results,$query->name);
+    }
+
+    $results = json_encode($results);
+    return view('stockChoice', compact('results'));
+  }
+
     public function dashboard(){
       $usr = Auth::user()->id;
       $user = Auth::user();
@@ -107,23 +126,6 @@ class CompanySearch extends Controller
       return json_encode($results);
    }
 
-    public function companyDescription (Request $request){
-      $ticker = Ticker::find($request->ticker);
-      $ticklink = $ticker -> link;
-      if ($ticklink == 'N/A'){
-        return "Company information unavailable.";
-      }
-      $wikipage = substr($ticklink,30);
-
-       //makes tickers list into a string for api call
-      $wikistring='https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles='.$wikipage;
-
-      $client = new \GuzzleHttp\Client();
-      $response = $client->get($wikistring);
-      $contents = $res2->getBody();
-      $data = json_decode($contents,true);
-      return array_values($data['query']['pages'])[0]['extract'];
-    }
 
    public function companyHalfYear(Request $request){
      $startDate = Carbon::now() -> subMonths(6) -> format('Ymd');

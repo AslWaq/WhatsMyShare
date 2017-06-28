@@ -11,9 +11,11 @@ class TradingController extends Controller
   public function __construct(){
     $this->middleware('auth');
   }
+
   public function viewCart(){
     return view('checkoutPage');
   }
+  
   public function addToCart(Request $req){
     $usr = Auth::user();
     $addedItem = ($req->item);
@@ -45,16 +47,5 @@ class TradingController extends Controller
     return('hurray');
   }
 
-  public function friendorFoe(Request $request){
-    // should be a boolean value true or false
-    $follow = $request->status;
-    $user = Auth::user();
-    if(strcmp($follow, "Follow")==0){
-      $user->addFriend($request->id,false);
-      return "Unfollow";
-    }else{
-      $user->removeFriend($request->id);
-      return "Follow";
-    }
-  }
+
 }

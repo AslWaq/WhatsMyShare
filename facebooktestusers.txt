@@ -1,0 +1,14 @@
+Facebook test accounts to test facebook login/friends functionality on application
+
+Facebook sdk only allows access to friends who have accounts on the application,
+once a facebook friend is also a user in WhatsMyShare they will be added to your
+friends/following list on WhatsMyShare
+
+Facebook usernames:
+tom_ailfkqg_laverdetsen@tfbnw.net
+dave_jtfqeeb_chaiescu@tfbnw.net
+dorothy_pwbfnvz_sidhuwitz@tfbnw.net
+elizabeth_gvzfdxy_warmanson@tfbnw.net
+innis_llvqevu_stussy@tfbnw.net
+
+All passwords are "test12"

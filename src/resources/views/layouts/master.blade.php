@@ -41,7 +41,7 @@
   }
 
     .navbar {
-      margin-bottom: 50px;
+      margin-bottom: 5px;
       border-radius: 0;
       color: rgb(200,200,200);
 
@@ -138,7 +138,7 @@
                         <a href="{{ route('logout') }}"
                             onclick="event.preventDefault();
                                      document.getElementById('logout-form').submit();">
-                            <span class="glyphicon glyphicon-log-out" style="padding-left: 5px"></span>
+                            <span class="glyphicon glyphicon-log-out" style="padding-left: 5px; color: rgb(70, 173, 212); font-size: 17px;"></span>
                         </a>
 
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

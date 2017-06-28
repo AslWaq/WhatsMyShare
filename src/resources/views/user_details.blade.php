@@ -19,7 +19,7 @@ function activateBtn(ticker, totalShares, price){
       console.log($('#shares'+ticker).val() > 1);
       $('#button'+ticker).attr("disabled", false);
       var total = parseInt(sharesToSell) * price;
-      $('#err' + ticker).text('Total: '+ total);
+      $('#err' + ticker).text('Total: '+ total.toFixed(2));
     }
   }else{
     $('#button'+ticker).attr("disabled", true);
@@ -47,7 +47,7 @@ function sellShares(ticker, price){
 <!-- Container (Services Section) -->
 <div class="container-fluid " style="margin: auto; width: 96% ">
   <div class="row">
-    <h3 class="text-center" style= "color: #07889B">My Dashboard</h3>
+    <h3 class="text-center" style= "color: #07889B">My Account</h3>
 
     @if (Session::has('transMsg'))
       <div style="max-width: 250px" class="alert alert-info pull-right">
@@ -62,7 +62,7 @@ function sellShares(ticker, price){
     <!--div class="col-sm-3" style="background-color: white; border-color: black; border-style: solid; border-width: 0.5px"-->
       <div class="third">
         <div class="panel panel-primary">
-          <div class="panel-heading">My Account</div>
+          <div class="panel-heading">My Financials</div>
           <div class="panel-body">
       <p><span>Liquid Cash Balance: </span><span style="color:green">${{Auth::user()->cash}}</span></p>
       <p><span>Invest Score: </span><span style="color:green">${{Auth::user()->invest_score}}</span></p>
@@ -107,7 +107,7 @@ function sellShares(ticker, price){
                                           <td>
 
                                               <!-- Trigger the modal with a button -->
-                                              <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal{{$stock->stock_ticker}}">Sell</button>
+                                              <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#myModal{{$stock->stock_ticker}}">Sell</button>
 
                                               <!-- Modal -->
                                               <div id="myModal{{$stock->stock_ticker}}" class="modal fade" role="dialog">

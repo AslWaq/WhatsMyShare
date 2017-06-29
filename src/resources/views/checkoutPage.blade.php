@@ -35,8 +35,23 @@ function btnE(ticker){
   CalcCost(ticker);
 }
 function CalcCost(ticker){
+  var yourCash = {!! Auth::user()->cash !!};
+
   var cost = $('#'+ticker).text() * $('#action'+ticker).val();
-  $('#cost'+ticker).text(cost.toFixed(2));
+  if(yourCash >= cost){
+    $('#cost'+ticker).css({"color": "inherit"});
+    $('#cost'+ticker).text(cost.toFixed(2));
+    if( ($('input[name=action' + ticker + ']:checked').val()) )
+      $('#button'+ticker).attr("disabled", false);
+  }else{
+    if( ($('input[name=action' + ticker + ']:checked').val() == "Short") ){
+      $('#cost'+ticker).text(cost.toFixed(2));
+    }else{
+      $('#cost'+ticker).text("cost higher than your cash balance");
+      $('#cost'+ticker).css({"color": "rgb(220,100,100)"});
+      $('#button'+ticker).attr("disabled", true);
+    }
+  }
 }
 
 function plOrder(ticker){
@@ -57,12 +72,12 @@ function plOrder(ticker){
           });
         location.reload();
     }else{
-      alert(taction+stockN);
+      alert("input the number of shares");
     }
 
   }
   else{
-    alert('tac');
+    alert('choose action please');
 
   }
 };
@@ -152,11 +167,11 @@ function delItem(ticker){
 						<div class="cartSection2 centre-block">
 							<div class="shares-wanted text-right">
 								<h6><strong>Number of shares</strong></h6>
-                <small>cost</small>
+                <p>Cost</p>
 							</div>
 							<div class="shares-input">
 								<input style="max-width: 120px" onkeyup="CalcCost('{{$item[0]}}')" onchange="CalcCost('{{$item[0]}}')" id="action{{$item[0]}}" type="number" min="1" class="form-control" value="1">
-                <small id="cost{{$item[0]}}"></small>
+                <p id="cost{{$item[0]}}"></p>
 							</div>
               <div class="act-button">
 								<button disabled id="button{{$item[0]}}" onclick="plOrder('{{$item[0]}}')" type="button" class="btn btn-primary">

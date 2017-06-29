@@ -19,7 +19,7 @@ class LeaderboardController extends Controller
 
   public function leaderboard(){
     $users = User::orderBy('invest_score', 'desc')->get();
-    //$user = Auth::user();
+
     $curUser = $users->first();
 
     $isFriend = false;
@@ -40,7 +40,7 @@ class LeaderboardController extends Controller
   }
   public function friends(){
     $users = Auth::user()->friends()->orderBy('invest_score','desc')->get();
-    //$user = Auth::user();
+
     $curUser = $users->first();
     $isFBFriend = false;
     $isFriend = false;
@@ -53,8 +53,6 @@ class LeaderboardController extends Controller
       }
     }
 
-    //return $user->friends;
-    //return $users;
 
     $fflag = true;
     return view('leaderboard', compact('users', 'curUser', 'isFriend', 'isFBFriend', 'fflag'));
@@ -78,10 +76,10 @@ class LeaderboardController extends Controller
         }
       }
     }
-    //return $users;
+
     $fflag = false;
     return view('leaderboard', compact('users', 'curUser','isFriend', 'isFBFriend', 'fflag'));
-    //$port = user
+
   }
 
   public function friendProf(Request $req){
@@ -98,11 +96,9 @@ class LeaderboardController extends Controller
         }
       }
     }
-    //return $users;
-
-    $fflag = true;
+    $fflag = true; //use to check if selected user is being followed or not
     return view('leaderboard', compact('users', 'curUser', 'isFriend','isFBFriend', 'fflag'));
-    //$port = user
+
   }
 
   public function friendorFoe(Request $request){

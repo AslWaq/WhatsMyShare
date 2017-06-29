@@ -55,7 +55,7 @@ class FBLoginController extends Controller
       Session::put('fb_user_access_token', (string) $token);
       $response = $fb->get('/me?fields=friends');
       $friends = json_decode($response->getGraphObject()['friends']);
-      //return $friends[0]->id;
+
       $facebookFriendsCount = count($friends);
       if ($user->cash == null){
         $user->cash = 30000;

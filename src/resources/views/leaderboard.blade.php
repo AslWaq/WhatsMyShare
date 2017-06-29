@@ -104,7 +104,7 @@ var myChart = new Chart(ctx, {
 
 
         <div class="col-sm-4">
-          {{$curUser->name}}
+          <h4>{{$curUser->name}}</h4>
         </div>
 
 
@@ -245,6 +245,9 @@ var myChart = new Chart(ctx, {
   </div>
 </div>
 @else
-<h4 class="text-center">Get some friends</h4>
+<h4 class="text-center col-md-8 col-md-offset-2">You are currently following no users. Please go back to the 'Everybody' tab in the Leaderboards
+section and click on the 'Follow' button on the user profiles to the right to start following users. If you would like to
+remove a user from your 'Following' list simply click the Unfollow button on their corresponding profile.
+</h4>
 @endif
 @endsection

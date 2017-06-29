@@ -106,6 +106,10 @@ class PortfolioTransactionController extends Controller
       $cart = json_encode(array_values($cartArray));
       $user->shopping_cart = $cart;
       $user->save();
+    }else{
+      $request->session()->flash('shortErrorMsg', 'You already have shorted '.
+      $ar[0] . '. Please pay back the shorted stock if you would like to short
+      this stock again.');
     }
   }
 
@@ -123,5 +127,5 @@ class PortfolioTransactionController extends Controller
     $request->session()->flash('transMsg', 'You paid back '. $request->ticker . ' shorts. Your gain (or loss) from these shorted stocks is: $'. (-1 * $gainOrLoss));
     return redirect('/dashboard');
   }
-  
+
 }

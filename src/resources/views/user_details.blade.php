@@ -85,7 +85,7 @@ function sellShares(ticker, price){
                           <div class="panel-heading">
                               <h4 class="panel-title">
                                   <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{$i}}">
-                                    <p>{{$namearray[$i]}}</p></a>
+                                    {{$namearray[$i]}}</a>
                               </h4>
                           </div>
                           <div id="collapse{{$i}}" class="panel-collapse collapse">
@@ -165,7 +165,7 @@ function sellShares(ticker, price){
                           <div class="panel-heading">
                               <h4 class="panel-title">
                                   <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{$i}}">
-                                    <p>{{$short->stock_ticker}}</p></a>
+                                    {{$short->stock_ticker}}</a>
                               </h4>
                           </div>
                           <div id="collapse{{$i}}" class="panel-collapse collapse">

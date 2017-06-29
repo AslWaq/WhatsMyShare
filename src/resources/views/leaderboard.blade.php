@@ -104,7 +104,7 @@ var myChart = new Chart(ctx, {
 
 
         <div class="col-sm-4">
-          {{$curUser->name}}
+          <h4>{{$curUser->name}}</h4>
         </div>
 
 

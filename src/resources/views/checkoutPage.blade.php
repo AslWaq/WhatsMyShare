@@ -3,7 +3,12 @@
 @section('content')
 
 <h3 class="text-center" style= "color: #07889B">Your Shopping Cart</h3>
-
+@if (Session::has('shortErrorMsg'))
+  <div class="alert alert-info pull-right">
+    {{Session::pull('shortErrorMsg')}}
+  </div>
+  <br>
+@endif
 <br>
 <script>
 $( document ).ready(function(){
@@ -71,8 +76,8 @@ function delItem(ticker){
 
 };
 </script>
-<div class="container" style="background-color: white">
 
+<div class="container" style="background-color: white">
 <br>
 <br>
   @foreach(json_decode(Auth::user()->shopping_cart) as $item)

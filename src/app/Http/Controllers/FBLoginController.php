@@ -27,11 +27,9 @@ class FBLoginController extends Controller
       $fb = app(SammyK\LaravelFacebookSdk\LaravelFacebookSdk::class);
       try{
         $token = $fb->getRedirectLoginHelper()->getAccessToken();
-
       }
       catch(Facebook\Exceptions\FacebookSDKException $e){
         dd($e->getMessage());
-
       }
       if(!$token){
         return redirect('/login');
@@ -109,6 +107,4 @@ class FBLoginController extends Controller
       return redirect('/dashboard');
 
     }
-
-
 }

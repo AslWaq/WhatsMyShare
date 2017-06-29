@@ -41,7 +41,7 @@
   }
 
     .navbar {
-      margin-bottom: 0px;
+      margin-bottom: 5px;
       border-radius: 0;
       color: rgb(200,200,200);
 
@@ -81,15 +81,6 @@
   </style>
 </head>
 <body>
-  <div id="fb-root"></div>
-  <script>(function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.9&appId=1426821647341174";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));</script>
-
 
 <nav class="navbar navbar-inverse" style="background-color:rgb(58,58,58)">
 
@@ -101,11 +92,11 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a href="/dashboard"><img class="logo pull-left" style="margin-right: 20px" src="/wmslogo.png" width="80" height="50"></a>
-      <a class="navbar-brand" href="/dashboard">My Account</a>
+      <a href="/dashboard"><img class="logo pull-left" style="margin-right: 20px" src="/WMSlogo2fixed.png" width="50" height="50"></a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
+        <li><a href="/dashboard">My Account</a></li>
         <li><a href="/search-stocks">Stock Trading</a></li>
         <li><a href="/leaderboard">Leaderboard</a></li>
           @if (!Auth::guest())
@@ -138,7 +129,7 @@
                         <a href="{{ route('logout') }}"
                             onclick="event.preventDefault();
                                      document.getElementById('logout-form').submit();">
-                            <span class="glyphicon glyphicon-log-out" style="padding-left: 5px"></span>
+                            <span class="glyphicon glyphicon-log-out" style="padding-left: 5px; color: rgb(70, 173, 212); font-size: 17px;"></span>
                         </a>
 
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

@@ -16,11 +16,9 @@ class PortfolioTransactionController extends Controller
     public function __construct(){
       $this->middleware('auth');
     }
-    
+
     public function buyStocks(Request $request){
-
       $ar = json_decode($request->order);
-
       $user = User::find(Auth::user()->id);
 
       $transTotal = ( $ar[1] * $ar[2]);
@@ -28,39 +26,37 @@ class PortfolioTransactionController extends Controller
       if ($transTotal > Auth::user()->cash){
         return view('dashboard');
       }else{
-
-          $stock = Stock::where('user_id', '=', Auth::user()->id)->where('stock_ticker', '=', $ar[0])->first();
-          if ($stock == null){ // if user does not own the stock yet
-            $stock = new Stock;
-            $stock->user_id = Auth::user()->id;
-            $stock->stock_ticker = $ar[0];
-            $stock->shares = $ar[1];
-            $stock->price = $ar[2];
-            $stock->initial_val = ($ar[1] * $ar[2]);
-            $stock->save();
-          }else{
-            $stock->shares += $ar[1];
-            $stock->price = $ar[2];
-            $stock->initial_val = ($stock->shares) * ($stock->price);
-            $stock->save();
-          }
-
-        $user->cash -= $transTotal;
-
-        //delete from cart
-        $cartArray = json_decode($user->shopping_cart);
-        for ($x=0; $x < count($cartArray); $x++){
-          if (json_decode($cartArray[$x])[0] == $ar[0]){
-            $y = $x;
-          }
+        $stock = Stock::where('user_id', '=', Auth::user()->id)->where('stock_ticker', '=', $ar[0])->first();
+        if ($stock == null){ // if user does not own the stock yet
+          $stock = new Stock;
+          $stock->user_id = Auth::user()->id;
+          $stock->stock_ticker = $ar[0];
+          $stock->shares = $ar[1];
+          $stock->price = $ar[2];
+          $stock->initial_val = ($ar[1] * $ar[2]);
+          $stock->save();
+        }else{
+          $stock->shares += $ar[1];
+          $stock->price = $ar[2];
+          $stock->initial_val = ($stock->shares) * ($stock->price);
+          $stock->save();
         }
-        unset($cartArray[$y]);
-        $cart = json_encode(array_values($cartArray));
-        $user->shopping_cart = $cart;
-        $user->save();
+
+      $user->cash -= $transTotal;
+
+      //delete from cart
+      $cartArray = json_decode($user->shopping_cart);
+      for ($x=0; $x < count($cartArray); $x++){
+        if (json_decode($cartArray[$x])[0] == $ar[0]){
+          $y = $x;
+        }
+      }
+      unset($cartArray[$y]);
+      $cart = json_encode(array_values($cartArray));
+      $user->shopping_cart = $cart;
+      $user->save();
       }
       return "hooray!";
-      //return view('dashboard');
   }
 
   public function sellStocks(Request $request){
@@ -73,7 +69,6 @@ class PortfolioTransactionController extends Controller
       return "impossible";
     }elseif($stock->shares == $ar[1]){
       $user->cash += ($ar[1] * $ar[2]);
-      //invest score change = (new price * shares sold) - (old price * shares sold)
       $user->save();
       $stock->delete();
     }else{
@@ -112,22 +107,18 @@ class PortfolioTransactionController extends Controller
       $user->shopping_cart = $cart;
       $user->save();
     }else{
-    //return view('dashboard'); //send back message saying you already have this stock shorted
+      $request->session()->flash('shortErrorMsg', 'You already have shorted '.
+      $ar[0] . '. Please pay back the shorted stock if you would like to short
+      this stock again.');
     }
-
-
-
-    //return view('dashboard');
   }
 
   //pay the Short back
   public function buyShort(Request $request){
     //buy the shares, lose cash. but invest score may still go up if you bought at lower price than you shorted
     $user = Auth::user();
-
-    //$ar = json_decode($request->order);
     $short = Short::where('user_id',$user->id)->where('stock_ticker',$request->ticker)->first();
-  //return $short->shares;
+    //negative if gain (will be added to invest score though) and positive if loss
     $gainOrLoss = (($short->shares) * $request->price) - (($short->shares) * ($short->initial_price));
     $user->cash -= $gainOrLoss;
     $user->invest_score -= $gainOrLoss;
@@ -136,6 +127,5 @@ class PortfolioTransactionController extends Controller
     $request->session()->flash('transMsg', 'You paid back '. $request->ticker . ' shorts. Your gain (or loss) from these shorted stocks is: $'. (-1 * $gainOrLoss));
     return redirect('/dashboard');
   }
-
 
 }

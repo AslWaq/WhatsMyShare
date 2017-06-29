@@ -60,6 +60,7 @@ class CompanySearch extends Controller
         $ar = $this->getPrices($url);
         $data = array_values(array_values($ar)[0]);
         $closing_prices = $data[0];
+        
         //create a key->value array for ticker->price
         $keys = array();
         $values = array();
@@ -126,13 +127,9 @@ class CompanySearch extends Controller
       return json_encode($results);
    }
 
-
    public function companyHalfYear(Request $request){
      $startDate = Carbon::now() -> subMonths(6) -> format('Ymd');
      $endDate = Carbon::now() -> format ('Ymd');
-
-     //$ticker = DB::table('tickers')->select('ticker')->where('ticker', '=', $request->ticker)->first();
-     //$tickstring = $ticker -> ticker;
 
      $url = 'https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?date.gte='. $startDate . '&date.lte=' .
      $endDate . '&qopts.columns=date,close&ticker='.$request->ticker.'&api_key=JxDXY6jBDscX9-pYTiov';
@@ -141,7 +138,6 @@ class CompanySearch extends Controller
      return $data[0];
    }
 
-
   public function get_price(Request $request){
     $ticker = $request->ticker;
     $date = $this->getDateString();
@@ -149,13 +145,12 @@ class CompanySearch extends Controller
     $ar = $this->getPrices($url);
     $data = array_values(array_values($ar));
     return $data[0]['data'][0];
-    //return array_values((array_values($data[0]))[1])->close;
-  }
 
+  }
 
   public function searchByName(Request $request){
     $name = $request->textSearch;
-    //return $name;
+
     $searchedStock = Ticker::where('name', $name)->get();
     if ($searchedStock->isEmpty()){
       $request->session()->flash('nameSearchError', 'The search query was invalid');
@@ -167,17 +162,14 @@ class CompanySearch extends Controller
     foreach ($searchedStock as $tick){
       $tickstring .= $tick->ticker . ',';
     }
-    //return $tickstring;
     $date = $this -> getDateString();
     $tickstring = substr($tickstring,0,-1);
     $url = 'https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?date='.$date.'&qopts.columns=ticker,date,close&ticker='.$tickstring.'&api_key=JxDXY6jBDscX9-pYTiov';
     $ar = $this->getPrices($url);
     $data = array_values(array_values($ar)[0]);
-    //$dataagain = array_values($data[0]);
     $category_closing_prices = $data[0];
     $cmpnyObj = $searchedStock->keyBy('ticker');
     return view('searchResults', compact('category_closing_prices','category','name','cmpnyObj'));
-
   }
 
 }

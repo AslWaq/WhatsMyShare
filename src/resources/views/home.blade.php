@@ -3,20 +3,21 @@
 @section('content')
 <style>
   .bg-1 {
-      background-color: rgb(240, 240, 240); /* Green */
+      background-color: rgb(180, 180, 180); /*white*/
       color: rgb(0,0,0);
       padding: 20px;
   }
   .bg-2 {
-      background-color: rgb(70, 173, 212); /* Dark Blue */
+      background-color: rgb(70, 173, 212); /* Neon Blue */
       color: #ffffff;
-      padding: 20px;
+      padding: 5px;
       font-size: 18px;
   }
   .bg-3 {
       background-color: #ffffff; /* White */
       color: #555555;
-      padding: 20px;
+      padding: 5px;
+      font-size: 18px;
   }
   .bg-4 {
       background-color: #2f2f2f; /* Black Gray */
@@ -27,29 +28,46 @@
 <!-- First Container -->
 <div class="container-fluid bg-1 text-center">
   <h3 class="margin">WhatsMyShare</h3>
-  <img src="wmslogo.png" class="img-responsive img-circle margin" style="display:inline; background-color: rgb(10,10,10)" alt="Bird" width="200" height="200">
+  <img src="WMSlogo2fixed.png" class="img-responsive img-circle margin" style="display:inline; background-color: rgb(180,180,180)" alt="Bird" width="200" height="200">
   <h3>A website for people who would like to learn about about stock trading in a risk free and fun way</h3>
   @if (Auth::guest())
-    <h4><a href="/login">Login</a> or <a href="/register">Register</a> and let the fun begins</h4>
+    <h4><a href="/login">Login</a> or <a href="/register">Register</a> now</h4>
   @endif
 </div>
 
 <!-- Second Container -->
 <div class="container-fluid bg-2 text-center">
-  <h3 class="margin">What The Site is About?</h3>
-  <p>WhatsMyShare is a website where you can practice stock trading in a risk free game environment. When you join whatsMyShare, you get an account containing $30,000 of virtual money. You can use this money to buy stocks and build a portfolio. You can also short stocks on WhatsMyShare. The stocks you trade here are for real companies listed on the S&P500 stock market index. We provide for you charts showing stocks performances over the last six months. The stock prices shown here are the real prices of stocks. Over time, you can watch your portfolio value grow in real time. You can also make shorting gains or losses depending on the the performance of the stocks you have chosen to short</p>
+  <h3 class="margin">About Us</h3>
+  <p class="col-md-8 col-md-offset-2">WhatsMyShare is a web application which allows you to practice stock trading in a risk free game environment.
+    Upon joining WhatsMyShare, you get an account containing $30,000 of virtual money. You may use this money to buy
+    stocks and build a portfolio or you may also choose to short the stocks. The stocks you trade here are for companies
+    listed on the S&P500 stock market index. We also provide charts showing company stock performance over the last six months
+    as well as charts showing our users' investment scores. Over time you can watch your portfolio value grow (or depreciate)
+    as the share prices fluctuate (using real market prices). You may also have shorting gains or losses depending on the share performance
+    and the timeliness of your bet.</p>
 
-<p>As a game, you get to compete with other users on the site using your net worth (the value of your portfolio, shorting gains, and cash balance) as your score. You can also see how you are performing against people you have chosen to follow or your facebook friends if you login to the site using your Facebook account.
+  <p class="col-md-8 col-md-offset-2">Compete with other users on the site using your net worth (the value of your portfolio, shorting gains, and cash balance) and get an edge
+    on the competition as you race to the top of the daily leaderboards. Follow users and track their progress or your facebook friends* who use the site
+    *Facebook account login required
 </div>
 
 <!-- Third Container (Grid) -->
 <div class="container-fluid bg-3 text-center">
-  <h3 class="margin">Where To Find Me?</h3><br>
-
+  <h3 class="margin">How Shorting or Trading works</h3>
+  <p class="col-md-8 col-md-offset-2">Shorting a stock is 'borrowing' a number of shares one day at a certain price, and then betting that the price
+    will go lower in the future where you then buy the stocks at a lower price to pay back the number of shares you owe. The gain you made
+    from buying low (the difference between how much you paid for the shares, and how much you borrowed them for) is a positive increase in your net worth.
+    Shorting is basically betting that the stock will be "shorter", hence you borrow the shares now to get a profit. This is risky however in that if the stocks
+    gain price then you will have to pay more than what you owed, hence being dealt with a short loss rather than a short gain.
+    Short: Borrow high + Pay Back low = Profit. If you have not paid back your short after 90 days then we will automatically have it be paid back, whether or not it is a
+    gain or loss.
+    Trading stocks involves buying shares at a low price and selling when they get higher for profit. Or watch the price decrease in value and cause your
+    portfolio value and invest score to plummet in the process.
 </div>
 
 <!-- Footer -->
 <footer class="container-fluid bg-4 text-center">
 
 </footer>
+
 @endsection

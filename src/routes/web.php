@@ -22,8 +22,8 @@ Route::get('/fb-login', 'FBLoginController@fBRedirect');
 Route::get('/fbcb', 'FBLoginController@fbCallback');
 
 Route::get('/search-stocks', 'CompanySearch@stockSearch');
-Route::post('/search-cat', 'CompanySearch@showByCategory');
-Route::post('/search-name', 'CompanySearch@searchByName');
+Route::get('/search-cat', 'CompanySearch@showByCategory');
+Route::get('/search-name', 'CompanySearch@searchByName');
 Route::get('/dashboard', 'CompanySearch@dashboard');
 Route::get('/getmsg/{ticker}','CompanySearch@companyHalfYear');
 Route::get('/testdaily', 'CompanySearch@dailyInvestScore');
@@ -37,7 +37,7 @@ Route::get('/leaderboard', 'LeaderboardController@leaderboard');
 Route::get('/leaderboard/following', 'LeaderboardController@friends');
 Route::get('/leaderboard/usr-prof/{id}', 'LeaderboardController@usrProf');
 Route::get('/leaderboard/following/usr-prof/{id}', 'LeaderboardController@friendProf');
-Route::get('/change-fr-status/{id}/{status}','TradingController@friendOrFoe');
+Route::get('/change-fr-status/{id}/{status}','LeaderboardController@friendOrFoe');
 
 Route::get('/autocomplete/{key}','CompanySearch@autocomplete');
 Route::get('/my-cart','TradingController@viewCart');

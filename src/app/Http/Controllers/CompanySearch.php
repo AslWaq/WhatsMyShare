@@ -60,7 +60,7 @@ class CompanySearch extends Controller
         $ar = $this->getPrices($url);
         $data = array_values(array_values($ar)[0]);
         $closing_prices = $data[0];
-        
+
         //create a key->value array for ticker->price
         $keys = array();
         $values = array();
@@ -88,7 +88,7 @@ class CompanySearch extends Controller
         $shortPrices = $shortData[0];
 
         for ($y=0; $y < count($shortPrices); $y++){
-          $short = Short::where('stock_ticker',$shortPrices[$y][0])->first();
+          $short = Short::where('stock_ticker',$shortPrices[$y][0])->where('user_id', $usr)->first();
           $gainOrLoss = (($short->shares * $shortPrices[$y][1]) - ($short->shares * $short->initial_price))/($short->shares * $short->initial_price);
           $gainOrLoss = round(-1 * 100 * $gainOrLoss);
           $shortKeys[]=$shortPrices[$y][0];

@@ -37,7 +37,7 @@ Route::get('/leaderboard', 'LeaderboardController@leaderboard');
 Route::get('/leaderboard/following', 'LeaderboardController@friends');
 Route::get('/leaderboard/usr-prof/{id}', 'LeaderboardController@usrProf');
 Route::get('/leaderboard/following/usr-prof/{id}', 'LeaderboardController@friendProf');
-Route::get('/change-fr-status/{id}/{status}','TradingController@friendOrFoe');
+Route::get('/change-fr-status/{id}/{status}','LeaderboardController@friendOrFoe');
 
 Route::get('/autocomplete/{key}','CompanySearch@autocomplete');
 Route::get('/my-cart','TradingController@viewCart');

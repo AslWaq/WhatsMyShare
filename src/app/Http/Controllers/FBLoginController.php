@@ -100,6 +100,31 @@ class FBLoginController extends Controller
               }
             }
           }
+          // foreach ($user->friends as $friend){
+          //   $leaveThisPersonAlone = true;
+          //   for ($i = 0;$i < $facebookFriendsCount; $i++){
+          //     if (!$friend->facebook_user_id){
+          //       continue;
+          //     }
+          //     elseif ($friend->facebook_user_id == $friends[$i]->id){
+          //       continue;
+          //     }
+          //     else{
+          //       $leaveThisPersonAlone = false;
+          //     }
+          //   }
+          //   if (!$leaveThisPersonAlone){
+          //     $user->removeFriend($friend->id);
+          //   }
+          // }
+        }
+      }else{
+        if(!$user->friends->isEmpty()){
+          foreach ($user->friends as $friend){
+            if ($friend->pivot->facebook_friend == true){
+              $user->removeFriend($friend->id);
+            }
+          }
         }
       }
       $user->save();

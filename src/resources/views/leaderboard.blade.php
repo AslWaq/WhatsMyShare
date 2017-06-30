@@ -154,10 +154,10 @@ var myChart = new Chart(ctx, {
                 @if ($stocks->count() >= 3)
                   @php ($stockRange = 3)
                 @else
-                  @php ($stockRange = $shorts->count())
+                  @php ($stockRange = $stocks->count())
                 @endif
                 @for ($i=0; $i<$stockRange; $i++)
-                  <p>{{$stocks[$i]->stock_ticker}}<span style="color: purple"> Shares: {{$stocks[$i]->shares}}</span></p>
+                  <p>{{$stocks[$i]->stock_ticker}} Shares:<span style="color: green"> {{$stocks[$i]->shares}}</span></p>
                 @endfor
               @endif
             </div>
@@ -175,7 +175,7 @@ var myChart = new Chart(ctx, {
                   @php ($shortRange = $shorts->count())
                 @endif
                 @for ($i=0; $i<$shortRange; $i++)
-                  <p>{{$shorts[$i]->stock_ticker}}<span style="color: purple"> Shares: {{$shorts[$i]->shares}}</span></p>
+                  <p>{{$shorts[$i]->stock_ticker}} Shares:<span style="color: green"> {{$shorts[$i]->shares}}</span></p>
                 @endfor
               @endif
             </div>

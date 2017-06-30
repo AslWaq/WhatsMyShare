@@ -5,6 +5,10 @@
 .panel-default > .panel-heading {
     background-color: rgb(200,200,255);
 }
+
+body.modal-open div.modal-backdrop {
+    z-index: 0;
+}
 </style>
 <script>
 function activateBtn(ticker, totalShares, price){
@@ -95,11 +99,11 @@ function sellShares(ticker, price){
                                         <td><p>Shares: {{$stock->shares}}</p></td>
                                     </tr>
                                       <tr>
-                                          <td><p>Price: <span class="label label-success">${{$prices[$stock->stock_ticker]}}</span></p></td>
+                                          <td><p>Price: <span class="label label-success">${{number_format((float)$prices[$stock->stock_ticker], 2, '.', '')}}</span></p></td>
                                       </tr>
                                       <tr>
                                           <td>
-                                              <p>Value: <span class="label label-success">${{$stock->shares * $prices[$stock->stock_ticker]}}</span></p>
+                                              <p>Value: <span class="label label-success">${{number_format((float)($stock->shares * $prices[$stock->stock_ticker]), 2, '.', '')}}</span></p>
                                           </td>
                                       </tr>
 
@@ -165,7 +169,7 @@ function sellShares(ticker, price){
                           <div class="panel-heading">
                               <h4 class="panel-title">
                                   <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{$i}}">
-                                    {{$short->stock_ticker}}</a>
+                                    {{$shortsArray[$short->stock_ticker][2]}}</a>
                               </h4>
                           </div>
                           <div id="collapse{{$i}}" class="panel-collapse collapse">
@@ -175,7 +179,7 @@ function sellShares(ticker, price){
                                         <td><p>Shares: {{$short->shares}}</p></td>
                                     </tr>
                                       <tr>
-                                          <td><p>Price: <span class="label label-success">$ {{$shortsArray[$short->stock_ticker][0]}}</span></p></td>
+                                          <td><p>Price: <span class="label label-success">$ {{number_format((float)$shortsArray[$short->stock_ticker][0], 2, '.', '')}}</span></p></td>
                                       </tr>
                                       <tr>
                                           <td>
@@ -187,9 +191,9 @@ function sellShares(ticker, price){
                                       </tr>
                                       <tr>
                                           <td>
-                                              <a type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#myModal{{$short->stock_ticker}}">Pay Back</a>
+                                              <a type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#myModal2{{$short->stock_ticker}}">Pay Back</a>
                                               <!-- Modal -->
-                                              <div id="myModal{{$short->stock_ticker}}" class="modal fade" role="dialog">
+                                              <div id="myModal2{{$short->stock_ticker}}" class="modal fade" role="dialog">
                                                 <div class="modal-dialog">
 
                                                   <!-- Modal content-->
@@ -225,6 +229,7 @@ function sellShares(ticker, price){
       @endforeach
     </div>
   </div>
+  Note: Shorts will expire (be automatically paid back) after 90 days
 </div>
   </div>
   <br><br>

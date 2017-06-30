@@ -20,7 +20,7 @@ $( document ).ready(function(){
     ticker = JSON.parse(sc[i])[0];
     console.log(JSON.parse(sc[i])[0]);
       $.get('get-price/' + ticker, function(data){
-            $('#'+ data[0]).append(data[1]);
+            $('#'+ data[0]).append(data[1].toFixed(2));
 
 
           });

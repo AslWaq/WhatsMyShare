@@ -54,7 +54,8 @@ function sellShares(ticker, price){
     <h3 class="text-center" style= "color: #07889B">My Account</h3>
 
     @if (Session::has('transMsg'))
-      <div style="max-width: 250px" class="alert alert-info pull-right">
+      <div style="max-width: 250px" class="alert alert-info pull-right alert-dismissable">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
         {{Session::pull('transMsg')}}
       </div>
     @endif

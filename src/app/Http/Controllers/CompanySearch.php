@@ -88,8 +88,8 @@ class CompanySearch extends Controller
         $shortPrices = $shortData[0];
 
         for ($y=0; $y < count($shortPrices); $y++){
-          $ticker = Ticker::where('ticker', $short->stock_ticker)->first();
           $short = Short::where('stock_ticker',$shortPrices[$y][0])->where('user_id', $usr)->first();
+          $ticker = Ticker::where('ticker', $short->stock_ticker)->first();
           $gainOrLoss = (($short->shares * $shortPrices[$y][1]) - ($short->shares * $short->initial_price))/($short->shares * $short->initial_price);
           $gainOrLoss = round(-1 * 100 * $gainOrLoss);
           $shortKeys[]=$shortPrices[$y][0];
@@ -97,7 +97,6 @@ class CompanySearch extends Controller
         }
         $shortsArray = array_combine($shortKeys,$shortValues);
       }
-      //return $shortsArray;
       return view('user_details',compact('portfolio','namearray','prices', 'shortsArray'));
     }
 

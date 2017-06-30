@@ -71,6 +71,7 @@ class PortfolioTransactionController extends Controller
       $user->cash += ($ar[1] * $ar[2]);
       $user->save();
       $stock->delete();
+      $request->session()->flash('transMsg', 'You sold '. $ar[0] . ' shares. For a total of $' . $ar[1] * $ar[2]);
     }else{
       $stock->shares -= $ar[1];
       $stock->price = $ar[2];
@@ -79,6 +80,8 @@ class PortfolioTransactionController extends Controller
 
       $user->cash += ($ar[1] * $ar[2]);
       $user->save();
+      $request->session()->flash('transMsg', 'You sold '. $ar[0] . ' shares. For a total of $' . $ar[1] * $ar[2]);
+
     }
   }
 

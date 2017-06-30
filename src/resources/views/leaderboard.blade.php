@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
-<h3 class="text-center" style="color: #07889B">Leaderboards</h3>
+<h3 class="text-center" style="color: #07889B">Leaderboard</h3>
 <br>
 @if (!($users->isEmpty()))
 @php ($chartData = array())
@@ -139,7 +139,6 @@ var myChart = new Chart(ctx, {
           <div class="panel panel-primary">
             <div class="panel-heading">My Account</div>
             <div class="panel-body">
-              <h4 >My Account Summary</h4>
               <p><span>Liquid Cash Balance: </span><span style="color:green">${{$curUser->cash}}</span></p>
               <p><span>Invest Score: </span><span style="color:green">${{$curUser->invest_score}}</span></p>
             </div>
@@ -223,8 +222,8 @@ var myChart = new Chart(ctx, {
               <td><a href="/leaderboard/usr-prof/{{$user->id}}" id="{{$user->id}}">{{$user->name}}</a></td>
             @endif
 
-            <td>{{$rankIterator}}</td>
-            <td>{{$user->invest_score}}</td>
+            <td class="text-center">{{$rankIterator}}</td>
+            <td>${{$user->invest_score}}</td>
           </tr>
           @php ($rankIterator++)
           @endforeach

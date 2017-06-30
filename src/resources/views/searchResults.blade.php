@@ -22,6 +22,7 @@ $(document).ready(function() {
 
 
     <canvas style="background-color: rgb(200,200,200); width: 100%" id="myChart"></canvas>
+    <p>Note: Click item on legend above to remove from chart</p>
     <script>
           var ctx = document.getElementById('myChart').getContext('2d');
           var myl = [];// ["January", "February", "March", "April", "May", "June", "July"];
@@ -122,9 +123,9 @@ $(document).ready(function() {
               }
               });
       };
-      function addToCart(ticker, name){
-
-          var i = [ticker, name];
+      function addToCart(ticker){
+          console
+          var i = [ticker];
           var item = JSON.stringify(i);
               $.get('add-to-cart/' + item, function(data){
                 console.log(data);
@@ -168,7 +169,7 @@ $(document).ready(function() {
               <td><a target="_blank" href="{{ $cmpnyObj->get($cmpny[0])['link']}}">{{ $cmpnyObj->get($cmpny[0])['name']}}</a></td>
               <td>${{ number_format((float)$cmpny[2], 2, '.', '') }}</td>
               <td><button onClick="viewTicker('{{ $cmpny[0] }}')" class="fa fa-line-chart"></button></td>
-              <td id="{{ $cmpny[0] }}"><button onClick="addToCart('{{ $cmpny[0] }}', '{{ $cmpnyObj->get($cmpny[0])['name']}}')" class="fa fa-cart-plus"></button></td>
+              <td id="{{ $cmpny[0] }}"><button onClick="addToCart('{{ $cmpny[0] }}')" class="fa fa-cart-plus"></button></td>
           </tr>
           @endforeach
 

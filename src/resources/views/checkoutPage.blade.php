@@ -40,14 +40,14 @@ function CalcCost(ticker){
   var cost = $('#'+ticker).text() * $('#action'+ticker).val();
   if(yourCash >= cost){
     $('#cost'+ticker).css({"color": "inherit"});
-    $('#cost'+ticker).text(cost.toFixed(2));
+    $('#cost'+ticker).text("$" + cost.toFixed(2));
     if( ($('input[name=action' + ticker + ']:checked').val()) )
       $('#button'+ticker).attr("disabled", false);
   }else{
     if( ($('input[name=action' + ticker + ']:checked').val() == "Short") ){
-      $('#cost'+ticker).text(cost.toFixed(2));
+      $('#cost'+ticker).text("$" + cost.toFixed(2));
     }else{
-      $('#cost'+ticker).text("cost higher than your cash balance");
+      $('#cost'+ticker).text("$" + cost.toFixed(2) + " is higher than your cash balance");
       $('#cost'+ticker).css({"color": "rgb(220,100,100)"});
       $('#button'+ticker).attr("disabled", true);
     }
@@ -101,7 +101,7 @@ function delItem(ticker){
 
 						<div class="cartSection1">
                 <div class="prod-name">
-    							<h4 class="product-name"><strong>{{$item[0]}}</strong></h4><h4><small id="{{ $item[0] }}" onload="getP('{{ $item[0] }}')"></small></h4>
+    							<h4 class="product-name"><strong>{{$item[0]}}</strong></h4><p>$<span id="{{ $item[0] }}" onload="getP('{{ $item[0] }}')"></span></p>
                 </div>
                 <div class="chosen-act">
                   <h4 class="product-name"><strong>Action</strong></h4>

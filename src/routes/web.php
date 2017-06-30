@@ -22,8 +22,8 @@ Route::get('/fb-login', 'FBLoginController@fBRedirect');
 Route::get('/fbcb', 'FBLoginController@fbCallback');
 
 Route::get('/search-stocks', 'CompanySearch@stockSearch');
-Route::post('/search-cat', 'CompanySearch@showByCategory');
-Route::post('/search-name', 'CompanySearch@searchByName');
+Route::get('/search-cat', 'CompanySearch@showByCategory');
+Route::get('/search-name', 'CompanySearch@searchByName');
 Route::get('/dashboard', 'CompanySearch@dashboard');
 Route::get('/getmsg/{ticker}','CompanySearch@companyHalfYear');
 Route::get('/testdaily', 'CompanySearch@dailyInvestScore');

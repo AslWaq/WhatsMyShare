@@ -60,6 +60,7 @@ class CompanySearch extends Controller
         $ar = $this->getPrices($url);
         $data = array_values(array_values($ar)[0]);
         $closing_prices = $data[0];
+        
         //create a key->value array for ticker->price
         $keys = array();
         $values = array();
@@ -145,11 +146,12 @@ class CompanySearch extends Controller
     $ar = $this->getPrices($url);
     $data = array_values(array_values($ar));
     return $data[0]['data'][0];
+
   }
 
   public function searchByName(Request $request){
     $name = $request->textSearch;
-    //return $name;
+
     $searchedStock = Ticker::where('name', $name)->get();
     if ($searchedStock->isEmpty()){
       $request->session()->flash('nameSearchError', 'The search query was invalid');

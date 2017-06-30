@@ -68,6 +68,15 @@
                             </div>
                         </div>
                     </form>
+                    <hr>
+                    <br>
+                    <p class="text-center"> Or simply</p>
+                    <div class="col-md-4 col-md-offset-4">
+                    <a href="/fb-login" class="btn btn-block btn-social btn-facebook">
+                    <span class="fa fa-facebook"></span>
+                    Login with facebook
+                    </a>
+                    </div>
                 </div>
             </div>
         </div>

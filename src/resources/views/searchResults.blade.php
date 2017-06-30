@@ -5,7 +5,11 @@
 
 <script>
 $(document).ready(function() {
-    $('#example').DataTable();
+  $('#example').DataTable( {
+    "columnDefs": [
+    { "orderable": false, "targets": [3,4] }
+  ]
+  } );
 } );
 
 </script>

@@ -87,7 +87,7 @@ class FBLoginController extends Controller
                   $user = User::find($user->id);
                   $user->addFriend($larFriend->id,true);
                 }else{
-                  continue;
+                  continue 2;
                 }
               }else {
                 $dontBother = false;

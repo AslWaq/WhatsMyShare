@@ -102,6 +102,7 @@
           @if (!Auth::guest())
             <li><a href="/my-cart"><span class="glyphicon glyphicon-shopping-cart"></span><span id="cart-content">{{ count(json_decode(Auth::user()->shopping_cart,true)) }}</span></a></li>
           @endif
+        <li><a href="/home">About Us</a></li>
       </ul>
 
       <ul class="nav navbar-nav navbar-right">

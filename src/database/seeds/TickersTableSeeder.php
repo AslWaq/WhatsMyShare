@@ -12,6 +12,8 @@ class TickersTableSeeder extends CsvSeeder
      */
     public function run()
     {
+      DB::table('tickers')->delete();
+      
       $this->mapping = [
         0 => 'ticker',
         1 => 'name',

@@ -26,9 +26,9 @@
 
   </style>
 <!-- First Container -->
-<div class="container-fluid bg-1 text-center">
+<div class="container-fluid bg-3 text-center">
   <h3 class="margin">WhatsMyShare</h3>
-  <img src="WMSlogo2fixed.png" class="img-responsive img-circle margin" style="display:inline; background-color: rgb(180,180,180)" alt="Bird" width="200" height="200">
+  <img src="WMSlogo2fixed.png" class="img-responsive img-circle margin" style="display:inline; background-color: #ffffff" alt="Bird" width="200" height="200">
   <h3>A website for people who would like to learn about about stock trading in a risk free and fun way</h3>
   @if (Auth::guest())
     <h4><a href="/login">Login</a> or <a href="/register">Register</a> now</h4>

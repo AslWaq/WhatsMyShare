@@ -67,7 +67,7 @@ BAX,Baxter International Inc.,Health Care,https://en.wikipedia.org/wiki/Baxter_I
 BBT,BB&T Corporation,Financials,https://en.wikipedia.org/wiki/BB%26T_Corporation
 BDX,Becton Dickinson,Health Care,https://en.wikipedia.org/wiki/Becton_Dickinson
 BBBY,Bed Bath & Beyond,Consumer,https://en.wikipedia.org/wiki/Bed_Bath_%26_Beyond
-BRK.B,Berkshire Hathaway,Financials,https://en.wikipedia.org/wiki/Berkshire_Hathaway
+BRK_B,Berkshire Hathaway,Financials,https://en.wikipedia.org/wiki/Berkshire_Hathaway
 BBY,Best Buy Co. Inc.,Consumer,https://en.wikipedia.org/wiki/Best_Buy_Co._Inc.
 BIIB,Biogen Inc.,Health Care,https://en.wikipedia.org/wiki/Biogen_Inc.
 BLK,BlackRock,Financials,https://en.wikipedia.org/wiki/BlackRock
@@ -78,7 +78,7 @@ BXP,Boston Properties,Real Estate,https://en.wikipedia.org/wiki/Boston_Propertie
 BSX,Boston Scientific,Health Care,https://en.wikipedia.org/wiki/Boston_Scientific
 BMY,Bristol-Myers Squibb,Health Care,https://en.wikipedia.org/wiki/Bristol-Myers_Squibb
 AVGO,Broadcom,IT,https://en.wikipedia.org/wiki/Broadcom_Limited
-BF.B,Brown-Forman Corp.,Consumer,https://en.wikipedia.org/wiki/Brown-Forman_Corp.
+BF_B,Brown-Forman Corp.,Consumer,https://en.wikipedia.org/wiki/Brown-Forman_Corp.
 CHRW,C. H. Robinson Worldwide,Industrials,https://en.wikipedia.org/wiki/C._H._Robinson_Worldwide
 CA,"CA, Inc.",IT,"https://en.wikipedia.org/wiki/CA,_Inc."
 COG,Cabot Oil & Gas,Energy,https://en.wikipedia.org/wiki/Cabot_Oil_%26_Gas
